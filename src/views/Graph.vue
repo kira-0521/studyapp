@@ -3,9 +3,20 @@
     <router-link to="/input" class="input-link" active-class="link"
       >入力画面へ</router-link
     >
+    <button @click="getData">ゲット</button>
+    <button @click="logData">ゲット</button>
+    <button @click="responsePosts">ログ</button>
     <div class="list-area">
-      <ul v-for="area in separateArea" :key="area" class="list-area__ul">
-        <div v-for="value in area" :key="value" class="list-area__ul-inner">
+      <ul
+        v-for="(area, index) in separateArea"
+        :key="index"
+        class="list-area__ul"
+      >
+        <div
+          v-for="(value, index) in area"
+          :key="index"
+          class="list-area__ul-inner"
+        >
           <li class="list-area__li">{{ value.studyTime.stringValue }}</li>
           <li class="list-area__li">{{ value.studyArea.stringValue }}</li>
           <li class="list-area__li">{{ value.studyDensity.stringValue }}</li>
@@ -19,36 +30,40 @@
         <li v-for="area in areas" :key="area">{{ area }}</li>
       </ul>
     </div>
-    <button @click="console">表示</button>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import { mapActions, mapMutations } from "vuex";
 
 export default {
   data() {
     return {
       // レスポンスデータ
-      posts: [],
+      resData: [],
       // 場所
       areas: []
     };
   },
-  created() {
-    axios
-      // postsにオブジェクト格納
-      .get("/posts")
-      .then(response => {
-        let array = response.data.documents;
-        for (let i = 0; i < array.length; i++) {
-          this.posts.push(array[i].fields);
-        }
-      })
-      .catch(error => {
-        console.log(error.response);
-      });
+  methods: {
+    ...mapActions("getpost", ["getData", "logData"]),
+    ...mapMutations("getpost", ["responsePosts"])
   },
+  // created() {
+  //   // axios
+  //   //   // postsにオブジェクト格納
+  //   //   .get("/posts")
+  //   //   .then(response => {
+  //   //     let array = response.data.documents;
+  //   //     for (let i = 0; i < array.length; i++) {
+  //   //       this.posts.push(array[i].fields);
+  //   //     }
+  //   //   })
+  //   //   .catch(error => {
+  //   //     console.log(error.response);
+  //   //   });
+  // },
   mounted() {
     axios
       .get("/posts")
@@ -68,7 +83,7 @@ export default {
       let sortObj = [];
       const separate = [];
       for (let i = 0; i < this.areas.length; i++) {
-        this.posts.forEach(post => {
+        this.resData.forEach(post => {
           // index返す→0
           if (post.studyArea.stringValue.indexOf(this.areas[i]) !== -1) {
             sortObj.push(post);
@@ -78,11 +93,6 @@ export default {
         sortObj = [];
       }
       return separate;
-    }
-  },
-  methods: {
-    console() {
-      console.log(this.separateArea);
     }
   }
 };
