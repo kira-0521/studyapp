@@ -26,9 +26,9 @@
       <button @click="submitStudy" class="input-area_submit">
         投稿する
       </button>
-      <button @click="getLocation" class="input-area_location">
+      <!-- <button @click="getLocation" class="input-area_location">
         現在地を取得
-      </button>
+      </button> -->
     </div>
   </div>
 </template>

@@ -31,11 +31,11 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapState("getpost", ["studyData", "areas"]),
+    ...mapGetters("getpost", ["studyData", "areas"]),
     separateArea() {
       let sortObj = [];
       const separate = [];
@@ -52,15 +52,14 @@ export default {
       return separate;
     }
   },
-  methods: {
-    ...mapActions("getpost", ["getData", "setArea"])
-  },
   created() {
-    this.getData;
-    console.log(this.studyData);
+    this.getStudyData();
   },
   mounted() {
-    this.setArea;
+    this.setArea();
+  },
+  methods: {
+    ...mapActions("getpost", ["getStudyData", "setArea", "console"])
   }
 };
 </script>

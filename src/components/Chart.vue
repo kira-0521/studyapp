@@ -1,13 +1,17 @@
 <script>
 import { Bar } from "vue-chartjs";
+import { mapGetters } from "vuex";
 
 export default {
   extends: Bar,
   name: "chart",
+  computed: {
+    ...mapGetters("getpost", ["studyData", "areas"])
+  },
   data() {
     return {
       data: {
-        labels: ["January", "February", "March", "April", "May", "June"],
+        labels: this.areas,
         datasets: [
           {
             label: "Bar Dataset",

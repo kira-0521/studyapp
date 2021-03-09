@@ -15,43 +15,42 @@ const mutations = {
     state.studyData = payload.studyData;
     console.log(state.studyData);
   },
-  setAreas(state, locations) {
-    console.log(locations);
+  setArea(state, locations) {
+    // 被りなし場所
     state.areas = [...new Set(locations)];
   }
 };
 
 const actions = {
-  async getData({ commit }) {
+  async getStudyData({ commit }) {
     const payload = {
       studyData: []
     };
-    // const array = [];
-    await axios
-      // postsにオブジェクト格納
-      .get("/posts")
-      .then(res => {
-        for (let i = 0; i < res.data.documents.length; i++) {
-          payload.studyData.push(res.data.documents[i].fields);
-        }
-      });
+    await axios.get("/posts").then(res => {
+      for (let i = 0; i < res.data.documents.length; i++) {
+        payload.studyData.push(res.data.documents[i].fields);
+      }
+    });
     commit("setStudyData", payload);
   },
   async setArea({ commit }) {
-    let locations = [];
+    const locations = [];
     await axios.get("/posts").then(res => {
       res.data.documents.forEach(value => {
         locations.push(value.fields.studyArea.stringValue);
       });
     });
-    commit("setAreas", locations);
+    commit("setArea", locations);
+  },
+  console() {
+    console.log("呼び出されたよ");
   }
 };
 
 export default {
+  namespaced: true,
   state,
   getters,
   mutations,
-  actions,
-  namespaced: true
+  actions
 };
