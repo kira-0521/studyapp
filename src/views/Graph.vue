@@ -14,17 +14,12 @@
           :key="index"
           class="list-area__ul-inner"
         >
-          <li class="list-area__li">{{ value.studyTime.stringValue }}</li>
+          <li class="list-area__li">{{ value.studyTime.integerValue }}</li>
           <li class="list-area__li">{{ value.studyArea.stringValue }}</li>
           <li class="list-area__li">{{ value.studyDensity.stringValue }}</li>
           <li class="list-area__li">{{ value.studyContent.stringValue }}</li>
           <li class="list-area__li">{{ value.nowTime.stringValue }}</li>
         </div>
-      </ul>
-    </div>
-    <div class="areas">
-      <ul class="areas__ul">
-        <li v-for="area in areas" :key="area">{{ area }}</li>
       </ul>
     </div>
   </div>

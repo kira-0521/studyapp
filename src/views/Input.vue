@@ -39,12 +39,12 @@ import axios from "axios";
 export default {
   data() {
     return {
-      studyTime: "", // 時間
+      studyTime: undefined, // 時間
       studyDensity: "", // 密度
       studyContent: "", // 内容
-      studyArea: "", // 場所
-      latitude: 0,
-      longitude: 0
+      studyArea: "" // 場所
+      // latitude: 0,
+      // longitude: 0
     };
   },
   computed: {
@@ -89,7 +89,7 @@ export default {
         .then(() => {
           this.latitude = 0;
           this.longitude = 0;
-          this.studyTime = "";
+          this.studyTime = undefined;
           this.studyArea = "";
           this.studyDensity = "";
           this.studyContent = "";
