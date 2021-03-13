@@ -16,7 +16,7 @@ const UserData = () =>
 Vue.use(Router).use(Store);
 
 export default new Router({
-  moda: "history",
+  mode: "history",
   routes: [
     {
       path: "/",

@@ -1,21 +1,20 @@
 <template>
-  <v-app>
-    <div id="app">
-      <v-main>
-        <Calendar />
-      </v-main>
-    </div>
-  </v-app>
+  <div id="app">
+    <Header></Header>
+    <main>
+      <router-view></router-view>
+    </main>
+  </div>
 </template>
 
 <script>
-import Calendar from "./components/Calendar";
+import Header from "./views/Header";
 
 export default {
   name: "App",
 
   components: {
-    Calendar
+    Header
   },
 
   data: () => ({
@@ -23,3 +22,10 @@ export default {
   })
 };
 </script>
+
+<style lang="scss">
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+</style>
