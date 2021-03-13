@@ -13,7 +13,6 @@ const getters = {
 const mutations = {
   setStudyData(state, payload) {
     state.studyData = payload.studyData;
-    console.log(state.studyData);
   },
   setArea(state, locations) {
     // 被りなし場所
@@ -32,6 +31,7 @@ const actions = {
       }
     });
     commit("setStudyData", payload);
+    payload.studyData = [];
   },
   async setArea({ commit }) {
     const locations = [];
@@ -41,9 +41,6 @@ const actions = {
       });
     });
     commit("setArea", locations);
-  },
-  console() {
-    console.log("呼び出されたよ");
   }
 };
 

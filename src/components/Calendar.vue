@@ -3,7 +3,7 @@
     <v-sheet
       title
       height="4vh"
-      width=" 00vw"
+      width="100vw"
       color="grey lighten-3"
       class="d-flex align-center"
     >

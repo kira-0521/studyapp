@@ -35,6 +35,7 @@
 
 <script>
 import axios from "axios";
+import moment from "moment";
 
 export default {
   data() {
@@ -49,13 +50,13 @@ export default {
   },
   computed: {
     getNow() {
-      const now = new Date();
-      const year = now.getFullYear();
-      const mon = now.getMonth() + 1;
-      const day = now.getDate();
-      const hour = now.getHours();
-      const min = now.getMinutes();
-      return `${year}年${mon}月${day}日${hour}時${min}分`;
+      return moment(new Date()).format("YYYY-MM-DD HH:00:00");
+      // const now = new Date();
+      // const year = now.getFullYear();
+      // const mon = now.getMonth() + 1;
+      // const day = now.getDate();
+      // const hour = now.getHours();
+      // return `${year}年${mon}月${day}日${hour}時`;
     }
   },
   methods: {

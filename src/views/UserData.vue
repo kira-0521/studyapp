@@ -1,16 +1,29 @@
 <template>
   <div class="container__inner">
-    <h1>{{ $route.params.id }}</h1>
-    <hr />
+    <Calendar />
+    <h1>{{ id }}</h1>
     <ul>
-      <li></li>
+      <li>時間: {{ studyData[id].studyTime.integerValue }}時間</li>
+      <li>場所: {{ studyData[id].studyArea.stringValue }}</li>
+      <li>集中度: {{ studyData[id].studyDensity.stringValue }}</li>
+      <li>項目: {{ studyData[id].studyContent.stringValue }}</li>
+      <li>{{ studyData[id].nowTime.stringValue }}</li>
     </ul>
+    <!-- 動的ルーティング -->
+    <router-link :to="'/userdata/' + (Number(id) - 1)">prev</router-link>
+    <router-link :to="'/userdata/' + (Number(id) + 1)">next</router-link>
   </div>
 </template>
 
 <script>
+import Calendar from "../components/Calendar";
 import { mapState, mapActions } from "vuex";
+
 export default {
+  props: ["id"],
+  components: {
+    Calendar
+  },
   data() {
     return {};
   },
@@ -18,13 +31,7 @@ export default {
     ...mapState("getpost", ["studyData"])
   },
   methods: {
-    ...mapActions("getpost", ["getStudyData"]),
-    nextUser() {
-      this.$router.push();
-    },
-    prevUser() {
-      this.$router.push();
-    }
+    ...mapActions("getpost", ["getStudyData"])
   },
   created() {
     this.getStudyData();

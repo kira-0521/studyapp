@@ -20,27 +20,34 @@ export default new Router({
   routes: [
     {
       path: "/",
-      component: Home
+      component: Home,
+      name: "home"
     },
     {
       path: "/input",
-      component: Input
+      component: Input,
+      name: "input"
     },
     {
       path: "/graph",
-      component: Graph
+      component: Graph,
+      name: "graph"
     },
     {
       path: "/login",
-      component: Login
+      component: Login,
+      name: "login"
     },
     {
       path: "/register",
-      component: Register
+      component: Register,
+      name: "register"
     },
     {
       path: "/userdata/:id",
-      component: UserData
+      component: UserData,
+      name: "userdata",
+      props: true
     }
   ]
 });
