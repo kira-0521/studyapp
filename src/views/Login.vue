@@ -18,14 +18,25 @@ export default {
     };
   },
   computed: {
-    ...mapState("getpost", ["studyData", "areas", "density"])
+    ...mapState("getpost", ["studyData"]),
+    area() {
+      const area = this.studyData.map(value => value.studyArea.stringValue);
+      return [...new Set(area)];
+    },
+    density() {
+      const density = this.studyData.map(
+        value => value.studyDensity.stringValue
+      );
+      return [...new Set(density)];
+    }
   },
   created() {
     this.getStudyData();
   },
   mounted() {
+    console.log(this.area);
+    console.log(this.density);
     this.fillData();
-    console.log(this.studyData);
   },
   methods: {
     ...mapActions("getpost", ["getStudyData"]),
@@ -34,7 +45,8 @@ export default {
         labels: this.density,
         datasets: [
           {
-            data: [10, 5, 3]
+            data: [10, 5, 3],
+            backgroundColor: ["blue", "green", "purple"]
           }
         ]
       };
