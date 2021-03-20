@@ -2,12 +2,14 @@ import axios from "axios";
 
 const state = {
   studyData: [],
-  areas: []
+  areas: [],
+  density: []
 };
 
 const getters = {
   studyData: state => state.studyData,
-  areas: state => state.areas
+  areas: state => state.areas,
+  density: state => state.density
 };
 
 const mutations = {
@@ -17,30 +19,37 @@ const mutations = {
   setArea(state, locations) {
     // 被りなし場所
     state.areas = [...new Set(locations)];
+    console.log(state.areas);
+  },
+  setDensity(state, density) {
+    state.density = [...new Set(density)];
+    console.log(state.density);
   }
 };
 
 const actions = {
+  // 全体データ、場所、集中度をそれぞれ配列に格納
   async getStudyData({ commit }) {
     const payload = {
-      studyData: []
+      studyData: [],
+      locations: [],
+      density: []
     };
     await axios.get("/posts").then(res => {
       for (let i = 0; i < res.data.documents.length; i++) {
         payload.studyData.push(res.data.documents[i].fields);
       }
     });
-    commit("setStudyData", payload);
+    payload.locations.push(payload.studyData.studyArea.stringValue);
+    payload.density.push(payload.studyData.studyDensity.stringValue);
+    commit("setStudyData", payload.studyData);
+    commit("setArea", payload.locations);
+    commit("setDensity", payload.density);
+    // created時に既存の配列に新しいデータのみpushするため
+    // のちに条件分岐させた方がいい
     payload.studyData = [];
-  },
-  async setArea({ commit }) {
-    const locations = [];
-    await axios.get("/posts").then(res => {
-      res.data.documents.forEach(value => {
-        locations.push(value.fields.studyArea.stringValue);
-      });
-    });
-    commit("setArea", locations);
+    payload.locations = [];
+    payload.density = [];
   }
 };
 
