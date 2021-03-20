@@ -16,14 +16,14 @@ const mutations = {
   setStudyData(state, payload) {
     state.studyData = payload.studyData;
   },
-  setArea(state, locations) {
+  setArea(state, payload) {
     // 被りなし場所
-    state.areas = [...new Set(locations)];
+    state.areas = [...new Set(payload.locations)];
     console.log(state.areas);
   },
-  setDensity(state, density) {
-    state.density = [...new Set(density)];
-    console.log(state.density);
+  setDensity(state, payload) {
+    state.density = [...new Set(payload.density)];
+    console.log(payload.density);
   }
 };
 
@@ -39,12 +39,12 @@ const actions = {
       for (let i = 0; i < res.data.documents.length; i++) {
         payload.studyData.push(res.data.documents[i].fields);
       }
+      payload.locations.push(payload.studyData.studyArea.stringValue);
+      payload.density.push(payload.studyData.studyDensity.stringValue);
     });
-    payload.locations.push(payload.studyData.studyArea.stringValue);
-    payload.density.push(payload.studyData.studyDensity.stringValue);
-    commit("setStudyData", payload.studyData);
-    commit("setArea", payload.locations);
-    commit("setDensity", payload.density);
+    commit("setStudyData", payload);
+    commit("setArea", payload);
+    commit("setDensity", payload);
     // created時に既存の配列に新しいデータのみpushするため
     // のちに条件分岐させた方がいい
     payload.studyData = [];

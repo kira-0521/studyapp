@@ -6,6 +6,7 @@ export default {
   mixins: [reactiveProp],
   props: ["options"],
   mounted() {
+    // this.chartData is created in the mixin.
     this.renderChart(this.chartData, this.options);
   }
 };
