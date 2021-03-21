@@ -1,13 +1,16 @@
 <template>
   <div class="small">
-    <pie-chart
-      v-if="loaded"
-      :chart-data="datacollection"
-      :options="options"
-      style="width: 300px; height: 300px;"
-    ></pie-chart>
-    <button @click="console">console</button>
-    <button @click="fillData">fill</button>
+    <ul>
+      <li>
+        <h3>{{ areaName }}</h3>
+        <pie-chart
+          v-if="loaded"
+          :chart-data="datacollection"
+          :options="options"
+          style="width: 300px; height: 300px;"
+        ></pie-chart>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -23,11 +26,17 @@ export default {
     return {
       loaded: false,
       datacollection: null,
-      options: null
+      options: null,
+      areaName: "タリーズ"
     };
   },
   computed: {
     ...mapGetters("getpost", ["studyData", "area", "density"]),
+    length() {
+      const array = [];
+
+      return array;
+    },
     // 場所ごとにデータを分割
     separateArea() {
       let sortObj = [];
@@ -59,17 +68,15 @@ export default {
     ...mapActions("getpost", ["getStudyData"]),
     fillData() {
       this.datacollection = {
-        labels: this.density,
+        labels: ["濃", "普", "薄"],
         datasets: [
           {
-            data: [10, 5, 3],
-            backgroundColor: ["#92b5a9", "#e8d3d1", "#f6b894"]
+            label: this.area[0],
+            data: [10, 5],
+            backgroundColor: ["#e56758", "#f0a860", "#f0dbbe"]
           }
         ]
       };
-    },
-    console() {
-      console.log(this.studyData);
     }
   }
 };
