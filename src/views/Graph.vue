@@ -30,18 +30,19 @@ import { mapActions, mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters("getpost", ["studyData", "areas"]),
+    ...mapGetters("getpost", ["studyData", "area"]),
     separateArea() {
       let sortObj = [];
       const separate = [];
-      for (let i = 0; i < this.areas.length; i++) {
+      for (let i = 0; i < this.area.length; i++) {
         this.studyData.forEach(post => {
           // index返す→0
-          if (post.studyArea.stringValue.indexOf(this.areas[i]) !== -1) {
+          if (post.studyArea.stringValue.indexOf(this.area[i]) !== -1) {
             sortObj.push(post);
           }
         });
         separate.push(sortObj);
+        console.log(separate);
         sortObj = [];
       }
       return separate;
@@ -50,11 +51,8 @@ export default {
   created() {
     this.getStudyData();
   },
-  mounted() {
-    this.setArea();
-  },
   methods: {
-    ...mapActions("getpost", ["getStudyData", "setArea", "console"])
+    ...mapActions("getpost", ["getStudyData"])
   }
 };
 </script>
@@ -63,7 +61,7 @@ export default {
 .input-link {
   color: cadetblue;
 }
-.areas {
+.area {
   &__ul {
     background-color: cadetblue;
   }

@@ -1,6 +1,11 @@
 <template>
   <div class="small">
-    <pie-chart :chart-data="datacollection"></pie-chart>
+    <pie-chart
+      v-if="loaded"
+      :chart-data="datacollection"
+      :options="options"
+      style="width: 300px; height: 300px;"
+    ></pie-chart>
     <button @click="console">console</button>
     <button @click="fillData">fill</button>
   </div>
@@ -16,20 +21,39 @@ export default {
   },
   data() {
     return {
-      datacollection: null
+      loaded: false,
+      datacollection: null,
+      options: null
     };
   },
   computed: {
-    ...mapGetters("getpost", ["studyData", "area", "density"])
+    ...mapGetters("getpost", ["studyData", "area", "density"]),
+    // 場所ごとにデータを分割
+    separateArea() {
+      let sortObj = [];
+      const separate = [];
+      for (let i = 0; i < this.area.length; i++) {
+        this.studyData.forEach(post => {
+          // index返す→0
+          if (post.studyArea.stringValue.indexOf(this.area[i]) !== -1) {
+            sortObj.push(post);
+          }
+        });
+        separate.push(sortObj);
+        sortObj = [];
+      }
+      return separate;
+    }
   },
-  created() {
-    this.getStudyData();
-  },
-  // この時点でデータを紐付けたいが今はできないのでとりあえずボタンで代用
-  mounted() {
-    this.fillData();
-    // 表示されないつまり生成されてない
-    console.log(this.studyData);
+  async mounted() {
+    this.loaded = false;
+    try {
+      await this.getStudyData();
+      this.fillData();
+      this.loaded = true;
+    } catch (e) {
+      console.error(e);
+    }
   },
   methods: {
     ...mapActions("getpost", ["getStudyData"]),

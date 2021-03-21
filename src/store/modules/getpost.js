@@ -34,23 +34,23 @@ const actions = {
       area: [],
       density: []
     };
-    await axios
-      .get("/posts")
-      .then(res => {
-        for (let i = 0; i < res.data.documents.length; i++) {
-          payload.studyData.push(res.data.documents[i].fields);
-        }
-      })
-      .then(() => {
-        payload.studyData.forEach(data => {
-          payload.area.push(data.studyArea.stringValue);
-        });
-      })
-      .then(() => {
-        payload.studyData.forEach(data => {
-          payload.density.push(data.studyDensity.stringValue);
-        });
+    await axios.get("/posts").then(res => {
+      for (let i = 0; i < res.data.documents.length; i++) {
+        payload.studyData.push(res.data.documents[i].fields);
+      }
+      payload.studyData.forEach(data => {
+        payload.area.push(data.studyArea.stringValue);
+        payload.density.push(data.studyDensity.stringValue);
       });
+    });
+    // .then(() => {
+
+    // })
+    // .then(() => {
+    //   payload.studyData.forEach(data => {
+    //     payload.density.push(data.studyDensity.stringValue);
+    //   });
+    // });
     commit("setStudyData", payload);
     commit("setArea", payload);
     commit("setDensity", payload);
