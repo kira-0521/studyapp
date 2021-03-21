@@ -1,11 +1,13 @@
 <template>
   <div class="small">
     <pie-chart :chart-data="datacollection"></pie-chart>
+    <button @click="console">console</button>
+    <button @click="fillData">fill</button>
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import PieChart from "../chart/PieChart.js";
 
 export default {
@@ -18,25 +20,16 @@ export default {
     };
   },
   computed: {
-    ...mapState("getpost", ["studyData"]),
-    area() {
-      const area = this.studyData.map(value => value.studyArea.stringValue);
-      return [...new Set(area)];
-    },
-    density() {
-      const density = this.studyData.map(
-        value => value.studyDensity.stringValue
-      );
-      return [...new Set(density)];
-    }
+    ...mapGetters("getpost", ["studyData", "area", "density"])
   },
   created() {
     this.getStudyData();
   },
+  // この時点でデータを紐付けたいが今はできないのでとりあえずボタンで代用
   mounted() {
-    console.log(this.area);
-    console.log(this.density);
     this.fillData();
+    // 表示されないつまり生成されてない
+    console.log(this.studyData);
   },
   methods: {
     ...mapActions("getpost", ["getStudyData"]),
@@ -46,10 +39,13 @@ export default {
         datasets: [
           {
             data: [10, 5, 3],
-            backgroundColor: ["blue", "green", "purple"]
+            backgroundColor: ["#92b5a9", "#e8d3d1", "#f6b894"]
           }
         ]
       };
+    },
+    console() {
+      console.log(this.studyData);
     }
   }
 };
