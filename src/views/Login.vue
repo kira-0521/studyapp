@@ -11,6 +11,7 @@
         ></pie-chart>
       </li>
     </ul>
+    <button @click="console">console</button>
   </div>
 </template>
 
@@ -32,26 +33,70 @@ export default {
   },
   computed: {
     ...mapGetters("getpost", ["studyData", "area", "density"]),
-    length() {
-      const array = [];
-
-      return array;
-    },
+    // 場所ごとにデータを分割
+    // separateArea() {
+    //   let sortObj = [];
+    //   const separate = [];
+    //   for (let i = 0; i < this.area.length; i++) {
+    //     this.studyData.forEach(post => {
+    //       // index返す→0
+    //       if (post.studyArea.stringValue.indexOf(this.area[i]) !== -1) {
+    //         sortObj.push(post);
+    //       }
+    //     });
+    //     separate.push(sortObj);
+    //     sortObj = [];
+    //   }
+    //   return separate;
+    // },
     // 場所ごとにデータを分割
     separateArea() {
-      let sortObj = [];
+      let sort = [];
       const separate = [];
       for (let i = 0; i < this.area.length; i++) {
-        this.studyData.forEach(post => {
-          // index返す→0
-          if (post.studyArea.stringValue.indexOf(this.area[i]) !== -1) {
-            sortObj.push(post);
+        // areaのi番目とdataのstudyAreaが一致したらsortにpush
+        this.studyData.forEach(data => {
+          if (data.studyArea.stringValue.includes(this.area[i])) {
+            sort.push(data);
           }
         });
-        separate.push(sortObj);
-        sortObj = [];
+        separate.push(sort);
+        sort = [];
       }
       return separate;
+    },
+    // 場所ごとに分けたデータから集中度ごとに数値を計算
+    separateDensity() {
+      const separateDensity = [];
+      for (let i = 0; i < this.separateArea.length; i++) {
+        let densitySum = {
+          deep: 0,
+          normal: 0,
+          light: 0
+        };
+        this.separateArea[i].forEach(data => {
+          const stDensity = data.studyDensity.stringValue;
+          const stTime = data.studyTime.integerValue;
+          if (stDensity === "濃") {
+            let array = [];
+            array.push(stTime);
+            densitySum.deep = array.reduce((acc, value) => acc + value);
+            array = [];
+          } else if (stDensity === "普") {
+            let array = [];
+            array.push(stTime);
+            densitySum.normal = array.reduce((acc, value) => acc + value);
+            array = [];
+          } else {
+            let array = [];
+            array.push(stTime);
+            densitySum.light = array.reduce((acc, value) => acc + value);
+            array = [];
+          }
+        });
+        separateDensity.push(densitySum);
+      }
+      return separateDensity;
     }
   },
   async mounted() {
@@ -60,6 +105,7 @@ export default {
       await this.getStudyData();
       this.fillData();
       this.loaded = true;
+      console.log(this.studyData);
     } catch (e) {
       console.error(e);
     }
@@ -77,6 +123,10 @@ export default {
           }
         ]
       };
+    },
+    console() {
+      console.log(this.separateArea);
+      console.log(this.separateDensity);
     }
   }
 };

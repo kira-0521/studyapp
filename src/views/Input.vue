@@ -3,25 +3,48 @@
     <div class="input-area">
       <router-link to="graph" class="graph-link">結果画面へ</router-link>
       <div class="input-area__time">
-        <label for="studyTime">勉強時間: </label>
-        <input id="studyTime" v-model="studyTime" type="tel" />時間
+        <label for="studyTime">
+          <input
+            id="studyTime"
+            v-model="studyTime"
+            type="tel"
+            placeholder="勉強時間"
+          />時間
+        </label>
       </div>
       <!-- 仮 -->
       <div class="input-area__area">
-        <label for="studyArea">勉強場所: </label>
-        <input id="studyArea" v-model="studyArea" type="text" />
+        <label for="studyArea">
+          <input
+            id="studyArea"
+            v-model="studyArea"
+            type="text"
+            placeholder="勉強場所"
+          />
+        </label>
       </div>
       <div class="input-area__density">
-        <label for="studyDensity">集中度: </label>
-        <select id="studyDensity" v-model="studyDensity">
-          <option value="薄">薄</option>
-          <option value="普">普</option>
-          <option value="濃">濃</option>
-        </select>
+        <label for="studyDensity">
+          <select
+            id="studyDensity"
+            v-model="studyDensity"
+            style="width: 150px; height: 30px;"
+          >
+            <option value="">選択してください</option>
+            <option value="薄">薄</option>
+            <option value="普">普</option>
+            <option value="濃">濃</option>
+          </select>
+        </label>
       </div>
       <div class="input-area__content">
-        <label for="studyContent">勉強内容: </label>
-        <textarea id="studyContent" v-model="studyContent" placeholder="任意" />
+        <label for="studyContent">
+          <textarea
+            id="studyContent"
+            v-model="studyContent"
+            placeholder="勉強内容"
+          />
+        </label>
       </div>
       <button @click="submitStudy" class="input-area_submit">
         投稿する
