@@ -1,8 +1,8 @@
 <template>
   <div class="small">
-    <ul>
+    <ul v-for="name in areaName" :key="name">
       <li>
-        <h3>{{ areaName }}</h3>
+        <h3>{{ name }}</h3>
         <pie-chart
           v-if="loaded"
           :chart-data="datacollection"
@@ -11,7 +11,6 @@
         ></pie-chart>
       </li>
     </ul>
-    <button @click="console">console</button>
   </div>
 </template>
 
@@ -28,7 +27,7 @@ export default {
       loaded: false,
       datacollection: null,
       options: null,
-      areaName: "タリーズ"
+      areaName: ["タリーズ"]
     };
   },
   computed: {
@@ -123,10 +122,6 @@ export default {
           }
         ]
       };
-    },
-    console() {
-      console.log(this.separateArea);
-      console.log(this.separateDensity);
     }
   }
 };

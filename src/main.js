@@ -6,7 +6,7 @@ import router from "./router";
 import vuetify from "./plugins/vuetify";
 
 axios.defaults.baseURL =
-  "https://firestore.googleapis.com/v1/projects/studyapp-29cc7/databases/(default)/documents";
+  "https://firestore.googleapis.com/v1/projects/portfolio-studyapp/databases/(default)/documents";
 
 Vue.config.productionTip = false;
 
