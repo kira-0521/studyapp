@@ -11,6 +11,7 @@
         ></pie-chart>
       </li>
     </ul>
+    <button @click="console">console</button>
   </div>
 </template>
 
@@ -66,9 +67,9 @@ export default {
     },
     // 場所ごとに分けたデータから集中度ごとに数値を計算
     separateDensity() {
-      const separateDensity = [];
+      const separate = [];
       for (let i = 0; i < this.separateArea.length; i++) {
-        let densitySum = {
+        const densitySum = {
           deep: 0,
           normal: 0,
           light: 0
@@ -76,26 +77,38 @@ export default {
         this.separateArea[i].forEach(data => {
           const stDensity = data.studyDensity.stringValue;
           const stTime = data.studyTime.integerValue;
-          if (stDensity === "濃") {
-            let array = [];
-            array.push(stTime);
-            densitySum.deep = array.reduce((acc, value) => acc + value);
-            array = [];
-          } else if (stDensity === "普") {
-            let array = [];
-            array.push(stTime);
-            densitySum.normal = array.reduce((acc, value) => acc + value);
-            array = [];
+          if (stDensity == "濃") {
+            if (densitySum.deep === 0) {
+              densitySum.deep = stTime;
+            } else {
+              densitySum.deep += stTime;
+            }
+            // let deepArray = [];
+            // deepArray.push(stTime);
+            // densitySum.deep = deepArray.reduce((acc, value) => acc + value);
+          } else if (stDensity == "普") {
+            if (densitySum.normal === 0) {
+              densitySum.normal = stTime;
+            } else {
+              densitySum.normal += stTime;
+            }
+            // let normalArray = [];
+            // normalArray.push(stTime);
+            // densitySum.normal = normalArray.reduce((acc, value) => acc + value);
           } else {
-            let array = [];
-            array.push(stTime);
-            densitySum.light = array.reduce((acc, value) => acc + value);
-            array = [];
+            if (densitySum.light === 0) {
+              densitySum.light = stTime;
+            } else {
+              densitySum.light += stTime;
+            }
+            // let lightArray = [];
+            // lightArray.push(stTime);
+            // densitySum.light = lightArray.reduce((acc, value) => acc + value);
           }
         });
-        separateDensity.push(densitySum);
+        separate.push(densitySum);
       }
-      return separateDensity;
+      return separate;
     }
   },
   async mounted() {
@@ -122,6 +135,11 @@ export default {
           }
         ]
       };
+    },
+    console() {
+      console.log(this.separateArea);
+      console.log(this.separateDensity);
+      console.log(this.area);
     }
   }
 };

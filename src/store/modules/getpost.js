@@ -43,14 +43,6 @@ const actions = {
         payload.density.push(data.studyDensity.stringValue);
       });
     });
-    // .then(() => {
-
-    // })
-    // .then(() => {
-    //   payload.studyData.forEach(data => {
-    //     payload.density.push(data.studyDensity.stringValue);
-    //   });
-    // });
     commit("setStudyData", payload);
     commit("setArea", payload);
     commit("setDensity", payload);

@@ -7,8 +7,9 @@
           <input
             id="studyTime"
             v-model="studyTime"
-            type="tel"
+            type="number"
             placeholder="勉強時間"
+            required
           />時間
         </label>
       </div>
@@ -20,6 +21,7 @@
             v-model="studyArea"
             type="text"
             placeholder="勉強場所"
+            required
           />
         </label>
       </div>
@@ -29,6 +31,7 @@
             id="studyDensity"
             v-model="studyDensity"
             style="width: 150px; height: 30px;"
+            required
           >
             <option value="">選択してください</option>
             <option value="薄">薄</option>
@@ -63,7 +66,7 @@ import moment from "moment";
 export default {
   data() {
     return {
-      studyTime: undefined, // 時間
+      studyTime: 0, // 時間
       studyDensity: "", // 密度
       studyContent: "", // 内容
       studyArea: "" // 場所
@@ -73,7 +76,7 @@ export default {
   },
   computed: {
     getNow() {
-      return moment(new Date()).format("YYYY-MM-DD HH:00:00");
+      return moment(new Date()).format("YYYY MM DD HH:00:00");
       // const now = new Date();
       // const year = now.getFullYear();
       // const mon = now.getMonth() + 1;
@@ -100,7 +103,7 @@ export default {
               stringValue: this.studyContent
             },
             nowTime: {
-              stringValue: this.getNow
+              dateValue: this.getNow
             }
             // latitude: {
             //   stringValue: this.latitude

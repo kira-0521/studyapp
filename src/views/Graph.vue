@@ -42,7 +42,6 @@ export default {
           }
         });
         separate.push(sortObj);
-        console.log(separate);
         sortObj = [];
       }
       return separate;
