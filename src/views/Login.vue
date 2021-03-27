@@ -1,16 +1,13 @@
 <template>
   <div class="small">
-    <ul v-for="name in areaName" :key="name">
-      <li>
-        <h3>{{ name }}</h3>
-        <pie-chart
-          v-if="loaded"
-          :chart-data="datacollection"
-          :options="options"
-          style="width: 300px; height: 300px;"
-        ></pie-chart>
-      </li>
-    </ul>
+    <div v-for="(data, index) in datacollection" :key="index">
+      <pie-chart
+        v-if="loaded"
+        :chart-data="data"
+        :options="options"
+        style="width: 300px; height: 300px;"
+      ></pie-chart>
+    </div>
     <button @click="console">console</button>
   </div>
 </template>
@@ -26,9 +23,8 @@ export default {
   data() {
     return {
       loaded: false,
-      datacollection: null,
-      options: null,
-      areaName: ["タリーズ"]
+      datacollection: [],
+      options: null
     };
   },
   computed: {
@@ -116,8 +112,8 @@ export default {
     try {
       await this.getStudyData();
       this.fillData();
+      // データを受け取ってから描画
       this.loaded = true;
-      console.log(this.studyData);
     } catch (e) {
       console.error(e);
     }
@@ -125,21 +121,27 @@ export default {
   methods: {
     ...mapActions("getpost", ["getStudyData"]),
     fillData() {
-      this.datacollection = {
-        labels: ["濃", "普", "薄"],
-        datasets: [
-          {
-            label: this.area[0],
-            data: [10, 5],
-            backgroundColor: ["#e56758", "#f0a860", "#f0dbbe"]
-          }
-        ]
-      };
+      for (let i = 0; i < this.area.length; i++) {
+        const graphData = {
+          labels: ["濃", "普", "薄"],
+          datasets: [
+            {
+              label: this.area[i],
+              data: [
+                this.separateDensity[i].deep,
+                this.separateDensity[i].normal,
+                this.separateDensity[i].light
+              ],
+              backgroundColor: ["#e56758", "#f0a860", "#f0dbbe"]
+            }
+          ]
+        };
+        this.datacollection.push(graphData);
+      }
     },
     console() {
       console.log(this.separateArea);
       console.log(this.separateDensity);
-      console.log(this.area);
     }
   }
 };
