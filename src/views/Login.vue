@@ -76,7 +76,7 @@ export default {
         };
         this.separateArea[i].forEach(data => {
           const stDensity = data.studyDensity.stringValue;
-          const stTime = data.studyTime.integerValue;
+          const stTime = Number(data.studyTime.integerValue);
           if (stDensity == "濃") {
             if (densitySum.deep === 0) {
               densitySum.deep = stTime;

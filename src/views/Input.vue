@@ -61,7 +61,7 @@
 
 <script>
 import axios from "axios";
-import moment from "moment";
+import dayjs from "dayjs";
 
 export default {
   data() {
@@ -76,7 +76,8 @@ export default {
   },
   computed: {
     getNow() {
-      return moment(new Date()).format("YYYY MM DD HH:00:00");
+      const dayTime = dayjs(new Date());
+      return dayTime.format("YYYY-MM-DD HH:00:00");
       // const now = new Date();
       // const year = now.getFullYear();
       // const mon = now.getMonth() + 1;
@@ -103,7 +104,7 @@ export default {
               stringValue: this.studyContent
             },
             nowTime: {
-              dateValue: this.getNow
+              stringValue: this.getNow
             }
             // latitude: {
             //   stringValue: this.latitude
