@@ -1,14 +1,12 @@
 <template>
-  <v-app>
-    <div id="app">
-      <v-main>
-        <Header></Header>
-        <div class="container">
-          <router-view></router-view>
-        </div>
-      </v-main>
+  <div id="app">
+    <Header></Header>
+    <div class="container">
+      <div class="container__inner">
+        <router-view></router-view>
+      </div>
     </div>
-  </v-app>
+  </div>
 </template>
 
 <script>
@@ -16,25 +14,29 @@ import Header from "./views/Header";
 
 export default {
   name: "App",
-
   components: {
     Header
-  },
-
-  data: () => ({
-    //
-  })
+  }
 };
 </script>
 
 <style lang="scss">
-@import "./assets/styles/bootstrap-reboot.css";
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+@import "./assets/styles/modules/_variables.scss";
 
+#app {
+  background-color: $cBg;
+  height: 100vh;
+  font-family: "Roboto", sans-serif;
+}
 .container {
   padding-top: 30px;
   &__inner {
-    max-width: 1070px;
+    max-width: $contentMaxWidth;
+    margin: 0 auto;
   }
+}
+.content {
 }
 ul {
   list-style: none;
@@ -49,7 +51,7 @@ a {
   color: black;
   text-decoration: none;
 }
-.link {
+.active {
   font-weight: bold;
   font-size: 20px;
 }

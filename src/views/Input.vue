@@ -6,11 +6,10 @@
         <label for="studyTime">
           <input
             id="studyTime"
-            v-model="studyTime"
-            type="number"
+            v-model.number="studyTime"
             placeholder="勉強時間"
             required
-          />時間
+          />
         </label>
       </div>
       <!-- 仮 -->
@@ -18,7 +17,7 @@
         <label for="studyArea">
           <input
             id="studyArea"
-            v-model="studyArea"
+            v-model.trim="studyArea"
             type="text"
             placeholder="勉強場所"
             required
@@ -49,7 +48,7 @@
           />
         </label>
       </div>
-      <button @click="submitStudy" class="input-area_submit">
+      <button @click="submitStudy" class="input-area__submit">
         投稿する
       </button>
       <!-- <button @click="getLocation" class="input-area_location">
@@ -175,32 +174,68 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.content {
-  max-width: 1070px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-.grahp-link {
-  color: cadetblue;
-}
+@import "../assets/styles/modules/_variables.scss";
+$ruler: 16px;
+
 label {
-  margin: 0 10px 0 0;
+  width: 100%;
+  display: block;
+  margin-right: 10px;
+  margin-bottom: $ruler * 1.5;
 }
+input,
+select,
+textarea,
+button {
+  border: 0;
+  outline: 0;
+  font-size: $ruler;
+  border-radius: $ruler * 20;
+  padding: $ruler;
+  background-color: $cBg;
+  text-shadow: 1px 1px 0 $cWhite;
+}
+input,
+select,
+textarea {
+  margin-right: $ruler/2;
+  box-shadow: inset 2px 2px 5px $cShadow, inset -5px -5px 10px $cWhite;
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+  appearance: none;
+  -webkit-appearance: none;
+
+  &:focus {
+    box-shadow: inset 1px 1px 2px $cShadow, inset -1px -1px 2px $cWhite;
+  }
+}
+
 .input-area {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
 
-  &__time,
-  &__density {
-    margin-bottom: 20px;
-    vertical-align: bottom;
-  }
-
   &__content {
     margin-bottom: 30px;
+  }
+
+  &__submit {
+    color: $cPink;
+    font-weight: bold;
+    box-shadow: -5px -5px 20px $cWhite, 5px 5px 20px $cShadow;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    font-weight: 600;
+
+    &:hover {
+      box-shadow: -2px -2px 5px $cWhite, 2px 2px 5px $cShadow;
+    }
+
+    &:active {
+      box-shadow: inset 1px 1px 2px $cShadow, inset -1px -1px 2px $cWhite;
+    }
   }
 }
 </style>

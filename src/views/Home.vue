@@ -1,9 +1,10 @@
 <template>
-  <div class="container__inner">
+  <div class="content">
     <h1>study App</h1>
     <router-link to="/input">入力画面へ</router-link>
     <router-link to="/graph">結果画面へ</router-link>
-    <router-link to="/userdata/1">ユーザーデータ</router-link>
+    <router-link to="/userdata/0">ユーザーデータ</router-link>
+    <router-link to="/test">データテスト</router-link>
   </div>
 </template>
 

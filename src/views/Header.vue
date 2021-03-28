@@ -7,11 +7,23 @@
         </router-link>
       </div>
       <nav class="header__nav">
-        <router-link to="/login" active-class="link" class="login"
+        <router-link to="/login" active-class="active" class="link login"
           >ログイン</router-link
         >
-        <router-link to="/register" class="register" active-class="link"
+        <router-link to="/register" active-class="active" class="link register"
           >新規登録</router-link
+        >
+        <router-link to="/input" active-class="active" class="link input"
+          >入力</router-link
+        >
+        <router-link
+          to="/userdata/0"
+          active-class="active"
+          class="link userdata"
+          >マイページ</router-link
+        >
+        <router-link to="/graph" active-class="active" class="link graph"
+          >グラフ</router-link
         >
       </nav>
     </header>
@@ -23,6 +35,8 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
+@import "../assets/styles/modules/_variables.scss";
+
 .header {
   box-shadow: 0 0 8px;
   &__inner {
@@ -39,8 +53,8 @@ export default {};
     a {
       cursor: pointer;
     }
-    & .login {
-      padding: 30px;
+    & .link {
+      padding: 15px;
     }
   }
 }

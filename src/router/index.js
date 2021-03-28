@@ -10,6 +10,7 @@ const Login = () =>
   import(/* webpackChunkName: "Login" */ "../views/Login.vue");
 const Register = () =>
   import(/* webpackChunkName: "Register" */ "../views/Register.vue");
+const Test = () => import(/* webpackChunkName: "Test" */ "../views/Test.vue");
 const UserData = () =>
   import(/* webpackChunkName: "UserData" */ "../views/UserData.vue");
 
@@ -42,6 +43,11 @@ export default new Router({
       path: "/register",
       component: Register,
       name: "register"
+    },
+    {
+      path: "/test",
+      component: Test,
+      name: "test"
     },
     {
       path: "/userdata/:id",
