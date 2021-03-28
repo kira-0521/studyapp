@@ -3,7 +3,7 @@
     <v-sheet
       title
       height="4vh"
-      width="100vw"
+      width="600px"
       color="grey lighten-3"
       class="d-flex align-center"
     >
@@ -16,7 +16,7 @@
       </v-btn>
       <v-toolbar-title>{{ title }}</v-toolbar-title>
     </v-sheet>
-    <v-sheet height="56vh" width="100vw">
+    <v-sheet height="56vh" width="600px">
       <v-calendar
         ref="calendar"
         v-model="value"
@@ -37,6 +37,7 @@
 
 <script>
 import moment from "moment";
+import { mapState } from "vuex";
 
 export default {
   data() {
@@ -46,6 +47,7 @@ export default {
     };
   },
   computed: {
+    ...mapState("getpost", ["studyData"]),
     title() {
       return moment(this.value).format("yyyy年 M月");
     }
@@ -57,8 +59,9 @@ export default {
     showEvent({ event }) {
       alert(`${event.name}`);
     },
+    // データと日付が一致する場合ユーザーデータを表示
     viewDay({ date }) {
-      alert(`date: ${date}`);
+      this.$emit("calendarClick", date);
     },
     getEvents() {
       const events = [

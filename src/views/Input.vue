@@ -76,7 +76,7 @@ export default {
   computed: {
     getNow() {
       const dayTime = dayjs(new Date());
-      return dayTime.format("YYYY-MM-DD HH:00:00");
+      return dayTime.format("YYYY-MM-DD");
       // const now = new Date();
       // const year = now.getFullYear();
       // const mon = now.getMonth() + 1;

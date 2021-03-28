@@ -11,11 +11,18 @@
 
 <script>
 import Header from "./views/Header";
+import { mapActions } from "vuex";
 
 export default {
   name: "App",
   components: {
     Header
+  },
+  methods: {
+    ...mapActions("getpost", ["getStudyData"])
+  },
+  created() {
+    this.getStudyData();
   }
 };
 </script>
