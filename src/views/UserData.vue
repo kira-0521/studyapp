@@ -30,15 +30,21 @@ export default {
   components: {
     Calendar
   },
+  data() {
+    return {
+      view: false
+    };
+  },
   computed: {
     ...mapState("getpost", ["studyData"])
   },
   methods: {
-    viewDate(value) {
-      this.studyData.some((data, index) => {
-        if (data.nowTime.stringValue === value) {
-          console.log(`date: ${value} / index: ${index}`);
+    viewDate(calendarDate) {
+      this.studyData.forEach((data, index) => {
+        if (data.nowTime.stringValue === calendarDate) {
+          console.log(`date: ${calendarDate} / index: ${index}`);
           this.$router.push({ name: "userdata", params: { id: index } });
+          this.view = true;
         }
       });
     }
