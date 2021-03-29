@@ -55,11 +55,7 @@ select {
   appearance: none;
 }
 a {
-  color: black;
+  cursor: pointer;
   text-decoration: none;
-}
-.active {
-  font-weight: bold;
-  font-size: 20px;
 }
 </style>
