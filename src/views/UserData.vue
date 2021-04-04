@@ -39,15 +39,7 @@ export default {
     ...mapState("getpost", ["studyData"])
   },
   methods: {
-    // viewDate(calendarDate) {
-    //   this.studyData.forEach((data, index) => {
-    //     if (data.nowTime.stringValue === calendarDate) {
-    //       console.log(`date: ${calendarDate} / index: ${index}`);
-    //       this.$router.push({ name: "userdata", params: { id: index } });
-    //       this.view = true;
-    //     }
-    //   });
-    // },
+    // 日付取得 → 日付一致すれば表示,処理終了. 一致しなければview=false.
     viewDate(calendarDate) {
       for (let data of this.studyData) {
         if (data.nowTime.stringValue === calendarDate) {
@@ -55,9 +47,11 @@ export default {
           console.log(`date: ${calendarDate} / index: ${index}`);
           this.$router.push({ name: "userdata", params: { id: index } });
           this.view = true;
+          console.log(this.view);
           break;
         } else {
           this.view = false;
+          console.log(this.view);
         }
       }
     }

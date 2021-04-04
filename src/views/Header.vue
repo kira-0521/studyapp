@@ -3,7 +3,7 @@
     <header class="header__inner">
       <div class="header__title">
         <router-link to="/" class="link home">
-          <h1 class="logo">studyApp</h1>
+          <h1 class="logo">Log</h1>
         </router-link>
       </div>
       <nav class="header__nav">
@@ -50,17 +50,18 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/styles/modules/_variables.scss";
+@import "../assets/styles/modules/_variables2.scss";
 
 .header {
-  box-shadow: 0 0 8px;
   background-color: $cBg;
+  border: none;
 
   &__inner {
     height: 100px;
     max-width: 1070px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     padding: 0 30px;
   }
@@ -70,6 +71,7 @@ export default {
     & .logo {
       color: $cText;
       font-weight: 900;
+      font-size: 40px;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3),
         -2px -2px 4px rgba(255, 255, 255, 1);
     }
@@ -89,13 +91,13 @@ export default {
 
     &:hover {
       transform: scale(1.05);
-      color: $cPink;
+      color: $cBlue;
       box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.1),
         -4px -4px 10px rgba(255, 255, 255, 1);
     }
 
     &.active {
-      color: $cPink;
+      color: $cBlue;
       outline: none;
       transform: scale(0.95);
       box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.1),

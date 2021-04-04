@@ -1,56 +1,56 @@
 <template>
   <div class="content">
     <div class="input-area">
-      <router-link to="graph" class="graph-link">結果画面へ</router-link>
-      <div class="input-area__time">
-        <label for="studyTime">
-          <input
-            id="studyTime"
-            v-model.number="studyTime"
-            placeholder="勉強時間"
-            required
-          />
-        </label>
+      <div class="input-area__inner">
+        <div class="input-area__title">
+          <h1>Study Log</h1>
+        </div>
+        <div class="input-area__time">
+          <label for="studyTime">
+            <input id="studyTime" v-model.number="studyTime" required />
+          </label>
+        </div>
+        <!-- 仮 -->
+        <div class="input-area__area">
+          <label for="studyArea">
+            <input
+              id="studyArea"
+              v-model.trim="studyArea"
+              type="text"
+              placeholder="勉強場所"
+              required
+            />
+          </label>
+        </div>
+        <div class="input-area__density">
+          <label for="studyDensity">
+            <select
+              id="studyDensity"
+              v-model="studyDensity"
+              style="height: 50px;"
+              required
+            >
+              <option disabled value>選択してください</option>
+              <option value="薄">薄</option>
+              <option value="普">普</option>
+              <option value="濃">濃</option>
+            </select>
+          </label>
+        </div>
+        <div class="input-area__content">
+          <label for="studyContent">
+            <textarea
+              id="studyContent"
+              v-model="studyContent"
+              placeholder="勉強内容"
+              style="height: 100px;"
+            />
+          </label>
+        </div>
+        <button @click="submitStudy" class="input-area__submit">
+          記録する
+        </button>
       </div>
-      <!-- 仮 -->
-      <div class="input-area__area">
-        <label for="studyArea">
-          <input
-            id="studyArea"
-            v-model.trim="studyArea"
-            type="text"
-            placeholder="勉強場所"
-            required
-          />
-        </label>
-      </div>
-      <div class="input-area__density">
-        <label for="studyDensity">
-          <select
-            id="studyDensity"
-            v-model="studyDensity"
-            style="width: 150px; height: 30px;"
-            required
-          >
-            <option value="">選択してください</option>
-            <option value="薄">薄</option>
-            <option value="普">普</option>
-            <option value="濃">濃</option>
-          </select>
-        </label>
-      </div>
-      <div class="input-area__content">
-        <label for="studyContent">
-          <textarea
-            id="studyContent"
-            v-model="studyContent"
-            placeholder="勉強内容"
-          />
-        </label>
-      </div>
-      <button @click="submitStudy" class="input-area__submit">
-        投稿する
-      </button>
       <!-- <button @click="getLocation" class="input-area_location">
         現在地を取得
       </button> -->
@@ -175,6 +175,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/styles/modules/_variables.scss";
+
 $ruler: 16px;
 
 label {
@@ -183,6 +184,16 @@ label {
   margin-right: 10px;
   margin-bottom: $ruler * 1.5;
 }
+
+input,
+select,
+textarea,
+button,
+h1 {
+  letter-spacing: -0.2px;
+  text-shadow: 1px 1px 1px $cWhite;
+}
+
 input,
 select,
 textarea,
@@ -200,7 +211,7 @@ select,
 textarea {
   margin-right: $ruler/2;
   box-shadow: inset 2px 2px 5px $cShadow, inset -5px -5px 10px $cWhite;
-  width: 100%;
+  width: 330px;
   box-sizing: border-box;
   transition: all 0.2s ease-in-out;
   appearance: none;
@@ -211,18 +222,35 @@ textarea {
   }
 }
 
+.content {
+  text-align: center;
+}
+
 .input-area {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  &__inner {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__title {
+    margin-bottom: 30px;
+
+    & > h1 {
+      color: $cBlue;
+    }
+  }
 
   &__content {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
 
   &__submit {
-    color: $cPink;
+    color: $cBlue;
     font-weight: bold;
     box-shadow: -5px -5px 20px $cWhite, 5px 5px 20px $cShadow;
     transition: all 0.2s ease-in-out;
