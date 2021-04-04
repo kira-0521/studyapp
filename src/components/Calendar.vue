@@ -36,25 +36,25 @@
 </template>
 
 <script>
-import moment from "moment";
+import dayjs from "dayjs";
 import { mapState } from "vuex";
 
 export default {
   data() {
     return {
       events: [],
-      value: moment().format("yyyy-MM-DD") // 現在日時
+      value: dayjs().format("YYYY-MM-DD") // 現在日時
     };
   },
   computed: {
     ...mapState("getpost", ["studyData"]),
     title() {
-      return moment(this.value).format("yyyy年 M月");
+      return dayjs(this.value).format("YYYY年 M月");
     }
   },
   methods: {
     setToday() {
-      this.value = moment().format("yyyy-MM-DD");
+      this.value = dayjs().format("YYYY-MM-DD");
     },
     showEvent({ event }) {
       alert(`${event.name}`);
@@ -64,29 +64,19 @@ export default {
       this.$emit("calendarClick", date);
     },
     getEvents() {
-      const events = [
-        {
-          name: "会議",
-          start: moment("2021-03-03 1:00:00").toDate(), // 開始時刻
-          end: moment("2021-03-03 2:00:00").toDate(), // 終了時刻
-          color: "blue",
-          timed: true // 終日ならfalse
-        },
-        {
-          name: "勉強会",
-          start: moment("2021-03-05 1:00:00").toDate(), // 開始時刻
-          end: moment("2021-03-05 2:00:00").toDate(), // 終了時刻
+      const events = [];
+      this.studyData.forEach(date => {
+        const nowTime = date.nowTime.stringValue;
+        const content = date.studyContent.stringValue;
+        const obj = {
+          name: content,
+          start: dayjs(nowTime).toDate(), // 開始時刻
+          end: dayjs(nowTime).toDate(), // 終了時刻
           color: "green",
           timed: false // 終日ならfalse
-        },
-        {
-          name: "休暇",
-          start: moment("2021-03-06 15:00:00").toDate(),
-          end: moment("2021-03-06 17:00:00").toDate(),
-          color: "orange",
-          timed: true
-        }
-      ];
+        };
+        events.push(obj);
+      });
       this.events = events;
     },
     getEventColor(event) {

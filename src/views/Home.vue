@@ -1,6 +1,5 @@
 <template>
   <div class="content">
-    <h1>study App</h1>
     <router-link to="/input">入力画面へ</router-link>
     <router-link to="/graph">結果画面へ</router-link>
     <router-link to="/userdata/0">ユーザーデータ</router-link>
@@ -14,4 +13,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.content {
+  display: flex;
+  flex-direction: column;
+}
+</style>

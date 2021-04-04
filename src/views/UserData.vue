@@ -203,6 +203,7 @@ a {
   span.content {
     font-size: 12px;
     padding: 2%;
+    color: $cSecondText;
   }
 }
 
