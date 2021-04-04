@@ -31,13 +31,21 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 @import "./assets/styles/modules/_variables.scss";
 
+html,
+body,
+#app,
+.container {
+  height: 100%;
+}
+
 #app {
   background-color: $cBg;
-  height: 100vh;
   font-family: "Roboto", sans-serif;
+  min-height: 100%;
 }
 .container {
   padding-top: 30px;
+  min-height: 100%;
   &__inner {
     max-width: $contentMaxWidth;
     margin: 0 auto;

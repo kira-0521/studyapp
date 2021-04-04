@@ -19,6 +19,7 @@
           to="/userdata/0"
           active-class="active"
           class="link userdata"
+          exact
         >
           <calendar-icon size="1.5x" class="custom-class"></calendar-icon>
         </router-link>

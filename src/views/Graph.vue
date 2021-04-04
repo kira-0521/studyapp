@@ -9,7 +9,6 @@
         style="width: 300px; height: 300px;"
       ></pie-chart>
     </div>
-    <button @click="console">console</button>
   </div>
 </template>
 
@@ -124,7 +123,7 @@ export default {
     fillData() {
       for (let i = 0; i < this.area.length; i++) {
         const graphData = {
-          labels: ["濃", "普", "薄"],
+          labels: ["真", "中", "浅"],
           datasets: [
             {
               data: [

@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="calendar">
     <v-sheet
       title
       height="4vh"
       width="600px"
-      color="grey lighten-3"
+      color="lighten-3"
       class="d-flex align-center"
     >
       <v-btn outlinned small class="ma-4" @click="setToday">今日</v-btn>
@@ -96,4 +96,4 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped></style>

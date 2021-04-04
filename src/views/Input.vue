@@ -1,60 +1,58 @@
 <template>
-  <div class="content">
-    <div class="input-area">
-      <div class="input-area__inner">
-        <div class="input-area__title">
-          <h1>Study Log</h1>
-        </div>
-        <div class="input-area__time">
-          <label for="studyTime">
-            <input id="studyTime" v-model.number="studyTime" required />
-          </label>
-        </div>
-        <!-- 仮 -->
-        <div class="input-area__area">
-          <label for="studyArea">
-            <input
-              id="studyArea"
-              v-model.trim="studyArea"
-              type="text"
-              placeholder="勉強場所"
-              required
-            />
-          </label>
-        </div>
-        <div class="input-area__density">
-          <label for="studyDensity">
-            <select
-              id="studyDensity"
-              v-model="studyDensity"
-              style="height: 50px;"
-              required
-            >
-              <option disabled value>選択してください</option>
-              <option value="薄">薄</option>
-              <option value="普">普</option>
-              <option value="濃">濃</option>
-            </select>
-          </label>
-        </div>
-        <div class="input-area__content">
-          <label for="studyContent">
-            <textarea
-              id="studyContent"
-              v-model="studyContent"
-              placeholder="勉強内容"
-              style="height: 100px;"
-            />
-          </label>
-        </div>
-        <button @click="submitStudy" class="input-area__submit">
-          記録する
-        </button>
+  <div class="input-area">
+    <div class="input-area__inner">
+      <div class="input-area__title">
+        <h1>Study Log</h1>
       </div>
-      <!-- <button @click="getLocation" class="input-area_location">
+      <div class="input-area__time">
+        <label for="studyTime">
+          <input id="studyTime" v-model.number="studyTime" required />
+        </label>
+      </div>
+      <!-- 仮 -->
+      <div class="input-area__area">
+        <label for="studyArea">
+          <input
+            id="studyArea"
+            v-model.trim="studyArea"
+            type="text"
+            placeholder="勉強場所"
+            required
+          />
+        </label>
+      </div>
+      <div class="input-area__density">
+        <label for="studyDensity">
+          <select
+            id="studyDensity"
+            v-model="studyDensity"
+            style="height: 50px;"
+            required
+          >
+            <option disabled value>集中度</option>
+            <option value="浅">浅</option>
+            <option value="中">中</option>
+            <option value="真">真</option>
+          </select>
+        </label>
+      </div>
+      <div class="input-area__content">
+        <label for="studyContent">
+          <textarea
+            id="studyContent"
+            v-model="studyContent"
+            placeholder="勉強内容"
+            style="height: 100px;"
+          />
+        </label>
+      </div>
+      <button @click="submitStudy" class="input-area__submit">
+        記録する
+      </button>
+    </div>
+    <!-- <button @click="getLocation" class="input-area_location">
         現在地を取得
       </button> -->
-    </div>
   </div>
 </template>
 
@@ -229,7 +227,7 @@ textarea {
 .input-area {
   &__inner {
     max-width: 600px;
-    margin: 30px auto;
+    margin: 0 auto;
     padding: 20px;
     display: flex;
     flex-direction: column;
