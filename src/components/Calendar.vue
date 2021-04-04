@@ -18,15 +18,15 @@
     </v-sheet>
     <v-sheet height="56vh" width="600px">
       <v-calendar
+        :month-format="
+          timestamp => new Date(timestamp.date).getMonth() + 1 + ' /'
+        "
         ref="calendar"
         v-model="value"
         :events="events"
         :event-color="getEventColor"
         locale="ja-jp"
         :day-format="timestamp => new Date(timestamp.date).getDate()"
-        :month-format="
-          timestamp => new Date(timestamp.date).getMonth() + 1 + ' /'
-        "
         @change="getEvents"
         @click:event="showEvent"
         @click:date="viewDay"

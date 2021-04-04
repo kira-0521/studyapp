@@ -39,14 +39,27 @@ export default {
     ...mapState("getpost", ["studyData"])
   },
   methods: {
+    // viewDate(calendarDate) {
+    //   this.studyData.forEach((data, index) => {
+    //     if (data.nowTime.stringValue === calendarDate) {
+    //       console.log(`date: ${calendarDate} / index: ${index}`);
+    //       this.$router.push({ name: "userdata", params: { id: index } });
+    //       this.view = true;
+    //     }
+    //   });
+    // },
     viewDate(calendarDate) {
-      this.studyData.forEach((data, index) => {
+      for (let data of this.studyData) {
         if (data.nowTime.stringValue === calendarDate) {
+          const index = [].slice.call(this.studyData).indexOf(data);
           console.log(`date: ${calendarDate} / index: ${index}`);
           this.$router.push({ name: "userdata", params: { id: index } });
           this.view = true;
+          break;
+        } else {
+          this.view = false;
         }
-      });
+      }
     }
   }
 };
