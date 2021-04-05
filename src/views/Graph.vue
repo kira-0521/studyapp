@@ -1,14 +1,23 @@
 <template>
-  <div class="small">
-    <div v-for="(data, index) in datacollection" :key="index">
-      <h2>{{ area[index] }}</h2>
-      <pie-chart
-        v-if="loaded"
-        :chart-data="data"
-        :options="options"
-        style="width: 300px; height: 300px;"
-      ></pie-chart>
-    </div>
+  <div class="graph">
+    <ul class="graph__ul">
+      <li
+        class="graph__li"
+        v-for="(data, index) in datacollection"
+        :key="index"
+      >
+        <h2 class="graph__title">{{ area[index] }}</h2>
+        <pie-chart
+          v-if="loaded"
+          :chart-data="data"
+          :options="options"
+          style="width: 300px; height: 300px;"
+        ></pie-chart>
+      </li>
+      <!-- <ul>
+        <li v-for=""></li>
+      </ul> -->
+    </ul>
   </div>
 </template>
 
@@ -73,7 +82,7 @@ export default {
         this.separateArea[i].forEach(data => {
           const stDensity = data.studyDensity.stringValue;
           const stTime = Number(data.studyTime.integerValue);
-          if (stDensity == "濃") {
+          if (stDensity == "真") {
             if (densitySum.deep === 0) {
               densitySum.deep = stTime;
             } else {
@@ -82,7 +91,7 @@ export default {
             // let deepArray = [];
             // deepArray.push(stTime);
             // densitySum.deep = deepArray.reduce((acc, value) => acc + value);
-          } else if (stDensity == "普") {
+          } else if (stDensity == "中") {
             if (densitySum.normal === 0) {
               densitySum.normal = stTime;
             } else {
@@ -106,6 +115,14 @@ export default {
       }
       return separate;
     }
+    // separateByLocation() {
+    //   const separateObj = {
+    //     area: "",
+    //     totalHours: 0,
+    //     percentage: 0
+    //   };
+
+    // }
   },
   async mounted() {
     this.loaded = false;
@@ -147,9 +164,11 @@ export default {
 };
 </script>
 
-<style scoped>
-.small {
-  max-width: 600px;
-  margin: 150px auto;
+<style lang="scss" scoped>
+.graph {
+  &__ul {
+    display: flex;
+    flex-direction: row;
+  }
 }
 </style>
