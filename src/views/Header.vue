@@ -28,8 +28,8 @@
               <pie-chart-icon size="1.5x" class="custom-class"></pie-chart-icon>
             </router-link>
           </li>
-          <li class="header__li">
-            <router-link v-if="photoURL" to="/" class="link logout">
+          <li class="header__li" v-if="photoURL">
+            <router-link to="/" class="link logout">
               <log-out-icon
                 @click="logout"
                 size="1.5x"
@@ -37,7 +37,7 @@
               ></log-out-icon>
             </router-link>
           </li>
-          <li class="header__li">
+          <li class="header__li" v-if="photoURL">
             <img :src="photoURL" class="user-img" alt="" />
           </li>
         </ul>
