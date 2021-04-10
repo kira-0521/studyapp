@@ -5,6 +5,11 @@ const state = {
   login_user: null
 };
 
+const getters = {
+  userName: state => (state.login_user ? state.login_user.userName : ""),
+  photoURL: state => (state.login_user ? state.login_user.photoURL : "")
+};
+
 const mutations = {
   setLoginUser(state, user) {
     state.login_user = user;
@@ -35,6 +40,7 @@ const actions = {
 export default {
   namespaced: true,
   state,
+  getters,
   mutations,
   actions
 };

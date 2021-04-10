@@ -3,9 +3,6 @@
     <Header></Header>
     <div class="container">
       <div class="container__inner">
-        <button @click="logout">
-          ログアウト
-        </button>
         <router-view></router-view>
       </div>
     </div>
@@ -27,21 +24,19 @@ export default {
   },
   methods: {
     ...mapActions("getpost", ["getStudyData"]),
-    ...mapActions("login", ["setLoginUser", "logout", "deleteLoginUser"])
+    ...mapActions("login", ["setLoginUser", "deleteLoginUser"])
   },
   created() {
-    // ログイン時にログアウト時にユーザーオブジェクトが入る
+    // ログイン時とログアウト時にユーザーオブジェクトが入る
     // ログインログアウトを検知する必要がある
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        this.setLoginUser();
-        console.log(this.login_user);
+        this.setLoginUser(user);
+        this.getStudyData();
       } else {
         this.deleteLoginUser();
-        console.log(this.login_user);
       }
     });
-    this.getStudyData();
   }
 };
 </script>

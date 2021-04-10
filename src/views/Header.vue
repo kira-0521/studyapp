@@ -7,26 +7,40 @@
         </router-link>
       </div>
       <nav class="header__nav">
-        <router-link to="/login" active-class="active" class="link login">
-          <log-in-icon size="1.5x" class="custom-class"></log-in-icon>
-        </router-link>
-
-        <router-link to="/input" active-class="active" class="link input">
-          <pen-tool-icon size="1.5x" class="custom-class"></pen-tool-icon>
-        </router-link>
-
-        <router-link
-          to="/userdata/0"
-          active-class="active"
-          class="link userdata"
-          exact
-        >
-          <calendar-icon size="1.5x" class="custom-class"></calendar-icon>
-        </router-link>
-
-        <router-link to="/graph" active-class="active" class="link graph">
-          <pie-chart-icon size="1.5x" class="custom-class"></pie-chart-icon>
-        </router-link>
+        <ul class="header__ul">
+          <li class="header__li">
+            <router-link to="/input" active-class="active" class="link input">
+              <pen-tool-icon size="1.5x" class="custom-class"></pen-tool-icon>
+            </router-link>
+          </li>
+          <li class="header__li">
+            <router-link
+              to="/userdata/0"
+              active-class="active"
+              class="link userdata"
+              exact
+            >
+              <calendar-icon size="1.5x" class="custom-class"></calendar-icon>
+            </router-link>
+          </li>
+          <li class="header__li">
+            <router-link to="/graph" active-class="active" class="link graph">
+              <pie-chart-icon size="1.5x" class="custom-class"></pie-chart-icon>
+            </router-link>
+          </li>
+          <li class="header__li">
+            <router-link v-if="photoURL" to="/" class="link logout">
+              <log-out-icon
+                @click="logout"
+                size="1.5x"
+                class="custom-class"
+              ></log-out-icon>
+            </router-link>
+          </li>
+          <li class="header__li">
+            <img :src="photoURL" class="user-img" alt="" />
+          </li>
+        </ul>
       </nav>
     </header>
   </header>
@@ -34,17 +48,24 @@
 
 <script>
 import {
-  LogInIcon,
   PenToolIcon,
   CalendarIcon,
-  PieChartIcon
+  PieChartIcon,
+  LogOutIcon
 } from "vue-feather-icons";
+import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
-    LogInIcon,
     PenToolIcon,
     CalendarIcon,
-    PieChartIcon
+    PieChartIcon,
+    LogOutIcon
+  },
+  computed: {
+    ...mapGetters("login", ["photoURL"])
+  },
+  methods: {
+    ...mapActions("login", ["logout"])
   }
 };
 </script>
@@ -78,10 +99,18 @@ export default {
     }
   }
 
+  &__ul {
+    display: flex;
+    align-items: center;
+  }
+
+  &__li {
+    margin: 0 1rem;
+  }
+
   & .link:not(.home) {
     color: $cIcon;
     position: relative;
-    margin: 0 1rem;
     padding: 0.5rem 1.5rem;
     border: 2px solid rgba(255, 255, 255, 0.3);
     box-shadow: 4px 4px 6px 0 rgba(0, 0, 0, 0.1),
@@ -113,6 +142,14 @@ export default {
       top: 50%;
       transform: translate(-50%, -50%);
     }
+  }
+
+  & .user-img {
+    display: inline-block;
+    margin-top: 20%;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
   }
 }
 </style>
