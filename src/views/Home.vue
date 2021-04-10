@@ -1,5 +1,6 @@
 <template>
   <div class="content">
+    <button @click="login">グーグルアカウントでログイン</button>
     <router-link to="/input">入力画面へ</router-link>
     <router-link to="/graph">結果画面へ</router-link>
     <router-link to="/userdata/0">ユーザーデータ</router-link>
@@ -8,8 +9,11 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
-  components: {}
+  methods: {
+    ...mapActions("login", ["login"])
+  }
 };
 </script>
 

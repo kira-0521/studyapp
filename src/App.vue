@@ -3,6 +3,9 @@
     <Header></Header>
     <div class="container">
       <div class="container__inner">
+        <button @click="logout">
+          ログアウト
+        </button>
         <router-view></router-view>
       </div>
     </div>
@@ -10,18 +13,34 @@
 </template>
 
 <script>
+import firebase from "firebase";
 import Header from "./views/Header";
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "App",
   components: {
     Header
   },
+  computed: {
+    ...mapState("login", ["login_user"])
+  },
   methods: {
-    ...mapActions("getpost", ["getStudyData"])
+    ...mapActions("getpost", ["getStudyData"]),
+    ...mapActions("login", ["setLoginUser", "logout", "deleteLoginUser"])
   },
   created() {
+    // ログイン時にログアウト時にユーザーオブジェクトが入る
+    // ログインログアウトを検知する必要がある
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.setLoginUser();
+        console.log(this.login_user);
+      } else {
+        this.deleteLoginUser();
+        console.log(this.login_user);
+      }
+    });
     this.getStudyData();
   }
 };

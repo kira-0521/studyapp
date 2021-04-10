@@ -1,5 +1,7 @@
 import axios from "axios";
 
+// 各データをgettersに格納したほうがいいかも
+
 const state = {
   studyData: [],
   area: [],
