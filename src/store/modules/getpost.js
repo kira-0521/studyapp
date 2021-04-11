@@ -1,4 +1,3 @@
-import axios from "axios";
 import firebase from "firebase";
 
 // 各データをgettersに格納したほうがいいかも
@@ -38,21 +37,24 @@ const mutations = {
 
 const actions = {
   // データ、場所、集中度をそれぞれ配列に格納
-  async getStudyData({ commit }) {
+  async getStudyData({ commit, getters }) {
     const payload = {
       studyData: [],
       area: [],
       density: []
     };
-    await axios.get(`/users/${getters.uid}/posts`).then(res => {
-      for (let i = 0; i < res.data.documents.length; i++) {
-        payload.studyData.push(res.data.documents[i].fields);
-      }
-      payload.studyData.forEach(data => {
-        payload.area.push(data.studyArea.stringValue);
-        payload.density.push(data.studyDensity.stringValue);
+    await firebase
+      .firestore()
+      .collection(`users/${getters.uid}}/posts`)
+      .then(res => {
+        for (let i = 0; i < res.data.documents.length; i++) {
+          payload.studyData.push(res.data.documents[i].fields);
+        }
+        payload.studyData.forEach(data => {
+          payload.area.push(data.studyArea.stringValue);
+          payload.density.push(data.studyDensity.stringValue);
+        });
       });
-    });
     commit("getStudyData", payload);
     commit("setArea", payload);
     commit("setDensity", payload);

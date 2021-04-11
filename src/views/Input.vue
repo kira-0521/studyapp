@@ -6,7 +6,7 @@
       </div>
       <div class="input-area__time">
         <label for="studyTime">
-          <input id="studyTime" v-model.number="studyTime" required />
+          <input id="studyTime" v-model.number="fields.studyTime" required />
         </label>
       </div>
       <!-- 仮 -->
@@ -14,7 +14,7 @@
         <label for="studyArea">
           <input
             id="studyArea"
-            v-model.trim="studyArea"
+            v-model.trim="fields.studyArea"
             type="text"
             placeholder="勉強場所"
             required
@@ -25,7 +25,7 @@
         <label for="studyDensity">
           <select
             id="studyDensity"
-            v-model="studyDensity"
+            v-model="fields.studyDensity"
             style="height: 50px;"
             required
           >
@@ -40,7 +40,7 @@
         <label for="studyContent">
           <textarea
             id="studyContent"
-            v-model="studyContent"
+            v-model="fields.studyContent"
             placeholder="勉強内容"
             style="height: 100px;"
           />
@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import firebase from "firebase";
 import dayjs from "dayjs";
 import { mapActions, mapGetters } from "vuex";
 
@@ -68,114 +68,43 @@ export default {
   },
   data() {
     return {
-      studyTime: 0, // 時間
-      studyDensity: "", // 密度
-      studyContent: "", // 内容
-      studyArea: "" // 場所
-      // latitude: 0,
-      // longitude: 0
+      fields: {
+        studyTime: 0, // 時間
+        studyDensity: "", // 密度
+        studyContent: "", // 内容
+        studyArea: "" // 場所
+      }
     };
   },
   computed: {
     ...mapGetters("getpost", ["uid"]),
     getNow() {
       return dayjs().format("YYYY-MM-DD");
-      // const now = new Date();
-      // const year = now.getFullYear();
-      // const mon = now.getMonth() + 1;
-      // const day = now.getDate();
-      // const hour = now.getHours();
-      // return `${year}年${mon}月${day}日${hour}時`;
     }
   },
   methods: {
     ...mapActions("loading", ["toggle"]),
     submitStudy() {
       if (this.uid) {
-        axios
-          .post(`users/${this.uid}/posts`, {
-            fields: {
-              studyTime: {
-                integerValue: this.studyTime
-              },
-              studyArea: {
-                stringValue: this.studyArea
-              },
-              studyDensity: {
-                stringValue: this.studyDensity
-              },
-              studyContent: {
-                stringValue: this.studyContent
-              },
-              nowTime: {
-                stringValue: this.getNow
-              }
-              // latitude: {
-              //   stringValue: this.latitude
-              // },
-              // longitude: {
-              //   stringValue: this.longitude
-              // }
-            }
-          })
+        firebase
+          .firestore()
+          .collection(`users/${this.uid}/posts`)
+          .add(this.fields)
           .then(() => {
-            // this.latitude = 0;
-            // this.longitude = 0;
-            this.studyTime = 0;
-            this.studyArea = "";
-            this.studyDensity = "";
-            this.studyContent = "";
+            this.fields = {
+              studyTime: 0,
+              studyArea: "",
+              studyDensity: "",
+              studyContent: ""
+            };
+            console.log(this.fields);
           })
           .catch(error => {
             console.log(error.response);
           });
-        // this.$router.push({ name: "userdata" });
+        this.$router.push({ name: "userdata" });
       }
     }
-    // getLocation() {
-    //   if (!navigator.geolocation) {
-    //     alert(
-    //       "現在地情報を取得できませんでした。お使いのブラウザでは現在地情報を利用できない可能性があります。エリアを入力してください。"
-    //     );
-    //     return;
-    //   }
-
-    //   const options = {
-    //     // より精度の高い位置情報を取得する
-    //     enableHighAccuracy: false,
-    //     // エラーコールバックが呼び出されるまでの時間
-    //     timeout: 5000,
-    //     // 位置情報の有効期限
-    //     maximumAge: 0
-    //   };
-
-    //   // 成功CB・エラーCB
-    //   navigator.geolocation.getCurrentPosition(
-    //     this.success,
-    //     this.error,
-    //     options
-    //   );
-    // },
-    // success(position) {
-    //   this.latitude = position.coords.latitude;
-    //   this.longitude = position.coords.longitude;
-    // },
-    // error(error) {
-    //   switch (error.code) {
-    //     case 1: //PERMISSION_DENIED
-    //       alert("位置情報の利用が許可されていません");
-    //       break;
-    //     case 2: //POSITION_UNAVAILABLE
-    //       alert("現在位置が取得できませんでした");
-    //       break;
-    //     case 3: //TIMEOUT
-    //       alert("タイムアウトになりました");
-    //       break;
-    //     default:
-    //       alert("現在位置が取得できませんでした");
-    //       break;
-    //   }
-    // }
   }
 };
 </script>
