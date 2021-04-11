@@ -5,6 +5,7 @@ import App from "./App.vue";
 import store from "./store";
 import router from "./router";
 import vuetify from "./plugins/vuetify";
+import VueLoading from "vue-loading-template";
 
 Vue.config.productionTip = false;
 
@@ -27,7 +28,8 @@ firebase.analytics();
 
 new Vue({
   render: h => h(App),
+  store,
   router,
   vuetify,
-  store
+  VueLoading
 }).$mount("#app");

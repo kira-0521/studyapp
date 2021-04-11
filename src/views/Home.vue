@@ -11,8 +11,13 @@
 <script>
 import { mapActions } from "vuex";
 export default {
+  // beforeRouteLeave(to, from, next) {
+  //   this.toggle();
+  //   next();
+  // },
   methods: {
-    ...mapActions("login", ["login"])
+    ...mapActions("login", ["login"]),
+    ...mapActions("loading", ["toggle"])
   }
 };
 </script>

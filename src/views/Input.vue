@@ -29,7 +29,7 @@
             style="height: 50px;"
             required
           >
-            <option disabled value>集中度</option>
+            <option disabled value>集中力</option>
             <option value="浅">浅</option>
             <option value="中">中</option>
             <option value="真">真</option>
@@ -59,8 +59,13 @@
 <script>
 import axios from "axios";
 import dayjs from "dayjs";
+import { mapActions } from "vuex";
 
 export default {
+  // beforeRouteUpdate(to, from, next) {
+  //   this.toggle();
+  //   next();
+  // },
   data() {
     return {
       studyTime: 0, // 時間
@@ -83,6 +88,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions("loading", ["toggle"]),
     submitStudy() {
       axios
         .post("/posts", {
@@ -111,9 +117,9 @@ export default {
           }
         })
         .then(() => {
-          this.latitude = 0;
-          this.longitude = 0;
-          this.studyTime = undefined;
+          // this.latitude = 0;
+          // this.longitude = 0;
+          this.studyTime = 0;
           this.studyArea = "";
           this.studyDensity = "";
           this.studyContent = "";
@@ -121,6 +127,8 @@ export default {
         .catch(error => {
           console.log(error.response);
         });
+
+      this.$router.push({ name: "userdata" });
     }
     // getLocation() {
     //   if (!navigator.geolocation) {

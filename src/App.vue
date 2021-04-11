@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Header></Header>
+    <Loading v-show="loading"></Loading>
     <div class="container">
       <div class="container__inner">
         <router-view></router-view>
@@ -12,18 +13,21 @@
 <script>
 import firebase from "firebase";
 import Header from "./views/Header";
+import Loading from "./components/Loading";
 import { mapActions, mapState } from "vuex";
 
 export default {
   name: "App",
   components: {
-    Header
+    Header,
+    Loading
   },
   computed: {
     ...mapState("login", ["login_user"])
   },
   methods: {
     ...mapActions("getpost", ["getStudyData"]),
+    ...mapActions("loading", ["loading"]),
     ...mapActions("login", ["setLoginUser", "deleteLoginUser"])
   },
   created() {
