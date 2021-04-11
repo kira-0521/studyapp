@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Store from "vuex";
+// webpackのimportを使用することで必要になったタイミングでコンポーネントをロードすることができる。
+// 初期描画に時間がかからない。
 const Home = () => import(/* webpackChunkName: "Home" */ "../views/Home.vue");
 const Input = () =>
   import(/* webpackChunkName: "Input" */ "../views/Input.vue");

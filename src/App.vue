@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header></Header>
-    <Loading v-show="loading"></Loading>
+    <!-- <Loading v-show="loading"></Loading> -->
     <div class="container">
       <div class="container__inner">
         <router-view></router-view>
@@ -13,28 +13,33 @@
 <script>
 import firebase from "firebase";
 import Header from "./views/Header";
-import Loading from "./components/Loading";
+// import Loading from "./components/Loading";
 import { mapActions, mapState } from "vuex";
 
 export default {
   name: "App",
   components: {
-    Header,
-    Loading
+    Header
+    // Loading
   },
   computed: {
-    ...mapState("login", ["login_user"])
+    ...mapState("getpost", ["login_user"]),
+    ...mapState("loading", ["loading"])
   },
   methods: {
-    ...mapActions("getpost", ["getStudyData"]),
-    ...mapActions("loading", ["loading"]),
-    ...mapActions("login", ["setLoginUser", "deleteLoginUser"])
+    ...mapActions("getpost", [
+      "getStudyData",
+      "setLoginUser",
+      "deleteLoginUser"
+    ]),
+    ...mapActions("loading", ["toggle"])
   },
   created() {
     // ログイン時とログアウト時にユーザーオブジェクトが入る
     // ログインログアウトを検知する必要がある
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
+        this.toggle();
         this.setLoginUser(user);
         if (this.$router.currentRoute.name === "home")
           this.$router.push({ name: "input" });

@@ -26,6 +26,10 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
+router.afterEach(() => {
+  store.dispatch("loading/toggle");
+});
+
 new Vue({
   render: h => h(App),
   store,

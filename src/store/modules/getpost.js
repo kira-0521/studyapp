@@ -1,30 +1,38 @@
 import axios from "axios";
+import firebase from "firebase";
 
 // 各データをgettersに格納したほうがいいかも
 
 const state = {
   studyData: [],
   area: [],
-  density: []
+  density: [],
+  login_user: null
 };
 
 const getters = {
-  studyData: state => state.studyData,
-  area: state => state.area,
-  density: state => state.density
+  setArea: state => [...new Set(state.area)],
+  setDensity: state => [...new Set(state.density)],
+  userName: state => (state.login_user ? state.login_user.userName : ""),
+  photoURL: state => (state.login_user ? state.login_user.photoURL : ""),
+  uid: state => (state.login_user ? state.login_user.uid : null)
 };
 
 const mutations = {
-  setStudyData(state, payload) {
+  getStudyData(state, payload) {
     state.studyData = payload.studyData;
   },
-  // 被りなし場所
   setArea(state, payload) {
-    state.area = [...new Set(payload.area)];
+    state.area = payload.area;
   },
-  // 被りなし集中
   setDensity(state, payload) {
-    state.density = [...new Set(payload.density)];
+    state.density = payload.density;
+  },
+  setLoginUser(state, user) {
+    state.login_user = user;
+  },
+  deleteLoginUser(state) {
+    state.login_user = null;
   }
 };
 
@@ -36,7 +44,7 @@ const actions = {
       area: [],
       density: []
     };
-    await axios.get("/posts").then(res => {
+    await axios.get(`/users/${getters.uid}/posts`).then(res => {
       for (let i = 0; i < res.data.documents.length; i++) {
         payload.studyData.push(res.data.documents[i].fields);
       }
@@ -45,9 +53,24 @@ const actions = {
         payload.density.push(data.studyDensity.stringValue);
       });
     });
-    commit("setStudyData", payload);
+    commit("getStudyData", payload);
     commit("setArea", payload);
     commit("setDensity", payload);
+  },
+  login() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    // 自動でグーグルの認証画面に飛ぶ
+    firebase.auth().signInWithRedirect(provider);
+  },
+  logout() {
+    // firebaseのサインアウトメソッド
+    firebase.auth().signOut();
+  },
+  setLoginUser({ commit }, user) {
+    commit("setLoginUser", user);
+  },
+  deleteLoginUser({ commit }) {
+    commit("deleteLoginUser");
   }
 };
 

@@ -16,7 +16,7 @@ export default {
   //   next();
   // },
   methods: {
-    ...mapActions("login", ["login"]),
+    ...mapActions("getpost", ["login"]),
     ...mapActions("loading", ["toggle"])
   }
 };

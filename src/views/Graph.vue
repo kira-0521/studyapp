@@ -14,9 +14,6 @@
           style="width: 300px; height: 300px;"
         ></pie-chart>
       </li>
-      <!-- <ul>
-        <li v-for=""></li>
-      </ul> -->
     </ul>
   </div>
 </template>
@@ -37,31 +34,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("getpost", ["studyData", "area", "density"]),
-    // 場所ごとにデータを分割
-    // separateArea() {
-    //   let sortObj = [];
-    //   const separate = [];
-    //   for (let i = 0; i < this.area.length; i++) {
-    //     this.studyData.forEach(post => {
-    //       // index返す→0
-    //       if (post.studyArea.stringValue.indexOf(this.area[i]) !== -1) {
-    //         sortObj.push(post);
-    //       }
-    //     });
-    //     separate.push(sortObj);
-    //     sortObj = [];
-    //   }
-    //   return separate;
-    // },
+    ...mapGetters("getpost", ["studyData", "setArea", "setDensity"]),
     // 場所ごとにデータを分割
     separateArea() {
       let sort = [];
       const separate = [];
-      for (let i = 0; i < this.area.length; i++) {
+      for (let i = 0; i < this.setArea.length; i++) {
         // areaのi番目とdataのstudyAreaが一致したらsortにpush
         this.studyData.forEach(data => {
-          if (data.studyArea.stringValue.includes(this.area[i])) {
+          if (data.studyArea.stringValue.includes(this.setArea[i])) {
             sort.push(data);
           }
         });
@@ -88,41 +69,24 @@ export default {
             } else {
               densitySum.deep += stTime;
             }
-            // let deepArray = [];
-            // deepArray.push(stTime);
-            // densitySum.deep = deepArray.reduce((acc, value) => acc + value);
           } else if (stDensity == "中") {
             if (densitySum.normal === 0) {
               densitySum.normal = stTime;
             } else {
               densitySum.normal += stTime;
             }
-            // let normalArray = [];
-            // normalArray.push(stTime);
-            // densitySum.normal = normalArray.reduce((acc, value) => acc + value);
           } else {
             if (densitySum.light === 0) {
               densitySum.light = stTime;
             } else {
               densitySum.light += stTime;
             }
-            // let lightArray = [];
-            // lightArray.push(stTime);
-            // densitySum.light = lightArray.reduce((acc, value) => acc + value);
           }
         });
         separate.push(densitySum);
       }
       return separate;
     }
-    // separateByLocation() {
-    //   const separateObj = {
-    //     area: "",
-    //     totalHours: 0,
-    //     percentage: 0
-    //   };
-
-    // }
   },
   async mounted() {
     this.loaded = false;
@@ -138,7 +102,7 @@ export default {
   methods: {
     ...mapActions("getpost", ["getStudyData"]),
     fillData() {
-      for (let i = 0; i < this.area.length; i++) {
+      for (let i = 0; i < this.setArea.length; i++) {
         const graphData = {
           labels: ["真", "中", "浅"],
           datasets: [
@@ -155,10 +119,6 @@ export default {
         };
         this.datacollection.push(graphData);
       }
-    },
-    console() {
-      console.log(this.separateArea);
-      console.log(this.separateDensity);
     }
   }
 };

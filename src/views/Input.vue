@@ -59,13 +59,13 @@
 <script>
 import axios from "axios";
 import dayjs from "dayjs";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-  // beforeRouteUpdate(to, from, next) {
-  //   this.toggle();
-  //   next();
-  // },
+  beforeRouteEnter(to, from, next) {
+    // this.toggle();
+    next();
+  },
   data() {
     return {
       studyTime: 0, // 時間
@@ -77,6 +77,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters("getpost", ["uid"]),
     getNow() {
       return dayjs().format("YYYY-MM-DD");
       // const now = new Date();
@@ -90,45 +91,46 @@ export default {
   methods: {
     ...mapActions("loading", ["toggle"]),
     submitStudy() {
-      axios
-        .post("/posts", {
-          fields: {
-            studyTime: {
-              integerValue: this.studyTime
-            },
-            studyArea: {
-              stringValue: this.studyArea
-            },
-            studyDensity: {
-              stringValue: this.studyDensity
-            },
-            studyContent: {
-              stringValue: this.studyContent
-            },
-            nowTime: {
-              stringValue: this.getNow
+      if (this.uid) {
+        axios
+          .post(`users/${this.uid}/posts`, {
+            fields: {
+              studyTime: {
+                integerValue: this.studyTime
+              },
+              studyArea: {
+                stringValue: this.studyArea
+              },
+              studyDensity: {
+                stringValue: this.studyDensity
+              },
+              studyContent: {
+                stringValue: this.studyContent
+              },
+              nowTime: {
+                stringValue: this.getNow
+              }
+              // latitude: {
+              //   stringValue: this.latitude
+              // },
+              // longitude: {
+              //   stringValue: this.longitude
+              // }
             }
-            // latitude: {
-            //   stringValue: this.latitude
-            // },
-            // longitude: {
-            //   stringValue: this.longitude
-            // }
-          }
-        })
-        .then(() => {
-          // this.latitude = 0;
-          // this.longitude = 0;
-          this.studyTime = 0;
-          this.studyArea = "";
-          this.studyDensity = "";
-          this.studyContent = "";
-        })
-        .catch(error => {
-          console.log(error.response);
-        });
-
-      this.$router.push({ name: "userdata" });
+          })
+          .then(() => {
+            // this.latitude = 0;
+            // this.longitude = 0;
+            this.studyTime = 0;
+            this.studyArea = "";
+            this.studyDensity = "";
+            this.studyContent = "";
+          })
+          .catch(error => {
+            console.log(error.response);
+          });
+        // this.$router.push({ name: "userdata" });
+      }
     }
     // getLocation() {
     //   if (!navigator.geolocation) {

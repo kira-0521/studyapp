@@ -62,10 +62,10 @@ export default {
     LogOutIcon
   },
   computed: {
-    ...mapGetters("login", ["photoURL"])
+    ...mapGetters("getpost", ["photoURL"])
   },
   methods: {
-    ...mapActions("login", ["logout"])
+    ...mapActions("getpost", ["logout"])
   }
 };
 </script>
