@@ -39,11 +39,11 @@ export default {
     // ログインログアウトを検知する必要がある
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        this.toggle();
+        // this.toggle();
         this.setLoginUser(user);
+        this.getStudyData();
         if (this.$router.currentRoute.name === "home")
           this.$router.push({ name: "input" });
-        this.getStudyData();
         // ログアウトした際の処理
       } else {
         this.deleteLoginUser();

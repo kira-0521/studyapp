@@ -23,7 +23,10 @@ const firebaseConfig = {
   measurementId: "G-92V527KQFF"
 };
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+// 初期化は一度だけ
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 firebase.analytics();
 
 router.afterEach(() => {

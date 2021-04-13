@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
 import PieChart from "../chart/PieChart.js";
 
 export default {
@@ -34,73 +33,71 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("getpost", ["studyData", "setArea", "setDensity"]),
-    // 場所ごとにデータを分割
-    separateArea() {
-      let sort = [];
-      const separate = [];
-      for (let i = 0; i < this.setArea.length; i++) {
-        // areaのi番目とdataのstudyAreaが一致したらsortにpush
-        this.studyData.forEach(data => {
-          if (data.studyArea.stringValue.includes(this.setArea[i])) {
-            sort.push(data);
-          }
-        });
-        separate.push(sort);
-        sort = [];
-      }
-      return separate;
-    },
-    // 場所ごとに分けたデータから集中度ごとに数値を計算
-    separateDensity() {
-      const separate = [];
-      for (let i = 0; i < this.separateArea.length; i++) {
-        const densitySum = {
-          deep: 0,
-          normal: 0,
-          light: 0
-        };
-        this.separateArea[i].forEach(data => {
-          const stDensity = data.studyDensity.stringValue;
-          const stTime = Number(data.studyTime.integerValue);
-          if (stDensity == "真") {
-            if (densitySum.deep === 0) {
-              densitySum.deep = stTime;
-            } else {
-              densitySum.deep += stTime;
-            }
-          } else if (stDensity == "中") {
-            if (densitySum.normal === 0) {
-              densitySum.normal = stTime;
-            } else {
-              densitySum.normal += stTime;
-            }
-          } else {
-            if (densitySum.light === 0) {
-              densitySum.light = stTime;
-            } else {
-              densitySum.light += stTime;
-            }
-          }
-        });
-        separate.push(densitySum);
-      }
-      return separate;
-    }
+    // ...mapGetters("getpost", ["studyData", "setArea", "setDensity"]),
+    // // 場所ごとにデータを分割
+    // separateArea() {
+    //   let sort = [];
+    //   const separate = [];
+    //   for (let i = 0; i < this.setArea.length; i++) {
+    //     // areaのi番目とdataのstudyAreaが一致したらsortにpush
+    //     this.studyData.forEach(data => {
+    //       if (data.studyArea.stringValue.includes(this.setArea[i])) {
+    //         sort.push(data);
+    //       }
+    //     });
+    //     separate.push(sort);
+    //     sort = [];
+    //   }
+    //   return separate;
+    // },
+    // // 場所ごとに分けたデータから集中度ごとに数値を計算
+    // separateDensity() {
+    //   const separate = [];
+    //   for (let i = 0; i < this.separateArea.length; i++) {
+    //     const densitySum = {
+    //       deep: 0,
+    //       normal: 0,
+    //       light: 0
+    //     };
+    //     this.separateArea[i].forEach(data => {
+    //       const stDensity = data.studyDensity.stringValue;
+    //       const stTime = Number(data.studyTime.integerValue);
+    //       if (stDensity == "真") {
+    //         if (densitySum.deep === 0) {
+    //           densitySum.deep = stTime;
+    //         } else {
+    //           densitySum.deep += stTime;
+    //         }
+    //       } else if (stDensity == "中") {
+    //         if (densitySum.normal === 0) {
+    //           densitySum.normal = stTime;
+    //         } else {
+    //           densitySum.normal += stTime;
+    //         }
+    //       } else {
+    //         if (densitySum.light === 0) {
+    //           densitySum.light = stTime;
+    //         } else {
+    //           densitySum.light += stTime;
+    //         }
+    //       }
+    //     });
+    //     separate.push(densitySum);
+    //   }
+    //   return separate;
+    // }
   },
   async mounted() {
     this.loaded = false;
     try {
-      await this.getStudyData();
-      this.fillData();
-      // データを受け取ってから描画
+      await this.fillData();
       this.loaded = true;
+      // データを受け取ってから描画
     } catch (e) {
       console.error(e);
     }
   },
   methods: {
-    ...mapActions("getpost", ["getStudyData"]),
     fillData() {
       for (let i = 0; i < this.setArea.length; i++) {
         const graphData = {

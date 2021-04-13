@@ -1,65 +1,67 @@
 <template>
   <div class="input-area">
-    <div class="input-area__inner">
-      <div class="input-area__title">
-        <h1>Study Log</h1>
-      </div>
-      <div class="input-area__time">
-        <label for="studyTime">
-          <input id="studyTime" v-model.number="fields.studyTime" required />
-        </label>
-      </div>
-      <!-- 仮 -->
-      <div class="input-area__area">
-        <label for="studyArea">
-          <input
-            id="studyArea"
-            v-model.trim="fields.studyArea"
-            type="text"
-            placeholder="勉強場所"
-            required
-          />
-        </label>
-      </div>
-      <div class="input-area__density">
-        <label for="studyDensity">
-          <select
-            id="studyDensity"
-            v-model="fields.studyDensity"
-            style="height: 50px;"
-            required
-          >
-            <option disabled value>集中力</option>
-            <option value="浅">浅</option>
-            <option value="中">中</option>
-            <option value="真">真</option>
-          </select>
-        </label>
-      </div>
-      <div class="input-area__content">
-        <label for="studyContent">
-          <textarea
-            id="studyContent"
-            v-model="fields.studyContent"
-            placeholder="勉強内容"
-            style="height: 100px;"
-          />
-        </label>
-      </div>
+    <div class="input-area__inner" :items="fields">
+      <template v-slot:items="props">
+        <div class="input-area__title">
+          <h1>Study Log</h1>
+        </div>
+        <div class="input-area__time">
+          <label for="studyTime">
+            <input
+              id="studyTime"
+              v-model.number="props.item.studyTime"
+              required
+            />
+          </label>
+        </div>
+        <!-- 仮 -->
+        <div class="input-area__area">
+          <label for="studyArea">
+            <input
+              id="studyArea"
+              v-model.trim="fields.studyArea"
+              type="text"
+              placeholder="勉強場所"
+              required
+            />
+          </label>
+        </div>
+        <div class="input-area__density">
+          <label for="studyDensity">
+            <select
+              id="studyDensity"
+              v-model="fields.studyDensity"
+              style="height: 50px;"
+              required
+            >
+              <option disabled value>集中力</option>
+              <option value="浅">浅</option>
+              <option value="中">中</option>
+              <option value="真">真</option>
+            </select>
+          </label>
+        </div>
+        <div class="input-area__content">
+          <label for="studyContent">
+            <textarea
+              id="studyContent"
+              v-model="fields.studyContent"
+              placeholder="勉強内容"
+              style="height: 100px;"
+            />
+          </label>
+        </div>
+      </template>
       <button @click="submitStudy" class="input-area__submit">
         記録する
       </button>
     </div>
-    <!-- <button @click="getLocation" class="input-area_location">
-        現在地を取得
-      </button> -->
   </div>
 </template>
 
 <script>
-import firebase from "firebase";
 import dayjs from "dayjs";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   beforeRouteEnter(to, from, next) {
@@ -68,42 +70,24 @@ export default {
   },
   data() {
     return {
-      fields: {
-        studyTime: 0, // 時間
-        studyDensity: "", // 密度
-        studyContent: "", // 内容
-        studyArea: "" // 場所
-      }
+      field: {}
+      // studyTime: 0, // 時間
+      //   studyDensity: "", // 密度
+      //   studyContent: "", // 内容
+      //   studyArea: "" // 場所
     };
   },
   computed: {
-    ...mapGetters("getpost", ["uid"]),
     getNow() {
       return dayjs().format("YYYY-MM-DD");
     }
   },
   methods: {
     ...mapActions("loading", ["toggle"]),
+    ...mapActions("getpost", ["setStudyData"]),
     submitStudy() {
-      if (this.uid) {
-        firebase
-          .firestore()
-          .collection(`users/${this.uid}/posts`)
-          .add(this.fields)
-          .then(() => {
-            this.fields = {
-              studyTime: 0,
-              studyArea: "",
-              studyDensity: "",
-              studyContent: ""
-            };
-            console.log(this.fields);
-          })
-          .catch(error => {
-            console.log(error.response);
-          });
-        this.$router.push({ name: "userdata" });
-      }
+      this.setStudyData(this.field);
+      this.field = {};
     }
   }
 };
