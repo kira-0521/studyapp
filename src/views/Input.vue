@@ -1,6 +1,6 @@
 <template>
   <div class="input-area">
-    <div class="input-area__inner" :items="fields">
+    <div class="input-area__inner" :items="props.item">
       <template v-slot:items="props">
         <div class="input-area__title">
           <h1>Study Log</h1>
@@ -19,7 +19,7 @@
           <label for="studyArea">
             <input
               id="studyArea"
-              v-model.trim="fields.studyArea"
+              v-model.trim="props.item.studyArea"
               type="text"
               placeholder="勉強場所"
               required
@@ -30,7 +30,7 @@
           <label for="studyDensity">
             <select
               id="studyDensity"
-              v-model="fields.studyDensity"
+              v-model="props.item.studyDensity"
               style="height: 50px;"
               required
             >
@@ -45,7 +45,7 @@
           <label for="studyContent">
             <textarea
               id="studyContent"
-              v-model="fields.studyContent"
+              v-model="props.item.studyContent"
               placeholder="勉強内容"
               style="height: 100px;"
             />
