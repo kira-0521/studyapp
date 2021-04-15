@@ -46,6 +46,7 @@ const actions = {
   },
   // データ取得
   getStudyData({ getters }) {
+    console.log(getters.uid);
     // const payload = {
     //   studyData: [],
     //   area: [],
@@ -53,10 +54,10 @@ const actions = {
     // };
     firebase
       .firestore()
-      .collection(`users/${getters.uid}}/posts`)
+      .collection(`users/${getters.uid}/posts`)
       .get()
       .then(snapshot => {
-        console.log(snapshot);
+        snapshot.forEach(doc => console.log(doc.data().nowTime));
         // for (let i = 0; i < snapshot.data.documents.length; i++) {
         //   payload.studyData.push(snapshot.data.documents[i].fields);
         // }

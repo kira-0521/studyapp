@@ -47,7 +47,7 @@ export default {
         // ログアウトした際の処理
       } else {
         this.deleteLoginUser();
-        this.$router.push({ name: "home" });
+        // this.$router.push({ name: "home" });
       }
     });
   }
