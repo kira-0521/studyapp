@@ -63,10 +63,9 @@ body,
 #app,
 .container {
   height: 100%;
-}
-
-#app {
   background-color: $cBg;
+}
+#app {
   font-family: "Roboto", sans-serif;
   min-height: 100%;
 }

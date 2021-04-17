@@ -11,7 +11,8 @@
           v-if="loaded"
           :chart-data="data"
           :options="options"
-          style="width: 300px; height: 300px;"
+          style="width: 300px; height: 300px; display: inline-block;"
+          class=""
         ></pie-chart>
       </li>
     </ul>
@@ -111,7 +112,7 @@ export default {
                 this.separateDensity[i].normal,
                 this.separateDensity[i].light
               ],
-              backgroundColor: ["#59b9c6", "#abced8", "#ffffff"],
+              backgroundColor: ["#2b80d5", "#72aae2", "#ffffff"],
               hoverBorderWidth: 3
             }
           ]
@@ -126,8 +127,15 @@ export default {
 <style lang="scss" scoped>
 .graph {
   &__ul {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  &__li {
+    text-align: center;
+    padding: 5%;
+  }
+  &__title {
+    margin-bottom: 5%;
   }
 }
 </style>
