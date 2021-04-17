@@ -66,8 +66,8 @@ export default {
     getEvents() {
       const events = [];
       this.studyData.forEach(date => {
-        const nowTime = date.nowTime.stringValue;
-        const content = date.studyContent.stringValue;
+        const nowTime = date.nowTime;
+        const content = date.studyContent;
         const obj = {
           name: content,
           start: dayjs(nowTime).toDate(), // 開始時刻

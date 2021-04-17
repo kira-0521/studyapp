@@ -72,7 +72,6 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/styles/modules/_variables.scss";
-@import "../assets/styles/modules/_variables2.scss";
 
 .header {
   background-color: $cBg;

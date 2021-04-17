@@ -16,19 +16,18 @@
                 class="custom-class calendar"
               ></calendar-icon>
               <p class="user-data__date">
-                {{ studyData[id].nowTime.stringValue }}
+                {{ studyData[id].nowTime }}
               </p>
             </div>
             <ul class="user-data__ul">
               <li class="user-data__li">
                 <clock-icon size="0.9x" class="custom-class"></clock-icon>
                 <span class="content">時間: </span
-                >{{ studyData[id].studyTime.integerValue }}時間
+                >{{ studyData[id].studyTime }}時間
               </li>
               <li class="user-data__li">
                 <map-pin-icon size="0.9x" class="custom-class"></map-pin-icon>
-                <span class="content">場所: </span
-                >{{ studyData[id].studyArea.stringValue }}
+                <span class="content">場所: </span>{{ studyData[id].studyArea }}
               </li>
               <li class="user-data__li">
                 <bar-chart-icon
@@ -37,7 +36,7 @@
                 ></bar-chart-icon>
 
                 <span class="content">集中度: </span
-                >{{ studyData[id].studyDensity.stringValue }}
+                >{{ studyData[id].studyDensity }}
               </li>
               <li class="user-data__li">
                 <book-open-icon
@@ -45,7 +44,7 @@
                   class="custom-class"
                 ></book-open-icon>
                 <span class="content">勉強内容: </span
-                >{{ studyData[id].studyContent.stringValue }}
+                >{{ studyData[id].studyContent }}
               </li>
             </ul>
             <div class="user-data__link">
@@ -77,6 +76,7 @@ import {
 } from "vue-feather-icons";
 
 export default {
+  // ルーティングに必要なid
   props: ["id"],
   components: {
     Calendar,
@@ -99,16 +99,14 @@ export default {
     // 日付取得 → 日付一致すれば表示,処理終了. 一致しなければview=false.
     viewDate(calendarDate) {
       for (let data of this.studyData) {
-        if (data.nowTime.stringValue === calendarDate) {
+        if (data.nowTime === calendarDate) {
           const index = [].slice.call(this.studyData).indexOf(data);
           console.log(`date: ${calendarDate} / index: ${index}`);
           this.$router.push({ name: "userdata", params: { id: index } });
           this.view = true;
-          console.log(this.view);
           break;
         } else {
           this.view = false;
-          console.log(this.view);
         }
       }
     }

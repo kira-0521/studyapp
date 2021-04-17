@@ -6,7 +6,7 @@
         v-for="(data, index) in datacollection"
         :key="index"
       >
-        <h2 class="graph__title">{{ area[index] }}</h2>
+        <h2 class="graph__title">{{ setArea[index] }}</h2>
         <pie-chart
           v-if="loaded"
           :chart-data="data"
@@ -20,6 +20,7 @@
 
 <script>
 import PieChart from "../chart/PieChart.js";
+import { mapGetters, mapState } from "vuex";
 
 export default {
   components: {
@@ -33,59 +34,60 @@ export default {
     };
   },
   computed: {
-    // ...mapGetters("getpost", ["studyData", "setArea", "setDensity"]),
-    // // 場所ごとにデータを分割
-    // separateArea() {
-    //   let sort = [];
-    //   const separate = [];
-    //   for (let i = 0; i < this.setArea.length; i++) {
-    //     // areaのi番目とdataのstudyAreaが一致したらsortにpush
-    //     this.studyData.forEach(data => {
-    //       if (data.studyArea.stringValue.includes(this.setArea[i])) {
-    //         sort.push(data);
-    //       }
-    //     });
-    //     separate.push(sort);
-    //     sort = [];
-    //   }
-    //   return separate;
-    // },
-    // // 場所ごとに分けたデータから集中度ごとに数値を計算
-    // separateDensity() {
-    //   const separate = [];
-    //   for (let i = 0; i < this.separateArea.length; i++) {
-    //     const densitySum = {
-    //       deep: 0,
-    //       normal: 0,
-    //       light: 0
-    //     };
-    //     this.separateArea[i].forEach(data => {
-    //       const stDensity = data.studyDensity.stringValue;
-    //       const stTime = Number(data.studyTime.integerValue);
-    //       if (stDensity == "真") {
-    //         if (densitySum.deep === 0) {
-    //           densitySum.deep = stTime;
-    //         } else {
-    //           densitySum.deep += stTime;
-    //         }
-    //       } else if (stDensity == "中") {
-    //         if (densitySum.normal === 0) {
-    //           densitySum.normal = stTime;
-    //         } else {
-    //           densitySum.normal += stTime;
-    //         }
-    //       } else {
-    //         if (densitySum.light === 0) {
-    //           densitySum.light = stTime;
-    //         } else {
-    //           densitySum.light += stTime;
-    //         }
-    //       }
-    //     });
-    //     separate.push(densitySum);
-    //   }
-    //   return separate;
-    // }
+    ...mapState("getpost", ["studyData"]),
+    ...mapGetters("getpost", ["setArea", "setDensity"]),
+    // 場所ごとにデータを分割
+    separateArea() {
+      let sort = [];
+      const separate = [];
+      for (let i = 0; i < this.setArea.length; i++) {
+        // areaのi番目とdataのstudyAreaが一致したらsortにpush
+        this.studyData.forEach(data => {
+          if (data.studyArea.includes(this.setArea[i])) {
+            sort.push(data);
+          }
+        });
+        separate.push(sort);
+        sort = [];
+      }
+      return separate;
+    },
+    // 場所ごとに分けたデータから集中度ごとの合計値を計算
+    separateDensity() {
+      const separate = [];
+      for (let i = 0; i < this.separateArea.length; i++) {
+        const densitySum = {
+          deep: 0,
+          normal: 0,
+          light: 0
+        };
+        this.separateArea[i].forEach(data => {
+          const stDensity = data.studyDensity;
+          const stTime = Number(data.studyTime);
+          if (stDensity == "真") {
+            if (densitySum.deep === 0) {
+              densitySum.deep = stTime;
+            } else {
+              densitySum.deep += stTime;
+            }
+          } else if (stDensity == "中") {
+            if (densitySum.normal === 0) {
+              densitySum.normal = stTime;
+            } else {
+              densitySum.normal += stTime;
+            }
+          } else {
+            if (densitySum.light === 0) {
+              densitySum.light = stTime;
+            } else {
+              densitySum.light += stTime;
+            }
+          }
+        });
+        separate.push(densitySum);
+      }
+      return separate;
+    }
   },
   async mounted() {
     this.loaded = false;
@@ -109,7 +111,7 @@ export default {
                 this.separateDensity[i].normal,
                 this.separateDensity[i].light
               ],
-              backgroundColor: ["#2a83a2", "#59b9c6", "#abced8"],
+              backgroundColor: ["#59b9c6", "#abced8", "#ffffff"],
               hoverBorderWidth: 3
             }
           ]

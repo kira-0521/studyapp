@@ -8,8 +8,6 @@ const Input = () =>
   import(/* webpackChunkName: "Input" */ "../views/Input.vue");
 const Graph = () =>
   import(/* webpackChunkName: "Graph" */ "../views/Graph.vue");
-const Login = () =>
-  import(/* webpackChunkName: "Login" */ "../views/Login.vue");
 const UserData = () =>
   import(/* webpackChunkName: "UserData" */ "../views/UserData.vue");
 
@@ -32,11 +30,6 @@ export default new Router({
       path: "/graph",
       component: Graph,
       name: "graph"
-    },
-    {
-      path: "/login",
-      component: Login,
-      name: "login"
     },
     {
       path: "/userdata/:id",

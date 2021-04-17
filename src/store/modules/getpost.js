@@ -1,37 +1,40 @@
 import firebase from "firebase";
 
-// 各データをgettersに格納したほうがいいかも
-
 const state = {
   studyData: [],
-  area: [],
-  density: [],
   login_user: null
 };
 
 const getters = {
-  setArea: state => [...new Set(state.area)],
-  setDensity: state => [...new Set(state.density)],
+  setArea: function(state) {
+    const area = [];
+    state.studyData.forEach(data => {
+      area.push(data.studyArea);
+    });
+    return [...new Set(area)];
+  },
+  setDensity: function(state) {
+    const density = [];
+    state.studyData.forEach(data => {
+      density.push(data.studyDensity);
+    });
+    return [...new Set(density)];
+  },
   userName: state => (state.login_user ? state.login_user.userName : ""),
   photoURL: state => (state.login_user ? state.login_user.photoURL : ""),
   uid: state => (state.login_user ? state.login_user.uid : null)
 };
 
 const mutations = {
-  getStudyData(state, payload) {
-    state.studyData = payload.studyData;
-  },
-  setArea(state, payload) {
-    state.area = payload.area;
-  },
-  setDensity(state, payload) {
-    state.density = payload.density;
+  getStudyData(state, studyData) {
+    state.studyData = studyData;
   },
   setLoginUser(state, user) {
     state.login_user = user;
   },
   deleteLoginUser(state) {
     state.login_user = null;
+    state.studyData = [];
   }
 };
 
@@ -45,30 +48,16 @@ const actions = {
     }
   },
   // データ取得
-  getStudyData({ getters }) {
-    console.log(getters.uid);
-    // const payload = {
-    //   studyData: [],
-    //   area: [],
-    //   density: []
-    // };
+  getStudyData({ commit, getters }) {
+    const studyData = [];
     firebase
       .firestore()
       .collection(`users/${getters.uid}/posts`)
       .get()
       .then(snapshot => {
-        snapshot.forEach(doc => console.log(doc.data().nowTime));
-        // for (let i = 0; i < snapshot.data.documents.length; i++) {
-        //   payload.studyData.push(snapshot.data.documents[i].fields);
-        // }
-        // payload.studyData.forEach(data => {
-        //   payload.area.push(data.studyArea.stringValue);
-        //   payload.density.push(data.studyDensity.stringValue);
-        // });
+        snapshot.forEach(doc => studyData.push(doc.data()));
       });
-    // commit("getStudyData", payload);
-    // commit("setArea", payload);
-    // commit("setDensity", payload);
+    commit("getStudyData", studyData);
   },
   login() {
     const provider = new firebase.auth.GoogleAuthProvider();

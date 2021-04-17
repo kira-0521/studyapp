@@ -43,6 +43,9 @@
             v-model="fields.studyContent"
             placeholder="勉強内容"
             style="height: 100px;"
+            maxlength="30"
+            wrap="hard"
+            cols="15"
           />
         </label>
       </div>
