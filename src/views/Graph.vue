@@ -6,7 +6,9 @@
         v-for="(data, index) in datacollection"
         :key="index"
       >
-        <h2 class="graph__title">{{ setArea[index] }}</h2>
+        <div class="graph__inner">
+          <h2 class="graph__title">{{ setArea[index] }}</h2>
+        </div>
         <pie-chart
           v-if="loaded"
           :chart-data="data"

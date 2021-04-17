@@ -38,12 +38,12 @@
                 <span class="content">集中度: </span
                 >{{ studyData[id].studyDensity }}
               </li>
-              <li class="user-data__li">
+              <li class="user-data__li" style="display: inline-block;">
                 <book-open-icon
                   size="0.9x"
                   class="custom-class"
                 ></book-open-icon>
-                <span class="content">勉強内容: </span
+                <span class="content">内容: </span
                 >{{ studyData[id].studyContent }}
               </li>
             </ul>
@@ -64,6 +64,7 @@
 </template>
 
 <script>
+// import dayjs from "dayjs";
 import Calendar from "../components/Calendar";
 import { mapState } from "vuex";
 import {
@@ -92,6 +93,19 @@ export default {
       view: false
     };
   },
+  // mounted() {
+  //   for (const [data, index] of this.studyData) {
+  //     const today = dayjs().format("YYYY-MM-DD");
+  //     const getDate = data.nowTime;
+  //     if (today === getDate) {
+  //       this.id = index;
+  //       this.view = true;
+  //       break;
+  //     } else {
+  //       return;
+  //     }
+  //   }
+  // },
   computed: {
     ...mapState("getpost", ["studyData"])
   },
