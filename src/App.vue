@@ -26,21 +26,21 @@ export default {
     ...mapState("getpost", ["login_user"]),
     ...mapState("loading", ["loading"])
   },
-  async created() {
+  created() {
     // ログイン時とログアウト時にユーザーオブジェクトが入る
-    // ログインログアウトを検知する必要がある
-    this.setLoading(true);
-    await firebase.auth().onAuthStateChanged(user => {
+    // ログインログアウトを検知
+    // this.setLoading(true);
+    firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setLoginUser(user);
         this.getStudyData();
         if (this.$router.currentRoute.name === "home") {
           this.$router.push({ name: "input" });
         }
-        // １時間たったらlogin_userをリセット
-        setTimeout(() => {
-          this.login_user = null;
-        }, 3.6e6);
+        // // １時間たったらlogin_userをリセット
+        // setTimeout(() => {
+        //   this.login_user = null;
+        // }, 3.6e6);
         // ログアウトした際の処理
       } else {
         this.deleteLoginUser();
