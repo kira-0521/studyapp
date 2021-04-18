@@ -61,10 +61,6 @@ import dayjs from "dayjs";
 import { mapActions } from "vuex";
 
 export default {
-  beforeRouteEnter(to, from, next) {
-    // this.toggle();
-    next();
-  },
   data() {
     return {
       fields: {
@@ -80,9 +76,14 @@ export default {
       return dayjs().format("YYYY-MM-DD");
     }
   },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.setLoading(false);
+    });
+  },
   methods: {
-    ...mapActions("loading", ["toggle"]),
     ...mapActions("getpost", ["setStudyData"]),
+    ...mapActions("loading", ["setLoading"]),
     submitStudy() {
       this.fields.nowTime = this.getNow;
       this.setStudyData(this.fields);

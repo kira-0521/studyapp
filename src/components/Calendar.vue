@@ -1,13 +1,24 @@
 <template>
-  <div class="calendar">
+  <div class="wrapper">
     <v-sheet
       title
       height="4vh"
-      width="600px"
-      color="lighten-3"
+      min-width="375px"
+      max-width="600px"
+      color="indigo"
       class="d-flex align-center"
+      :elevation="elevation"
     >
-      <v-btn outlinned small class="ma-4" @click="setToday">今日</v-btn>
+      <v-btn
+        rounded
+        elevation="6"
+        height="24"
+        color="white"
+        small
+        class="ma-4"
+        @click="setToday"
+        >今日</v-btn
+      >
       <v-btn icon @click="$refs.calendar.prev()">
         <v-icon>mdi-chevron-left</v-icon>
       </v-btn>
@@ -16,20 +27,26 @@
       </v-btn>
       <v-toolbar-title>{{ title }}</v-toolbar-title>
     </v-sheet>
-    <v-sheet height="56vh" width="600px">
+    <v-sheet
+      height="56vh"
+      min-width="375px"
+      max-width="600px"
+      :elevation="elevation"
+    >
       <v-calendar
         :month-format="
           timestamp => new Date(timestamp.date).getMonth() + 1 + ' /'
         "
         ref="calendar"
         v-model="value"
+        locale="ja-jp"
+        event-height="18"
         :events="events"
         :event-color="getEventColor"
-        locale="ja-jp"
         :day-format="timestamp => new Date(timestamp.date).getDate()"
         @change="getEvents"
         @click:event="showEvent"
-        @click:date="viewDay"
+        @click:date="changeDay"
       ></v-calendar>
     </v-sheet>
   </div>
@@ -43,7 +60,8 @@ export default {
   data() {
     return {
       events: [],
-      value: dayjs().format("YYYY-MM-DD") // 現在日時
+      value: dayjs().format("YYYY-MM-DD"), // 現在日時
+      elevation: 10
     };
   },
   computed: {
@@ -60,7 +78,7 @@ export default {
       alert(`${event.name}`);
     },
     // データと日付が一致する場合ユーザーデータを表示
-    viewDay({ date }) {
+    changeDay({ date }) {
       this.$emit("calendarClick", date);
     },
     getEvents() {
@@ -82,8 +100,20 @@ export default {
     getEventColor(event) {
       return event.color;
     }
+    // eventMore() {
+    //   this.$vuetify.calendar.moreEvents;
+    // }
   }
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import "../assets/styles/modules/_variables.scss";
+
+// .wrapper {
+//   box-shadow: -5px -5px 20px 0 $cWhite, 5px 5px 20px 0 $cShadow;
+//   border-radius: 10%;
+//   padding: 5% 10% 5% 3%;
+//   margin: 0 3%;
+// }
+</style>

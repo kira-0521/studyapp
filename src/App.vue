@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <Header></Header>
-    <!-- <Loading v-show="loading"></Loading> -->
-    <div class="container">
-      <div class="container__inner">
+    <Loading v-show="loading"></Loading>
+    <div class="container" v-show="!loading">
+      <Header></Header>
+      <div class="content">
         <router-view></router-view>
       </div>
     </div>
@@ -13,18 +13,39 @@
 <script>
 import firebase from "firebase";
 import Header from "./views/Header";
-// import Loading from "./components/Loading";
-import { mapActions, mapState } from "vuex";
+import Loading from "./components/Loading";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "App",
   components: {
-    Header
-    // Loading
+    Header,
+    Loading
   },
   computed: {
     ...mapState("getpost", ["login_user"]),
     ...mapState("loading", ["loading"])
+  },
+  created() {
+    // ログイン時とログアウト時にユーザーオブジェクトが入る
+    // ログインログアウトを検知する必要がある
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.setLoading(true);
+        this.setLoginUser(user);
+        this.getStudyData();
+        if (this.$router.currentRoute.name === "home") {
+          this.$router.push({ name: "input" });
+        }
+        setTimeout(() => {
+          this.login_user = null;
+        }, 3.6e6);
+        // ログアウトした際の処理
+      } else {
+        this.deleteLoginUser();
+        this.$router.push({ name: "home" });
+      }
+    });
   },
   methods: {
     ...mapActions("getpost", [
@@ -32,24 +53,7 @@ export default {
       "setLoginUser",
       "deleteLoginUser"
     ]),
-    ...mapActions("loading", ["toggle"])
-  },
-  created() {
-    // ログイン時とログアウト時にユーザーオブジェクトが入る
-    // ログインログアウトを検知する必要がある
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        // this.toggle();
-        this.setLoginUser(user);
-        this.getStudyData();
-        if (this.$router.currentRoute.name === "home")
-          this.$router.push({ name: "input" });
-        // ログアウトした際の処理
-      } else {
-        this.deleteLoginUser();
-        this.$router.push({ name: "home" });
-      }
-    });
+    ...mapActions("loading", ["setLoading"])
   }
 };
 </script>
@@ -72,7 +76,7 @@ body,
 .container {
   padding-top: 30px;
   min-height: 100%;
-  &__inner {
+  & .content {
     max-width: $contentMaxWidth;
     margin: 0 auto;
   }

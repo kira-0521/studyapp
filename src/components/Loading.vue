@@ -3,7 +3,7 @@
     <div class="loading-spacer"></div>
     <vue-loading
       type="spiningDubbles"
-      color="#067CF8"
+      color="#7878F0"
       :size="{ width: '50px', height: '50px' }"
     ></vue-loading>
   </div>

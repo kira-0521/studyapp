@@ -2,7 +2,7 @@
   <v-app>
     <v-main>
       <div class="container__inner">
-        <Calendar @calendarClick="viewDate" />
+        <Calendar @calendarClick="changeDate" />
         <div class="user-data" v-if="view">
           <div class="user-data__inner">
             <div class="flex">
@@ -47,15 +47,15 @@
                 >{{ studyData[id].studyContent }}
               </li>
             </ul>
-            <div class="user-data__link">
-              <!-- 動的ルーティング -->
-              <router-link :to="'/userdata/' + (Number(id) - 1)"
-                >Prev</router-link
-              >
-              <router-link :to="'/userdata/' + (Number(id) + 1)"
-                >Next</router-link
-              >
-            </div>
+            <!-- <div class="user-data__link"> -->
+            <!-- 動的ルーティング -->
+            <!-- <router-link :to="'/userdata/' + (Number(id) + 1)" -->
+            <!-- >Prev</router-link -->
+            <!-- > -->
+            <!-- <router-link :to="'/userdata/' + (Number(id) - 1)" -->
+            <!-- >Next</router-link -->
+            <!-- > -->
+            <!-- </div> -->
           </div>
         </div>
       </div>
@@ -111,7 +111,7 @@ export default {
   },
   methods: {
     // 日付取得 → 日付一致すれば表示,処理終了. 一致しなければview=false.
-    viewDate(calendarDate) {
+    changeDate(calendarDate) {
       for (let data of this.studyData) {
         if (data.nowTime === calendarDate) {
           const index = [].slice.call(this.studyData).indexOf(data);

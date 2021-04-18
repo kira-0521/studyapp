@@ -35,7 +35,7 @@ export default {
   background-color: $cBg;
   padding: 1em 3em;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 32px;
   color: $cText;
   font-size: 1rem;
   font-weight: 700;
