@@ -29,6 +29,17 @@ if (!firebase.apps.length) {
 }
 firebase.analytics();
 
+router.beforeEach((to, from, next) => {
+  if (from.name == "home") {
+    if (to.name == "input") {
+      store.dispatch("loading/setLoading", true);
+    }
+  }
+  next();
+});
+
+router.beforE;
+
 new Vue({
   render: h => h(App),
   store,

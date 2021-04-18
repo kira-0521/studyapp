@@ -3,14 +3,14 @@ const state = {
 };
 
 const mutations = {
-  setLoading(state, bool) {
-    state.loading = bool;
+  setLoading(state, boolean) {
+    state.loading = boolean;
   }
 };
 
 const actions = {
-  setLoading({ commit }, bool) {
-    commit("setLoading", bool);
+  setLoading({ commit }, boolean) {
+    commit("setLoading", boolean);
   }
 };
 export default {

@@ -40,7 +40,6 @@
         ref="calendar"
         v-model="value"
         locale="ja-jp"
-        event-height="18"
         :events="events"
         :event-color="getEventColor"
         :day-format="timestamp => new Date(timestamp.date).getDate()"

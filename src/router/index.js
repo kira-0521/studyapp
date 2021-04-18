@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Store from "vuex";
+// import store from "../store";
 // webpackのimportを使用することで必要になったタイミングでコンポーネントをロードすることができる。
 // 初期描画に時間がかからない。
 const Home = () => import(/* webpackChunkName: "Home" */ "../views/Home.vue");
@@ -11,7 +11,7 @@ const Graph = () =>
 const UserData = () =>
   import(/* webpackChunkName: "UserData" */ "../views/UserData.vue");
 
-Vue.use(Router).use(Store);
+Vue.use(Router);
 
 export default new Router({
   mode: "history",
@@ -25,6 +25,14 @@ export default new Router({
       path: "/input",
       component: Input,
       name: "input"
+      // beforeEnter(to, from, next) {
+      //   if (from.name == "home") {
+      //     store.commit("loading/setLoading", true);
+      //     next();
+      //   } else {
+      //     next();
+      //   }
+      // }
     },
     {
       path: "/graph",

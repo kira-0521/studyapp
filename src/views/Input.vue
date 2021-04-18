@@ -61,6 +61,12 @@ import dayjs from "dayjs";
 import { mapActions } from "vuex";
 
 export default {
+  // loading画面を無効
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.setLoading(false);
+    });
+  },
   data() {
     return {
       fields: {
@@ -75,11 +81,6 @@ export default {
     getNow() {
       return dayjs().format("YYYY-MM-DD");
     }
-  },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      vm.setLoading(false);
-    });
   },
   methods: {
     ...mapActions("getpost", ["setStudyData"]),
