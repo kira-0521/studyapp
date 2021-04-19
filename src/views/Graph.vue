@@ -14,7 +14,6 @@
           :chart-data="data"
           :options="options"
           style="width: 300px; height: 300px; display: inline-block;"
-          class=""
         ></pie-chart>
       </li>
     </ul>

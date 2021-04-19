@@ -90,7 +90,7 @@ export default {
   },
   data() {
     return {
-      view: false
+      view: true
     };
   },
   // mounted() {
@@ -113,7 +113,7 @@ export default {
     // 日付取得 → 日付一致すれば表示,処理終了. 一致しなければview=false.
     changeDate(calendarDate) {
       for (let data of this.studyData) {
-        if (data.nowTime === calendarDate) {
+        if (data.nowTime == calendarDate) {
           const index = [].slice.call(this.studyData).indexOf(data);
           console.log(`date: ${calendarDate} / index: ${index}`);
           this.$router.push({ name: "userdata", params: { id: index } });

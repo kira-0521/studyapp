@@ -12,15 +12,6 @@
 <script>
 import { mapActions, mapState } from "vuex";
 export default {
-  // homeから離れる直前、ローディングを発動させる
-  // beforeRouteLeave(to, from, next) {
-  //   if (to.name === "input") {
-  //     this.setLoading(true);
-  //     next();
-  //   } else {
-  //     next();
-  //   }
-  // },
   computed: {
     ...mapState("getpost", ["login_user"])
   },

@@ -26,26 +26,30 @@ export default {
     ...mapState("getpost", ["login_user"]),
     ...mapState("loading", ["loading"])
   },
-  created() {
-    // ログイン時とログアウト時にユーザーオブジェクトが入る
+  async created() {
     // ログインログアウトを検知
-    // this.setLoading(true);
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.setLoginUser(user);
-        this.getStudyData();
-        if (this.$router.currentRoute.name === "home") {
-          this.$router.push({ name: "input" });
-        }
-        // // １時間たったらlogin_userをリセット
-        // setTimeout(() => {
-        //   this.login_user = null;
-        // }, 3.6e6);
-        // ログアウトした際の処理
-      } else {
-        this.deleteLoginUser();
+    this.setLoading(true);
+    // 初期描画の時永遠にローディングが続いてしまうため
+    setTimeout(() => {
+      this.setLoading(false);
+    }, 2200);
+
+    const user = await this.initFirebaseAuth();
+
+    // 成功した時の処理
+    if (user) {
+      this.setLoginUser(user);
+      this.getStudyData();
+      if (this.$router.currentRoute.name === "home") {
+        this.$router.push({ name: "input" });
       }
-    });
+      // １時間たったらlogin_userをリセット
+      setTimeout(() => {
+        this.login_user = null;
+      }, 3.6e6);
+    } else {
+      this.deleteLoginUser();
+    }
   },
   methods: {
     ...mapActions("getpost", [
@@ -53,7 +57,18 @@ export default {
       "setLoginUser",
       "deleteLoginUser"
     ]),
-    ...mapActions("loading", ["setLoading"])
+    ...mapActions("loading", ["setLoading"]),
+    // ログイン時とログアウト時にユーザーオブジェクトが入る
+    initFirebaseAuth() {
+      return new Promise(resolve => {
+        const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+          // 成功したらuserを返す
+          resolve(user);
+          // 登録解除
+          unsubscribe();
+        });
+      });
+    }
   }
 };
 </script>

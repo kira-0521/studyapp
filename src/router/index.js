@@ -25,14 +25,6 @@ export default new Router({
       path: "/input",
       component: Input,
       name: "input"
-      // beforeEnter(to, from, next) {
-      //   if (from.name == "home") {
-      //     store.commit("loading/setLoading", true);
-      //     next();
-      //   } else {
-      //     next();
-      //   }
-      // }
     },
     {
       path: "/graph",
