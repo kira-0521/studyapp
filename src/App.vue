@@ -35,7 +35,6 @@ export default {
     }, 2200);
 
     const user = await this.initFirebaseAuth();
-
     // 成功した時の処理
     if (user) {
       this.setLoginUser(user);
@@ -47,8 +46,6 @@ export default {
       setTimeout(() => {
         this.login_user = null;
       }, 3.6e6);
-    } else {
-      this.deleteLoginUser();
     }
   },
   methods: {
@@ -62,7 +59,6 @@ export default {
     initFirebaseAuth() {
       return new Promise(resolve => {
         const unsubscribe = firebase.auth().onAuthStateChanged(user => {
-          // 成功したらuserを返す
           resolve(user);
           // 登録解除
           unsubscribe();
