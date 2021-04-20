@@ -65,10 +65,9 @@ const actions = {
     // 自動でグーグルの認証画面
     firebase.auth().signInWithRedirect(provider);
   },
-  logout({ commit }) {
+  logout() {
     // firebaseのサインアウトメソッド
     firebase.auth().signOut();
-    commit("deleteLoginUser");
   },
   setLoginUser({ commit }, user) {
     commit("setLoginUser", user);

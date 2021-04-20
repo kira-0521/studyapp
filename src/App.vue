@@ -47,11 +47,14 @@ export default {
     // 処理を順番に行いたいためこのようの処理
     initFirebaseAuth() {
       return new Promise(resolve => {
-        const unsubscribe = firebase.auth().onAuthStateChanged(user => {
-          resolve(user);
-          // console.log("resolve: user");
-          // 登録解除
-          unsubscribe();
+        firebase.auth().onAuthStateChanged(user => {
+          if (user) {
+            resolve(user);
+          } else {
+            // ユーザーが入らなければlogin_userを消す
+            this.deleteLoginUser();
+            // console.log("user: delete");
+          }
         });
       })
         .then(user => {
@@ -67,9 +70,13 @@ export default {
               this.login_user = null;
             }, 3.6e6);
           }
+          return new Promise(resolve => {
+            resolve(user);
+          });
         })
         .then(() => {
           this.getStudyData();
+          // console.log("getStudyData");
         });
     }
   }
