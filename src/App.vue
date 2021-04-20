@@ -34,19 +34,7 @@ export default {
       this.setLoading(false);
     }, 2200);
 
-    const user = await this.initFirebaseAuth();
-    // 成功した時の処理
-    if (user) {
-      this.setLoginUser(user);
-      this.getStudyData();
-      if (this.$router.currentRoute.name === "home") {
-        this.$router.push({ name: "input" });
-      }
-      // １時間たったらlogin_userをリセット
-      setTimeout(() => {
-        this.login_user = null;
-      }, 3.6e6);
-    }
+    await this.initFirebaseAuth();
   },
   methods: {
     ...mapActions("getpost", [
@@ -56,14 +44,33 @@ export default {
     ]),
     ...mapActions("loading", ["setLoading"]),
     // ログイン時とログアウト時にユーザーオブジェクトが入る
+    // 処理を順番に行いたいためこのようの処理
     initFirebaseAuth() {
       return new Promise(resolve => {
         const unsubscribe = firebase.auth().onAuthStateChanged(user => {
           resolve(user);
+          // console.log("resolve: user");
           // 登録解除
           unsubscribe();
         });
-      });
+      })
+        .then(user => {
+          if (user) {
+            this.setLoginUser(user);
+            // console.log("setLoginuser");
+            // ログインしたタイミングでhomeコンポーネントにいればinputに移る
+            if (this.$router.currentRoute.name === "home") {
+              this.$router.push({ name: "input" });
+            }
+            // １時間たったらlogin_userをリセット
+            setTimeout(() => {
+              this.login_user = null;
+            }, 3.6e6);
+          }
+        })
+        .then(() => {
+          this.getStudyData();
+        });
     }
   }
 };
