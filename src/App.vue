@@ -45,7 +45,7 @@ export default {
     ...mapActions("loading", ["setLoading"]),
     // ログイン時とログアウト時にユーザーオブジェクトが入る
     // 処理を順番に行いたいためこのようの処理
-    initFirebaseAuth() {
+    async initFirebaseAuth() {
       return new Promise(resolve => {
         firebase.auth().onAuthStateChanged(user => {
           if (user) {
