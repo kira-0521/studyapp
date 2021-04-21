@@ -99,7 +99,7 @@ body,
   min-height: 100%;
 }
 .container {
-  padding-top: 30px;
+  padding-top: 20px;
   min-height: 100%;
   & .content {
     max-width: $contentMaxWidth;

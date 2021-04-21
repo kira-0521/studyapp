@@ -6,7 +6,16 @@
           <h1 class="logo">Log</h1>
         </router-link>
       </div>
-      <nav class="header__nav">
+      <button
+        class="mobile-menu-btn"
+        :class="{ isActive: active }"
+        @click="changeActive"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="header__nav" v-if="false">
         <ul class="header__ul">
           <li class="header__li">
             <router-link to="/input" active-class="active" class="link input">
@@ -61,11 +70,19 @@ export default {
     PieChartIcon,
     LogOutIcon
   },
+  data() {
+    return {
+      active: false
+    };
+  },
   computed: {
     ...mapGetters("getpost", ["photoURL"])
   },
   methods: {
-    ...mapActions("getpost", ["logout"])
+    ...mapActions("getpost", ["logout"]),
+    changeActive() {
+      this.active = !this.active;
+    }
   }
 };
 </script>
@@ -80,15 +97,24 @@ export default {
   &__inner {
     height: 100px;
     max-width: 1070px;
-    margin: 0 auto;
+    margin: 0 auto 15%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     padding: 0 30px;
+
+    @media screen and (min-width: 480px) {
+      flex-direction: row;
+      justify-content: space-evenly;
+      margin: 0 auto;
+    }
   }
 
   &__title {
     vertical-align: middle;
+    @media screen and (min-width: 480px) {
+      margin-bottom: 0;
+    }
     & .logo {
       color: $cText;
       font-weight: 900;
@@ -101,6 +127,7 @@ export default {
   &__ul {
     display: flex;
     align-items: center;
+    justify-content: center;
   }
 
   &__li {
@@ -149,6 +176,60 @@ export default {
     width: 30px;
     height: 30px;
     border-radius: 50%;
+  }
+}
+
+.mobile-menu-btn {
+  outline: none;
+  box-shadow: -7px -7px 20px 0px #fff9, -4px -4px 5px 0px #fff9,
+    7px 7px 20px 0px #0002, 4px 4px 5px 0px #0001, inset 0px 0px 0px 0px #fff9,
+    inset 0px 0px 0px 0px #0001, inset 0px 0px 0px 0px #fff9,
+    inset 0px 0px 0px 0px #0001;
+  transition: box-shadow 0.6s cubic-bezier(0.79, 0.21, 0.06, 0.81);
+  background-color: $cBg;
+  cursor: pointer;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 50px;
+  height: 50px;
+
+  & span {
+    background-color: lightcoral;
+    box-shadow: 0px 0px 10px 0px rgba(240, 128, 128, 0.3);
+    width: 30px;
+    height: 2px;
+    border-radius: 4px;
+    margin: 3px 0px 3px 0px;
+    transition: margin 0.4s cubic-bezier(0.79, 0.21, 0.06, 0.81),
+      transform 0.4s cubic-bezier(0.79, 0.21, 0.06, 0.81);
+
+    &:nth-child(2) {
+      transform-origin: 50% 50%;
+    }
+  }
+}
+
+.isActive {
+  box-shadow: 0px 0px 0px 0px #fff9, 0px 0px 0px 0px #fff9,
+    0px 0px 0px 0px #0001, 0px 0px 0px 0px #0001, inset -7px -7px 20px 0px #fff9,
+    inset -4px -4px 5px 0px #fff9, inset 7px 7px 20px 0px #0003,
+    inset 4px 4px 5px 0px #0001;
+
+  & span {
+    margin: -1px;
+
+    &:nth-child(1) {
+      transform: rotate(-45deg);
+    }
+    &:nth-child(2) {
+      transform: scale(0);
+    }
+    &:nth-child(3) {
+      transform: rotate(45deg);
+    }
   }
 }
 </style>
