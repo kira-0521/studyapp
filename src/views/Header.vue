@@ -8,8 +8,8 @@
       </div>
       <button
         class="mobile-menu-btn"
-        :class="{ isActive: active }"
-        @click="changeActive"
+        :class="{ isActive: menuOpen }"
+        @click="mobileEvent"
       >
         <span></span>
         <span></span>
@@ -70,18 +70,14 @@ export default {
     PieChartIcon,
     LogOutIcon
   },
-  data() {
-    return {
-      active: false
-    };
-  },
+  props: ["menuOpen"],
   computed: {
     ...mapGetters("getpost", ["photoURL"])
   },
   methods: {
     ...mapActions("getpost", ["logout"]),
-    changeActive() {
-      this.active = !this.active;
+    mobileEvent() {
+      this.$emit("button-click");
     }
   }
 };

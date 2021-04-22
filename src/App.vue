@@ -4,7 +4,7 @@
       <Loading v-show="loading"></Loading>
       <div class="mobile-menu__cover" v-if="menuOpen"></div>
       <div class="container" v-show="!loading">
-        <Header></Header>
+        <Header @button-click="changeMenuOpen" :menuOpen="menuOpen"></Header>
         <div class="content">
           <router-view></router-view>
         </div>
@@ -54,6 +54,9 @@ export default {
       "deleteLoginUser"
     ]),
     ...mapActions("loading", ["setLoading"]),
+    changeMenuOpen() {
+      this.menuOpen = !this.menuOpen;
+    },
     // ログイン時とログアウト時にユーザーオブジェクトが入る
     // 処理を順番に行いたいためこのようの処理
     async initFirebaseAuth() {
