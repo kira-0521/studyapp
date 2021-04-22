@@ -1,12 +1,16 @@
 <template>
   <div id="app">
-    <Loading v-show="loading"></Loading>
-    <div class="container" v-show="!loading">
-      <Header></Header>
-      <div class="content">
-        <router-view></router-view>
+    <div id="sub-app" :class="{ open: !menuOpen }">
+      <Loading v-show="loading"></Loading>
+      <div class="mobile-menu__cover" v-if="menuOpen"></div>
+      <div class="container" v-show="!loading">
+        <Header></Header>
+        <div class="content">
+          <router-view></router-view>
+        </div>
       </div>
     </div>
+    <MobileMenu v-if="!menuOpen"></MobileMenu>
   </div>
 </template>
 
@@ -14,13 +18,20 @@
 import firebase from "firebase";
 import Header from "./views/Header";
 import Loading from "./components/Loading";
+import MobileMenu from "./components/MobileMenu";
 import { mapState, mapActions } from "vuex";
 
 export default {
   name: "App",
   components: {
     Header,
-    Loading
+    Loading,
+    MobileMenu
+  },
+  data() {
+    return {
+      menuOpen: false
+    };
   },
   computed: {
     ...mapState("getpost", ["login_user"]),
@@ -86,20 +97,23 @@ export default {
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 @import "./assets/styles/modules/_variables.scss";
+@import "./assets/styles/modules/_mobile-menu.scss";
 
 html,
 body,
-#app,
+#sub-app,
 .container {
   height: 100%;
   background-color: $cBg;
 }
-#app {
+#sub-app {
   font-family: "Roboto", sans-serif;
   min-height: 100%;
+  position: relative;
+  transition: transform 0.5s, box-shadow 0.5s;
 }
 .container {
-  padding-top: 20px;
+  padding-top: 5px;
   min-height: 100%;
   & .content {
     max-width: $contentMaxWidth;
