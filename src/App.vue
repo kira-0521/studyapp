@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
-    <div id="sub-app" :class="{ open: !menuOpen }">
+  <div id="app" :class="{ open: menuOpen }">
+    <div id="sub-app">
       <Loading v-show="loading"></Loading>
-      <div class="mobile-menu__cover" v-if="menuOpen"></div>
+      <div class="mobile-menu__cover" @click="changeMenuOpen"></div>
       <div class="container" v-show="!loading">
         <Header @button-click="changeMenuOpen" :menuOpen="menuOpen"></Header>
         <div class="content">
@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-    <MobileMenu v-if="!menuOpen"></MobileMenu>
+    <MobileMenu v-if="menuOpen"></MobileMenu>
   </div>
 </template>
 

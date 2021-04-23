@@ -193,7 +193,7 @@ export default {
   height: 50px;
 
   & span {
-    background-color: lightcoral;
+    background-color: $cText;
     box-shadow: 0px 0px 10px 0px rgba(240, 128, 128, 0.3);
     width: 30px;
     height: 2px;

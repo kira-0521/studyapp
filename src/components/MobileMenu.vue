@@ -29,3 +29,7 @@
 <script>
 export default {};
 </script>
+
+<style lang="scss">
+@import "../assets/styles/modules/_mobile-menu.scss";
+</style>

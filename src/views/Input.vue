@@ -2,7 +2,7 @@
   <div class="input-area">
     <div class="input-area__inner">
       <div class="input-area__title">
-        <h1>Study Log</h1>
+        <h1>Input</h1>
       </div>
       <div class="input-area__time">
         <label for="studyTime">
