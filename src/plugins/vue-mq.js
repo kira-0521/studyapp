@@ -1,14 +1,11 @@
 import Vue from "vue";
 import VueMq from "vue-mq";
 
-Vue.use(VueMq, {
-  breakPoints: {
-    sm: 479,
-    md: 480
+export default Vue.use(VueMq, {
+  breakpoints: {
+    mobile: 479,
+    pc: 480,
+    lg: Infinity
   },
-  defaultBreakpoint: "sp"
+  defaultBreakpoint: "mobile"
 });
-
-export default {
-  VueMq
-};

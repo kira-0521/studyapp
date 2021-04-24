@@ -5,7 +5,7 @@ import App from "./App.vue";
 import store from "./store";
 import router from "./router";
 import vuetify from "./plugins/vuetify";
-import vuemq from "./plugins/vue-mq";
+import VueMq from "./plugins/vue-mq";
 import VueLoading from "vue-loading-template";
 
 Vue.config.productionTip = false;
@@ -45,5 +45,5 @@ new Vue({
   router,
   vuetify,
   VueLoading,
-  vuemq
+  VueMq
 }).$mount("#app");
