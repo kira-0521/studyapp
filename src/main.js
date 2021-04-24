@@ -5,7 +5,7 @@ import App from "./App.vue";
 import store from "./store";
 import router from "./router";
 import vuetify from "./plugins/vuetify";
-import vuemq from "./plugins/vue-mq";
+import vuemq from "./plugins/vue-mq.js";
 import VueLoading from "vue-loading-template";
 
 Vue.config.productionTip = false;
