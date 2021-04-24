@@ -7,7 +7,7 @@
         </router-link>
       </div>
       <button
-        v-if="$mq == 'sp'"
+        v-if="$mq == 'sm'"
         class="mobile-menu-btn"
         :class="{ isActive: menuOpen }"
         @click="mobileEvent"
@@ -17,7 +17,7 @@
         <span></span>
       </button>
 
-      <nav class="header__nav" v-if="$mq == 'pc'">
+      <nav class="header__nav" v-if="$mq == 'md'">
         <ul class="header__ul">
           <li class="header__li">
             <router-link to="/input" active-class="active" class="link input">
