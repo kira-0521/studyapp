@@ -6,7 +6,6 @@
     <button class="user" @click="logout" v-if="login_user != null">
       ログアウト
     </button>
-    <h1>{{ $mq }}</h1>
   </div>
 </template>
 

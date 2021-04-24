@@ -3,8 +3,8 @@ import VueMq from "vue-mq";
 
 Vue.use(VueMq, {
   breakPoints: {
-    sp: 375,
-    px: 376
+    sp: 479,
+    pc: 480
   },
   defaultBreakpoint: "sp"
 });
