@@ -98,7 +98,7 @@ export default {
   methods: {
     fillData() {
       for (let i = 0; i < this.setArea.length; i++) {
-        const graphData = {
+        const chartData = {
           labels: ["真", "中", "浅"],
           datasets: [
             {
@@ -108,12 +108,20 @@ export default {
                 this.separateDensity[i].light
               ],
               backgroundColor: ["#2b80d5", "#72aae2", "#ffffff"],
+              borderColor: "transparent",
               hoverBorderWidth: 3
             }
           ]
         };
-        this.datacollection.push(graphData);
+        this.datacollection.push(chartData);
       }
+      const option = {
+        responsive: true,
+        legend: {
+          position: "right"
+        }
+      };
+      this.options = option;
     }
   }
 };
