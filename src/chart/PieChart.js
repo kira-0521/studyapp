@@ -1,9 +1,9 @@
-import { Pie, mixins } from "vue-chartjs";
+import { Doughnut, mixins } from "vue-chartjs";
 // 値をリアクティブにするため
 const { reactiveProp } = mixins;
 
 export default {
-  extends: Pie,
+  extends: Doughnut,
   mixins: [reactiveProp],
   props: {
     chartData: {

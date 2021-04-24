@@ -1,23 +1,17 @@
 <template>
-  <div class="graph">
-    <ul class="graph__ul">
-      <li
-        class="graph__li"
-        v-for="(data, index) in datacollection"
-        :key="index"
-      >
-        <div class="graph__inner">
-          <h2 class="graph__title">{{ setArea[index] }}</h2>
-        </div>
-        <pie-chart
-          v-if="loaded"
-          :chart-data="data"
-          :options="options"
-          style="width: 300px; height: 300px; display: inline-block;"
-        ></pie-chart>
-      </li>
-    </ul>
-  </div>
+  <ul class="graph__ul">
+    <li class="graph__li" v-for="(data, index) in datacollection" :key="index">
+      <div class="graph__inner">
+        <h3 class="graph__title">{{ setArea[index] }}</h3>
+      </div>
+      <pie-chart
+        v-if="loaded"
+        :chart-data="data"
+        :options="options"
+        style="width: 200px; height: 200px; display: inline-block;"
+      ></pie-chart>
+    </li>
+  </ul>
 </template>
 
 <script>
@@ -126,10 +120,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../assets/styles/modules/_variables.scss";
+
 .graph {
   &__ul {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+
+    @media screen and(min-width: 480px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
   &__li {
     text-align: center;
@@ -137,6 +137,7 @@ export default {
   }
   &__title {
     margin-bottom: 5%;
+    color: $cText;
   }
 }
 </style>

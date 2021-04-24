@@ -104,7 +104,6 @@ export default {
     @media screen and (min-width: 480px) {
       flex-direction: row;
       justify-content: space-evenly;
-      margin: 0 auto;
     }
   }
 
