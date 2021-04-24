@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-    <MobileMenu v-if="menuOpen"></MobileMenu>
+    <MobileMenu></MobileMenu>
   </div>
 </template>
 
@@ -113,6 +113,7 @@ body,
   font-family: "Roboto", sans-serif;
   min-height: 100%;
   position: relative;
+  z-index: 10;
   transition: transform 0.5s, box-shadow 0.5s;
 }
 .container {

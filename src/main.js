@@ -5,6 +5,7 @@ import App from "./App.vue";
 import store from "./store";
 import router from "./router";
 import vuetify from "./plugins/vuetify";
+import vuemq from "./plugins/vue-mq";
 import VueLoading from "vue-loading-template";
 
 Vue.config.productionTip = false;
@@ -38,12 +39,11 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
-router.beforE;
-
 new Vue({
   render: h => h(App),
   store,
   router,
   vuetify,
+  vuemq,
   VueLoading
 }).$mount("#app");

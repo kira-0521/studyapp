@@ -5,21 +5,21 @@
     </div>
     <ul class="mobile-menu__main">
       <li class="mobile-menu__item">
-        <router-link class="mobile-menu__link" to="./views/input">
+        <router-link class="mobile-menu__link" to="/input">
           <span class="main-title">Input</span>
-          <span class="sub-title">勉強内容入力</span>
+          <span class="sub-title">入力</span>
         </router-link>
       </li>
       <li class="mobile-menu__item">
-        <router-link class="mobile-menu__link" to="./views/calendar">
+        <router-link class="mobile-menu__link" to="/userdata/0">
           <span class="main-title">Calendar</span>
-          <span class="sub-title">ユーザーデータ</span>
+          <span class="sub-title">データ</span>
         </router-link>
       </li>
       <li class="mobile-menu__item">
-        <router-link class="mobile-menu__link" to="./views/graph">
+        <router-link class="mobile-menu__link" to="/graph">
           <span class="main-title">Graph</span>
-          <span class="sub-title">グラフデータ</span>
+          <span class="sub-title">グラフ</span>
         </router-link>
       </li>
     </ul>
@@ -29,7 +29,3 @@
 <script>
 export default {};
 </script>
-
-<style lang="scss">
-@import "../assets/styles/modules/_mobile-menu.scss";
-</style>

@@ -163,7 +163,7 @@ a {
   &__log {
     letter-spacing: 3px;
     text-shadow: 1px 1px 1px $cWhite;
-    color: $cOrange;
+    color: $cText;
     font-size: 30px;
   }
 
@@ -206,7 +206,7 @@ a {
   }
 
   .custom-class:not(.calendar) {
-    color: $cBlue;
+    color: $cMain;
   }
   .calendar {
     margin-right: 8px;
@@ -215,7 +215,7 @@ a {
   span.content {
     font-size: 12px;
     padding: 2%;
-    color: $cSecondText;
+    color: $cText;
   }
 }
 

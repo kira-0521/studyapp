@@ -167,7 +167,7 @@ textarea {
     margin-bottom: 30px;
 
     & > h1 {
-      color: $cBlue;
+      color: $cMain;
     }
   }
 
@@ -176,7 +176,7 @@ textarea {
   }
 
   &__submit {
-    color: $cBlue;
+    color: $cMain;
     font-weight: bold;
     box-shadow: -5px -5px 20px $cWhite, 5px 5px 20px $cShadow;
     transition: all 0.2s ease-in-out;

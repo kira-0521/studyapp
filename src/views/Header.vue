@@ -112,7 +112,7 @@ export default {
       margin-bottom: 0;
     }
     & .logo {
-      color: $cText;
+      color: $cTitle;
       font-weight: 900;
       font-size: 40px;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3),
@@ -143,13 +143,13 @@ export default {
 
     &:hover {
       transform: scale(1.05);
-      color: $cBlue;
+      color: $cMain;
       box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.1),
         -4px -4px 10px rgba(255, 255, 255, 1);
     }
 
     &.active {
-      color: $cBlue;
+      color: $cMain;
       outline: none;
       transform: scale(0.95);
       box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.1),
