@@ -3,6 +3,14 @@
     <li class="graph__li" v-for="(data, index) in datacollection" :key="index">
       <div class="graph__inner">
         <h3 class="graph__title">{{ setArea[index] }}</h3>
+        <p class="graph__sum">
+          合計:
+          {{
+            separateDensity[index].deep +
+              separateDensity[index].normal +
+              separateDensity[index].light
+          }}時間
+        </p>
         <pie-chart
           v-if="loaded"
           :chart-data="data"
@@ -119,7 +127,8 @@ export default {
         responsive: true,
         legend: {
           position: "right"
-        }
+        },
+        tooltips: {}
       };
       this.options = option;
     }
@@ -147,10 +156,18 @@ export default {
     border-radius: 23px;
     box-shadow: 11px 11px 22px #d7d7d7, -2px -11px 22px #ffffff;
     padding: 5% 0 0;
+    position: relative;
   }
   &__title {
     text-shadow: 1px 1px 1px $cWhite;
     color: $cText;
+  }
+  &__sum {
+    position: absolute;
+    right: 41px;
+    top: 66px;
+    color: $cSecond;
+    font-size: 14px;
   }
 }
 </style>
