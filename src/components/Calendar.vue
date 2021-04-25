@@ -5,7 +5,7 @@
       height="4vh"
       min-width="375px"
       max-width="600px"
-      color="blue darken-2"
+      color="#3cb371"
       class="d-flex align-center"
       :elevation="elevation"
     >
@@ -44,6 +44,7 @@
         :events="events"
         :event-color="getEventColor"
         :event-more="true"
+        event-more-text="more"
         :day-format="timestamp => new Date(timestamp.date).getDate()"
         @change="getEvents"
         @click:event="showEvent"
@@ -91,7 +92,7 @@ export default {
           name: content,
           start: dayjs(nowTime).toDate(), // 開始時刻
           end: dayjs(nowTime).toDate(), // 終了時刻
-          color: "green",
+          color: "#00a059",
           timed: false // 終日ならfalse
         };
         events.push(obj);
