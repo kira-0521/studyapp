@@ -143,7 +143,6 @@ export default {
   display: grid;
   padding: 0 3%;
   background-color: $cBg;
-  grid-template-columns: 2fr 1fr;
 }
 
 .flex {
@@ -235,7 +234,7 @@ a {
 
 @media screen and (min-width: 960px) {
   .content__inner {
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 2fr 1fr;
   }
   .user-data {
     margin-top: 0;
