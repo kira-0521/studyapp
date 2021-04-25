@@ -101,45 +101,5 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 @import "./assets/styles/modules/_variables.scss";
 @import "./assets/styles/modules/_mobile-menu.scss";
-
-html,
-body,
-#sub-app,
-.container {
-  height: 100%;
-  background-color: $cBg;
-}
-#sub-app {
-  font-family: "Roboto", sans-serif;
-  min-height: 100%;
-  position: relative;
-  z-index: 10;
-  transition: transform 0.5s, box-shadow 0.5s;
-}
-.container {
-  padding-top: 5px;
-  min-height: 100%;
-  &__inner {
-    display: grid;
-    padding: 0 3%;
-    background-color: $cBg;
-  }
-  & .content {
-    max-width: $contentMaxWidth;
-    margin: 0 auto;
-  }
-}
-ul {
-  list-style: none;
-}
-input,
-button,
-textarea,
-select {
-  appearance: none;
-}
-a {
-  cursor: pointer;
-  text-decoration: none;
-}
+@import "./assets/styles/breakpoints/_base.scss";
 </style>

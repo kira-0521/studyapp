@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main style="backgroundColor: #efefef;">
-      <div class="container__inner">
+      <div class="content__inner">
         <Calendar @calendarClick="changeDate" />
         <div class="user-data" v-if="view">
           <div class="user-data__inner">
@@ -139,6 +139,13 @@ export default {
 <style lang="scss" scoped>
 @import "../assets/styles/modules/_variables.scss";
 
+.content__inner {
+  display: grid;
+  padding: 0 3%;
+  background-color: $cBg;
+  grid-template-columns: 2fr 1fr;
+}
+
 .flex {
   display: flex;
   flex-direction: row;
@@ -227,8 +234,8 @@ a {
 }
 
 @media screen and (min-width: 960px) {
-  .container__inner {
-    grid-template-columns: 2fr 1fr;
+  .content__inner {
+    grid-template-rows: 1fr 1fr;
   }
   .user-data {
     margin-top: 0;
