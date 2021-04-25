@@ -5,14 +5,15 @@
       height="4vh"
       min-width="375px"
       max-width="600px"
-      color="indigo"
+      color="blue darken-2"
       class="d-flex align-center"
       :elevation="elevation"
     >
       <v-btn
         rounded
         elevation="6"
-        height="24"
+        height="16"
+        width="14"
         color="white"
         small
         class="ma-4"
@@ -29,7 +30,7 @@
     </v-sheet>
     <v-sheet
       height="56vh"
-      min-width="375px"
+      min-width="350px"
       max-width="600px"
       :elevation="elevation"
     >
@@ -42,6 +43,7 @@
         locale="ja-jp"
         :events="events"
         :event-color="getEventColor"
+        :event-more="true"
         :day-format="timestamp => new Date(timestamp.date).getDate()"
         @change="getEvents"
         @click:event="showEvent"
