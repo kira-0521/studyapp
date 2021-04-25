@@ -138,36 +138,5 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/styles/modules/_variables.scss";
-
-.graph {
-  &__ul {
-    display: grid;
-    grid-template-columns: 1fr;
-
-    @media screen and(min-width: 480px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  &__li {
-    text-align: center;
-    padding: 5%;
-  }
-  &__inner {
-    border-radius: 23px;
-    box-shadow: 11px 11px 22px #d7d7d7, -2px -11px 22px #ffffff;
-    padding: 5% 0 0;
-    position: relative;
-  }
-  &__title {
-    text-shadow: 1px 1px 1px $cWhite;
-    color: $cText;
-  }
-  &__sum {
-    position: absolute;
-    right: 41px;
-    top: 66px;
-    color: $cSecond;
-    font-size: 14px;
-  }
-}
+@import "../assets/styles/modules/_graph.scss";
 </style>
