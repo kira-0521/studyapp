@@ -1,13 +1,13 @@
 <template>
   <v-app>
-    <v-main>
+    <v-main style="backgroundColor: #efefef;">
       <div class="container__inner">
         <Calendar @calendarClick="changeDate" />
         <div class="user-data" v-if="view">
           <div class="user-data__inner">
-            <div class="flex">
+            <div class="flex log-title">
               <pen-tool-icon size="1.5x" color="#516C9D"></pen-tool-icon>
-              <h2 class="user-data__log">記録</h2>
+              <h2 class="user-data__log">記 録</h2>
             </div>
             <div class="flex">
               <calendar-icon
@@ -147,6 +147,9 @@ export default {
 }
 ul {
   padding-left: 0;
+  // border-radius: 10%;
+  // box-shadow: inset 11px 11px 22px #d7d7d7, inset -2px -11px 22px #ffffff;
+  // padding: 3%;
 }
 p,
 li,
@@ -154,8 +157,9 @@ a {
   color: $cText;
 }
 .user-data {
-  box-shadow: -5px -5px 20px 0 $cWhite, 5px 5px 20px 0 $cShadow;
-  border-radius: 10%;
+  margin: 5% auto;
+  min-width: 360px;
+
   &__inner {
     display: flex;
     flex-direction: column;
@@ -166,7 +170,7 @@ a {
   &__log {
     letter-spacing: 3px;
     text-shadow: 1px 1px 1px $cWhite;
-    color: $cText;
+    color: $cTitle;
     font-size: 30px;
   }
 
@@ -225,6 +229,9 @@ a {
 @media screen and (min-width: 960px) {
   .container__inner {
     grid-template-columns: 2fr 1fr;
+  }
+  .user-data {
+    margin-top: 0;
   }
 }
 </style>

@@ -3,8 +3,8 @@ import VueMq from "vue-mq";
 
 export default Vue.use(VueMq, {
   breakpoints: {
-    mobile: 479,
-    pc: 480
+    mobile: 599,
+    pc: 600
   },
   defaultBreakpoint: "mobile"
 });

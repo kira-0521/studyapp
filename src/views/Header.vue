@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <header class="header__inner">
+    <div class="header__inner">
       <div class="header__title">
         <router-link to="/" class="link home">
           <h1 class="logo">Log</h1>
@@ -53,7 +53,7 @@
           </li>
         </ul>
       </nav>
-    </header>
+    </div>
   </header>
 </template>
 
@@ -95,7 +95,7 @@ export default {
   &__inner {
     height: 100px;
     max-width: 1070px;
-    margin: 0 auto 5%;
+    margin: 0 auto 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;

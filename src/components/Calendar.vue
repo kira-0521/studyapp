@@ -5,7 +5,7 @@
       height="4vh"
       min-width="375px"
       max-width="600px"
-      color="#3cb371"
+      color="#516C9D"
       class="d-flex align-center"
       :elevation="elevation"
     >
@@ -17,6 +17,7 @@
         color="white"
         small
         class="ma-4"
+        style="font-size: .6em; color: #444; text-shadow: 1px 1px 1px $cWhite;"
         @click="setToday"
         >今日</v-btn
       >
@@ -26,7 +27,10 @@
       <v-btn icon @click="$refs.calendar.next()">
         <v-icon>mdi-chevron-right</v-icon>
       </v-btn>
-      <v-toolbar-title>{{ title }}</v-toolbar-title>
+      <v-toolbar-title
+        style="font-size: 1em; color: #bbb; text-shadow: 1px 1px 1px $cWhite;"
+        >{{ title }}</v-toolbar-title
+      >
     </v-sheet>
     <v-sheet
       height="56vh"
@@ -92,7 +96,7 @@ export default {
           name: content,
           start: dayjs(nowTime).toDate(), // 開始時刻
           end: dayjs(nowTime).toDate(), // 終了時刻
-          color: "#00a059",
+          color: "#7B9AD0",
           timed: false // 終日ならfalse
         };
         events.push(obj);
@@ -111,11 +115,4 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/styles/modules/_variables.scss";
-
-// .wrapper {
-//   box-shadow: -5px -5px 20px 0 $cWhite, 5px 5px 20px 0 $cShadow;
-//   border-radius: 10%;
-//   padding: 5% 10% 5% 3%;
-//   margin: 0 3%;
-// }
 </style>
