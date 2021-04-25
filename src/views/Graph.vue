@@ -3,13 +3,13 @@
     <li class="graph__li" v-for="(data, index) in datacollection" :key="index">
       <div class="graph__inner">
         <h3 class="graph__title">{{ setArea[index] }}</h3>
+        <pie-chart
+          v-if="loaded"
+          :chart-data="data"
+          :options="options"
+          style="width: 200px; height: 200px; display: inline-block;"
+        ></pie-chart>
       </div>
-      <pie-chart
-        v-if="loaded"
-        :chart-data="data"
-        :options="options"
-        style="width: 200px; height: 200px; display: inline-block;"
-      ></pie-chart>
     </li>
   </ul>
 </template>
@@ -143,8 +143,13 @@ export default {
     text-align: center;
     padding: 5%;
   }
+  &__inner {
+    border-radius: 23px;
+    box-shadow: 11px 11px 22px #d7d7d7, -2px -11px 22px #ffffff;
+    padding: 5% 0 0;
+  }
   &__title {
-    margin-bottom: 5%;
+    text-shadow: 1px 1px 1px $cWhite;
     color: $cText;
   }
 }

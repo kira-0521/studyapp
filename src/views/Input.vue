@@ -2,52 +2,56 @@
   <div class="input-area">
     <div class="input-area__inner">
       <div class="input-area__title">
-        <h1>Input</h1>
+        <h1>{{ getNow }}</h1>
       </div>
       <div class="input-area__time">
-        <label for="studyTime">
-          <input id="studyTime" v-model.number="fields.studyTime" required />
-        </label>
+        <div class="input-area__wrap">
+          <label for="studyTime">取り組み時間</label>
+          <select id="studyTime" v-model.number="fields.studyTime" required>
+            <!-- disabledのみ表示されない -->
+            <option v-for="n in 16" :key="n" :value="n">{{ n }}</option>
+          </select>
+        </div>
       </div>
       <!-- 仮 -->
       <div class="input-area__area">
-        <label for="studyArea">
+        <div class="input-area__wrap">
+          <label for="studyArea">取り組み場所</label>
           <input
             id="studyArea"
             v-model.trim="fields.studyArea"
             type="text"
-            placeholder="勉強場所"
             required
           />
-        </label>
+        </div>
       </div>
       <div class="input-area__density">
-        <label for="studyDensity">
+        <div class="input-area__wrap">
+          <label for="studyDensity">集中力</label>
           <select
             id="studyDensity"
             v-model="fields.studyDensity"
             style="height: 50px;"
             required
           >
-            <option disabled value>集中力</option>
             <option value="浅">浅</option>
             <option value="中">中</option>
             <option value="真">真</option>
           </select>
-        </label>
+        </div>
       </div>
       <div class="input-area__content">
-        <label for="studyContent">
+        <div class="input-area__wrap">
+          <label for="studyContent">取り組み内容</label>
           <textarea
             id="studyContent"
             v-model="fields.studyContent"
-            placeholder="勉強内容"
             style="height: 100px;"
             maxlength="30"
             wrap="hard"
             cols="15"
           />
-        </label>
+        </div>
       </div>
       <button @click="submitStudy" class="input-area__submit">
         記録する
@@ -107,8 +111,8 @@ $ruler: 16px;
 label {
   width: 100%;
   display: block;
-  margin-right: 10px;
-  margin-bottom: $ruler * 1.5;
+  color: $cTextReverse;
+  margin-bottom: 2%;
 }
 
 input,
@@ -132,6 +136,7 @@ button {
   background-color: $cBg;
   text-shadow: 1px 1px 0 $cWhite;
 }
+
 input,
 select,
 textarea {
@@ -140,6 +145,7 @@ textarea {
   width: 330px;
   box-sizing: border-box;
   transition: all 0.2s ease-in-out;
+  // デフォルトスタイルを無効
   appearance: none;
   -webkit-appearance: none;
 
@@ -161,6 +167,11 @@ textarea {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+
+  &__wrap {
+    margin-right: 10px;
+    margin-bottom: $ruler * 1.5;
   }
 
   &__title {

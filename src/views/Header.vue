@@ -95,7 +95,7 @@ export default {
   &__inner {
     height: 100px;
     max-width: 1070px;
-    margin: 0 auto 15%;
+    margin: 0 auto 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -131,7 +131,7 @@ export default {
     margin: 0 1rem;
   }
 
-  & .link:not(.home) {
+  & .link {
     color: $cIcon;
     position: relative;
     padding: 0.5rem 1.5rem;
