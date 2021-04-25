@@ -131,7 +131,7 @@ export default {
     margin: 0 1rem;
   }
 
-  & .link {
+  & .link:not(.home) {
     color: $cIcon;
     position: relative;
     padding: 0.5rem 1.5rem;

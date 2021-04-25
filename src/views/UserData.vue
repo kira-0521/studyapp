@@ -6,28 +6,32 @@
         <div class="user-data" v-if="view">
           <div class="user-data__inner">
             <div class="flex">
-              <pen-tool-icon size="1.5x" color="#ff7a00"></pen-tool-icon>
+              <pen-tool-icon size="1.5x" color="#516C9D"></pen-tool-icon>
               <h2 class="user-data__log">記録</h2>
             </div>
             <div class="flex">
               <calendar-icon
                 size="1.2x"
-                color="#fc5185"
+                color="#008047"
                 class="custom-class calendar"
               ></calendar-icon>
-              <p class="user-data__date">
+              <p class="user-data__date nowtime">
                 {{ studyData[id].nowTime }}
               </p>
             </div>
             <ul class="user-data__ul">
               <li class="user-data__li">
                 <clock-icon size="0.9x" class="custom-class"></clock-icon>
-                <span class="content">時間: </span
-                >{{ studyData[id].studyTime }}時間
+                <span class="contents">時間 </span>
+                <span class="userdata__data time"
+                  >{{ studyData[id].studyTime }}時間</span
+                >
               </li>
               <li class="user-data__li">
                 <map-pin-icon size="0.9x" class="custom-class"></map-pin-icon>
-                <span class="content">場所: </span>{{ studyData[id].studyArea }}
+                <span class="contents">場所 </span>
+                <span class="userdata__data area"></span
+                >{{ studyData[id].studyArea }}
               </li>
               <li class="user-data__li">
                 <bar-chart-icon
@@ -35,16 +39,20 @@
                   class="custom-class"
                 ></bar-chart-icon>
 
-                <span class="content">集中度: </span
-                >{{ studyData[id].studyDensity }}
+                <span class="contents">集中力 </span>
+                <span class="userdata__data density">{{
+                  studyData[id].studyDensity
+                }}</span>
               </li>
               <li class="user-data__li" style="display: inline-block;">
                 <book-open-icon
                   size="0.9x"
                   class="custom-class"
                 ></book-open-icon>
-                <span class="content">内容: </span
-                >{{ studyData[id].studyContent }}
+                <span class="contents">内容</span>
+                <span class="userdata__data other-content">{{
+                  studyData[id].studyContent
+                }}</span>
               </li>
             </ul>
             <!-- <div class="user-data__link"> -->
@@ -145,11 +153,6 @@ li,
 a {
   color: $cText;
 }
-.container__inner {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  padding: 0 3%;
-}
 .user-data {
   box-shadow: -5px -5px 20px 0 $cWhite, 5px 5px 20px 0 $cShadow;
   border-radius: 10%;
@@ -206,16 +209,16 @@ a {
   }
 
   .custom-class:not(.calendar) {
-    color: $cMain;
+    color: $cSecond;
   }
   .calendar {
     margin-right: 8px;
   }
 
-  span.content {
+  span.contents {
     font-size: 12px;
     padding: 2%;
-    color: $cText;
+    color: $cTextReverse;
   }
 }
 

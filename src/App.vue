@@ -119,6 +119,12 @@ body,
 .container {
   padding-top: 5px;
   min-height: 100%;
+  &__inner {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    padding: 0 3%;
+    background-color: $cBg;
+  }
   & .content {
     max-width: $contentMaxWidth;
     margin: 0 auto;
