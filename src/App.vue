@@ -43,7 +43,7 @@ export default {
     // 初期描画の時永遠にローディングが続いてしまうため
     setTimeout(() => {
       this.setLoading(false);
-    }, 2200);
+    }, 2500);
 
     this.initFirebaseAuth();
     // ページを消した時にログアウト処理
