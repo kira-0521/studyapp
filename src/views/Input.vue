@@ -5,7 +5,7 @@
         <h1>{{ getNow }}</h1>
       </div>
       <div class="input-area__time">
-        <div class="input-area__wrap">
+        <div class="input-area__form-wrap">
           <label for="studyTime">取り組み時間</label>
           <select id="studyTime" v-model.number="fields.studyTime" required>
             <!-- disabledのみ表示されない -->
@@ -15,7 +15,7 @@
       </div>
       <!-- 仮 -->
       <div class="input-area__area">
-        <div class="input-area__wrap">
+        <div class="input-area__form-wrap">
           <label for="studyArea">取り組み場所</label>
           <input
             id="studyArea"
@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="input-area__density">
-        <div class="input-area__wrap">
+        <div class="input-area__form-wrap">
           <label for="studyDensity">集中力</label>
           <select
             id="studyDensity"
@@ -41,14 +41,14 @@
         </div>
       </div>
       <div class="input-area__content">
-        <div class="input-area__wrap">
+        <div class="input-area__form-wrap">
           <label for="studyContent">取り組み内容</label>
           <textarea
             id="studyContent"
             v-model="fields.studyContent"
             style="height: 100px;"
             maxlength="30"
-            wrap="hard"
+            form-wrap="hard"
             cols="15"
           />
         </div>
@@ -105,102 +105,5 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/styles/modules/_variables.scss";
-
-$ruler: 16px;
-
-label {
-  width: 100%;
-  display: block;
-  color: $cTextReverse;
-  margin-bottom: 2%;
-}
-
-input,
-select,
-textarea,
-button,
-h1 {
-  letter-spacing: -0.2px;
-  text-shadow: 1px 1px 1px $cWhite;
-}
-
-input,
-select,
-textarea,
-button {
-  border: 0;
-  outline: 0;
-  font-size: $ruler;
-  border-radius: $ruler * 20;
-  padding: $ruler;
-  background-color: $cBg;
-  text-shadow: 1px 1px 0 $cWhite;
-}
-
-input,
-select,
-textarea {
-  margin-right: $ruler/2;
-  box-shadow: inset 2px 2px 5px $cShadow, inset -5px -5px 10px $cWhite;
-  width: 330px;
-  box-sizing: border-box;
-  transition: all 0.2s ease-in-out;
-  // デフォルトスタイルを無効
-  appearance: none;
-  -webkit-appearance: none;
-
-  &:focus {
-    box-shadow: inset 1px 1px 2px $cShadow, inset -1px -1px 2px $cWhite;
-  }
-}
-
-.content {
-  text-align: center;
-}
-
-.input-area {
-  &__inner {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  &__wrap {
-    margin-right: 10px;
-    margin-bottom: $ruler * 1.5;
-  }
-
-  &__title {
-    margin-bottom: 30px;
-
-    & > h1 {
-      color: $cMain;
-    }
-  }
-
-  &__content {
-    margin-bottom: 20px;
-  }
-
-  &__submit {
-    color: $cMain;
-    font-weight: bold;
-    box-shadow: -5px -5px 20px $cWhite, 5px 5px 20px $cShadow;
-    transition: all 0.2s ease-in-out;
-    cursor: pointer;
-    font-weight: 600;
-
-    &:hover {
-      box-shadow: -2px -2px 5px $cWhite, 2px 2px 5px $cShadow;
-    }
-
-    &:active {
-      box-shadow: inset 1px 1px 2px $cShadow, inset -1px -1px 2px $cWhite;
-    }
-  }
-}
+@import "../assets/styles/views/_input.scss";
 </style>

@@ -37,7 +37,7 @@ export default {
     ...mapState("getpost", ["login_user"]),
     ...mapState("loading", ["loading"])
   },
-  async created() {
+  created() {
     // ログインログアウトを検知
     this.setLoading(true);
     // 初期描画の時永遠にローディングが続いてしまうため
@@ -45,11 +45,14 @@ export default {
       this.setLoading(false);
     }, 2200);
 
-    await this.initFirebaseAuth();
+    this.initFirebaseAuth();
+    // ページを消した時にログアウト処理
+    window.addEventListener("beforeunload", this.logout);
   },
   methods: {
     ...mapActions("getpost", [
       "getStudyData",
+      "logout",
       "setLoginUser",
       "deleteLoginUser"
     ]),

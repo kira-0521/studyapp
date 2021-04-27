@@ -138,5 +138,5 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/styles/modules/_variables.scss";
-@import "../assets/styles/modules/_user-data.scss";
+@import "../assets/styles/views/_user-data.scss";
 </style>
