@@ -1,4 +1,4 @@
-# studyapp_main
+# Log
 
 ## Project setup
 ```
