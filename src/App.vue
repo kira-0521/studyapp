@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-    <MobileMenu></MobileMenu>
+    <MobileMenu @click="changeMenuOpen"></MobileMenu>
   </div>
 </template>
 
