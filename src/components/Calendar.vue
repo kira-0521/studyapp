@@ -3,7 +3,7 @@
     <v-sheet
       title
       height="4vh"
-      min-width="375px"
+      min-width="350px"
       max-width="600px"
       color="#516C9D"
       class="d-flex align-center"
