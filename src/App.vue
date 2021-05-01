@@ -40,7 +40,7 @@ export default {
   created() {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        this.setLoginUser(user);
+        this.setLoginUser();
         console.log("setLoginuser");
         // ログインしたタイミングでhomeコンポーネントにいればinputに移る
         if (this.$router.currentRoute.name === "home") {
@@ -61,10 +61,10 @@ export default {
     window.addEventListener("beforeunload", this.logout);
   },
   // データ初期化後、DOMのマウント前
-  beforeMount() {
+  async beforeMount() {
     if (this.login_user) {
       console.log(this.login_user);
-      this.getStudyData();
+      await this.getStudyData();
     } else {
       console.log("no user");
       this.deleteLoginUser();
