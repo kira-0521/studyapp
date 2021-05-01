@@ -55,15 +55,6 @@
                 }}</span>
               </li>
             </ul>
-            <!-- <div class="user-data__link"> -->
-            <!-- 動的ルーティング -->
-            <!-- <router-link :to="'/userdata/' + (Number(id) + 1)" -->
-            <!-- >Prev</router-link -->
-            <!-- > -->
-            <!-- <router-link :to="'/userdata/' + (Number(id) - 1)" -->
-            <!-- >Next</router-link -->
-            <!-- > -->
-            <!-- </div> -->
           </div>
         </div>
       </div>
