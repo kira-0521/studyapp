@@ -41,18 +41,19 @@ export default {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setLoginUser(user);
-        // console.log("setLoginuser");
+        console.log("setLoginuser");
         // ログインしたタイミングでhomeコンポーネントにいればinputに移る
         if (this.$router.currentRoute.name === "home") {
           this.$router.push({ name: "input" });
         }
         // ログインログアウトを検知
-        this.setLoading(true);
+        // this.setLoading(true);
         // 初期描画の時永遠にローディングが続いてしまうため
-        setTimeout(() => {
-          this.setLoading(false);
-        }, 2500);
+        // setTimeout(() => {
+        //   this.setLoading(false);
+        // }, 2500);
       } else {
+        console.log("not setLoginUser");
         this.deleteLoginUser();
       }
     });
@@ -62,8 +63,10 @@ export default {
   // データ初期化後、DOMのマウント前
   beforeMount() {
     if (this.login_user) {
+      console.log(this.login_user);
       this.getStudyData();
     } else {
+      console.log("no user");
       this.deleteLoginUser();
     }
   },
