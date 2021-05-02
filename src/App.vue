@@ -49,6 +49,9 @@ export default {
         this.setLoading(false);
         this.deleteLoginUser();
       }
+      if (this.login_user) {
+        this.getStudyData();
+      }
     });
     // ページを消した時にログアウト処理
     // window.addEventListener("beforeunload", this.logout);

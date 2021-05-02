@@ -27,17 +27,18 @@ import PieChart from "../chart/PieChart.js";
 import { mapGetters, mapState, mapActions } from "vuex";
 
 export default {
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      if (vm.login_user) {
-        vm.getStudyData();
-      } else {
-        return;
-      }
-    });
-  },
   components: {
     PieChart
+  },
+  async mounted() {
+    this.loaded = false;
+    try {
+      await this.fillData();
+      this.loaded = true;
+      // データを受け取ってから描画
+    } catch (e) {
+      console.error(e);
+    }
   },
   data() {
     return {
@@ -100,16 +101,6 @@ export default {
         separate.push(densitySum);
       }
       return separate;
-    }
-  },
-  async mounted() {
-    this.loaded = false;
-    try {
-      await this.fillData();
-      this.loaded = true;
-      // データを受け取ってから描画
-    } catch (e) {
-      console.error(e);
     }
   },
   methods: {
