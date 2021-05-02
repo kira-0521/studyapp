@@ -9,8 +9,6 @@ import VueLoading from "vue-loading-template";
 
 Vue.config.productionTip = false;
 
-axios.defaults.baseURL =
-  "https://firestore.googleapis.com/v1/projects/portfolio-studyapp/databases/(default)/documents";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
