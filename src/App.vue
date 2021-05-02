@@ -52,11 +52,15 @@ export default {
       if (this.login_user) {
         this.getStudyData();
       }
+      // リロード時を検出してローディングをストップ
       if (window.performance) {
         if (performance.navigation.type === 1) {
           this.setLoading(false);
         }
       }
+      setTimeout(() => {
+        this.logout();
+      }, 3.6e6);
     });
     // ページを消した時にログアウト処理
     // window.addEventListener("beforeunload", this.logout);
