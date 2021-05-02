@@ -38,10 +38,10 @@ export default {
     ...mapState("loading", ["loading"])
   },
   created() {
+    this.setLoading(true);
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setLoginUser();
-        console.log("setLoginuser");
         // ログインしたタイミングでhomeコンポーネントにいればinputに移る
         if (this.$router.currentRoute.name === "home") {
           this.$router.push({ name: "input" });
@@ -53,22 +53,12 @@ export default {
         //   this.setLoading(false);
         // }, 2500);
       } else {
-        console.log("not setLoginUser");
+        this.setLoading(false);
         this.deleteLoginUser();
       }
     });
     // ページを消した時にログアウト処理
     window.addEventListener("beforeunload", this.logout);
-  },
-  // データ初期化後、DOMのマウント前
-  async beforeMount() {
-    if (this.login_user) {
-      console.log(this.login_user);
-      await this.getStudyData();
-    } else {
-      console.log("no user");
-      this.deleteLoginUser();
-    }
   },
   methods: {
     ...mapActions("getpost", [
