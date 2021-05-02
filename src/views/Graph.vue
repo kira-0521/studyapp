@@ -24,9 +24,18 @@
 
 <script>
 import PieChart from "../chart/PieChart.js";
-import { mapGetters, mapState } from "vuex";
+import { mapGetters, mapState, mapActions } from "vuex";
 
 export default {
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      if (vm.login_user) {
+        vm.getStudyData();
+      } else {
+        return;
+      }
+    });
+  },
   components: {
     PieChart
   },
@@ -38,7 +47,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("getpost", ["studyData"]),
+    ...mapState("getpost", ["studyData", "login_user"]),
     ...mapGetters("getpost", ["setArea", "setDensity"]),
     // 場所ごとにデータを分割
     separateArea() {
@@ -104,6 +113,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions("getpost", ["getStudyData"]),
     fillData() {
       for (let i = 0; i < this.setArea.length; i++) {
         const chartData = {

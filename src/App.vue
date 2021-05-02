@@ -41,24 +41,17 @@ export default {
     this.setLoading(true);
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        this.setLoginUser();
-        // ログインしたタイミングでhomeコンポーネントにいればinputに移る
+        this.setLoginUser(user);
         if (this.$router.currentRoute.name === "home") {
           this.$router.push({ name: "input" });
         }
-        // ログインログアウトを検知
-        // this.setLoading(true);
-        // 初期描画の時永遠にローディングが続いてしまうため
-        // setTimeout(() => {
-        //   this.setLoading(false);
-        // }, 2500);
       } else {
         this.setLoading(false);
         this.deleteLoginUser();
       }
     });
     // ページを消した時にログアウト処理
-    window.addEventListener("beforeunload", this.logout);
+    // window.addEventListener("beforeunload", this.logout);
   },
   methods: {
     ...mapActions("getpost", [
