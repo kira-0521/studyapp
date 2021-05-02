@@ -30,6 +30,16 @@ export default {
   components: {
     PieChart
   },
+  async mounted() {
+    this.loaded = false;
+    try {
+      await this.fillData();
+      this.loaded = true;
+      // データを受け取ってから描画
+    } catch (e) {
+      console.error(e);
+    }
+  },
   data() {
     return {
       loaded: false,
@@ -38,7 +48,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("getpost", ["studyData"]),
+    ...mapState("getpost", ["studyData", "login_user"]),
     ...mapGetters("getpost", ["setArea", "setDensity"]),
     // 場所ごとにデータを分割
     separateArea() {
@@ -91,16 +101,6 @@ export default {
         separate.push(densitySum);
       }
       return separate;
-    }
-  },
-  async mounted() {
-    this.loaded = false;
-    try {
-      await this.fillData();
-      this.loaded = true;
-      // データを受け取ってから描画
-    } catch (e) {
-      console.error(e);
     }
   },
   methods: {

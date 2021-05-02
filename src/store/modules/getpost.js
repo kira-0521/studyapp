@@ -39,15 +39,6 @@ const mutations = {
 };
 
 const actions = {
-  setStudyData({ getters }, fields) {
-    if (getters.uid) {
-      firebase
-        .firestore()
-        .collection(`users/${getters.uid}/posts`)
-        .add(fields);
-    }
-  },
-  // データ取得
   // ユーザーがログインしたことを確認して行わなければいけないため非同期的に書く
   getStudyData({ commit, getters }) {
     const studyData = [];

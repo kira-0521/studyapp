@@ -38,16 +38,32 @@ export default {
     ...mapState("loading", ["loading"])
   },
   created() {
-    // ログインログアウトを検知
     this.setLoading(true);
-    // 初期描画の時永遠にローディングが続いてしまうため
-    setTimeout(() => {
-      this.setLoading(false);
-    }, 2500);
-
-    this.initFirebaseAuth();
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.setLoginUser(user);
+        if (this.$router.currentRoute.name === "home") {
+          this.$router.push({ name: "input" });
+        }
+      } else {
+        this.setLoading(false);
+        this.deleteLoginUser();
+      }
+      if (this.login_user) {
+        this.getStudyData();
+      }
+      // リロード時を検出してローディングをストップ
+      if (window.performance) {
+        if (performance.navigation.type === 1) {
+          this.setLoading(false);
+        }
+      }
+      setTimeout(() => {
+        this.logout();
+      }, 3.6e6);
+    });
     // ページを消した時にログアウト処理
-    window.addEventListener("beforeunload", this.logout);
+    // window.addEventListener("beforeunload", this.logout);
   },
   methods: {
     ...mapActions("getpost", [
@@ -59,42 +75,6 @@ export default {
     ...mapActions("loading", ["setLoading"]),
     changeMenuOpen() {
       this.menuOpen = !this.menuOpen;
-    },
-    // ログイン時とログアウト時にユーザーオブジェクトが入る
-    // 処理を順番に行いたいためこのようの処理
-    async initFirebaseAuth() {
-      return new Promise(resolve => {
-        firebase.auth().onAuthStateChanged(user => {
-          if (user) {
-            resolve(user);
-          } else {
-            // ユーザーが入らなければlogin_userを消す
-            this.deleteLoginUser();
-            // console.log("user: delete");
-          }
-        });
-      })
-        .then(user => {
-          if (user) {
-            this.setLoginUser(user);
-            // console.log("setLoginuser");
-            // ログインしたタイミングでhomeコンポーネントにいればinputに移る
-            if (this.$router.currentRoute.name === "home") {
-              this.$router.push({ name: "input" });
-            }
-            // １時間たったらlogin_userをリセット
-            setTimeout(() => {
-              this.login_user = null;
-            }, 3.6e6);
-          }
-          return new Promise(resolve => {
-            resolve(user);
-          });
-        })
-        .then(() => {
-          this.getStudyData();
-          // console.log("getStudyData");
-        });
     }
   }
 };
