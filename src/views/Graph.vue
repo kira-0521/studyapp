@@ -24,7 +24,7 @@
 
 <script>
 import PieChart from "../chart/PieChart.js";
-import { mapGetters, mapState, mapActions } from "vuex";
+import { mapGetters, mapState } from "vuex";
 
 export default {
   components: {
@@ -104,7 +104,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions("getpost", ["getStudyData"]),
     fillData() {
       for (let i = 0; i < this.setArea.length; i++) {
         const chartData = {

@@ -52,6 +52,11 @@ export default {
       if (this.login_user) {
         this.getStudyData();
       }
+      if (window.performance) {
+        if (performance.navigation.type === 1) {
+          this.setLoading(false);
+        }
+      }
     });
     // ページを消した時にログアウト処理
     // window.addEventListener("beforeunload", this.logout);
