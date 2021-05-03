@@ -1,18 +1,18 @@
 <template>
-  <div class="content">
-    <button class="user" @click="login" v-if="login_user == null">
+  <div class="ly_content">
+    <button class="el_btn" @click="login" v-if="login_user == null">
       Googleアカウントでログイン
     </button>
-    <button class="user" @click="logout" v-if="login_user != null">
+    <button class="el_btn" @click="logout" v-if="login_user != null">
       ログアウト
     </button>
-    <div class="instructions">
-      <h2 class="instructions__title">アプリの使い方</h2>
-      <ul class="instructions__ul">
-        <li class="instructions__li">1. Googleログイン</li>
-        <li class="instructions__li">2. 各項目を入力</li>
-        <li class="instructions__li">3. カレンダーでデータを表示</li>
-        <li class="instructions__li">4. グラフで一番集中できる場所を確認</li>
+    <div class="bl_instructions">
+      <h2 class="bl_instructions__title">アプリの使い方</h2>
+      <ul class="bl_instructions__ul">
+        <li class="bl_instructions__li">1. Googleログイン</li>
+        <li class="bl_instructions__li">2. 各項目を入力</li>
+        <li class="bl_instructions__li">3. カレンダーでデータを表示</li>
+        <li class="bl_instructions__li">4. グラフで一番集中できる場所を確認</li>
       </ul>
     </div>
   </div>
@@ -34,17 +34,17 @@ export default {
 <style lang="scss" scoped>
 @import "../assets/styles/modules/_variables.scss";
 
-.content {
+.ly_content {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  padding: 10% 5%;
 }
-.user {
+.el_btn {
   border: none;
   color: $cText;
   outline: none;
-  margin-top: 10%;
   font-size: 1rem;
   cursor: pointer;
   padding: 1em 2.8em;
@@ -72,7 +72,7 @@ export default {
       inset 2px 2px 4px rgba(0, 0, 0, 0.15);
   }
 }
-.instructions {
+.bl_instructions {
   margin-top: 30px;
   padding: 1.6em 2.3em;
   box-shadow: inset -6px -6px 14px rgb(255 255 255 / 70%),
