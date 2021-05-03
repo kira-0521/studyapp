@@ -1,4 +1,6 @@
-import firebase from "firebase";
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
 
 const state = {
   studyData: [],
@@ -39,6 +41,14 @@ const mutations = {
 };
 
 const actions = {
+  setStudyData({ getters }, fields) {
+    if (getters.uid) {
+      firebase
+        .firestore()
+        .collection(`users/${getters.uid}/posts`)
+        .add(fields);
+    }
+  },
   // ユーザーがログインしたことを確認して行わなければいけないため非同期的に書く
   getStudyData({ commit, getters }) {
     const studyData = [];
