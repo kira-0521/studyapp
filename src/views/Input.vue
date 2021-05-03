@@ -105,5 +105,150 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/styles/modules/_variables.scss";
-@import "../assets/styles/views/_input.scss";
+$ruler: 16px;
+
+input,
+select,
+textarea,
+button,
+h1 {
+  letter-spacing: -0.2px;
+  text-shadow: 1px 1px 1px $cWhite;
+}
+
+input,
+select,
+textarea,
+button {
+  border: 0;
+  outline: 0;
+  font-size: $ruler;
+  border-radius: $ruler * 20;
+  padding: $ruler;
+  background-color: $cBg;
+  text-shadow: 1px 1px 0 $cWhite;
+}
+
+input,
+select,
+textarea {
+  margin-right: $ruler/2;
+  box-shadow: inset 2px 2px 5px $cShadow, inset -5px -5px 10px $cWhite;
+  width: 330px;
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+  // デフォルトスタイルを無効
+  appearance: none;
+  -webkit-appearance: none;
+
+  &:focus {
+    box-shadow: inset 1px 1px 2px $cShadow, inset -1px -1px 2px $cWhite;
+  }
+}
+
+label {
+  width: 100%;
+  display: block;
+  color: $cTextReverse;
+  margin-bottom: 2%;
+}
+
+.content {
+  text-align: center;
+}
+
+.input-area {
+  &__inner {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__form-wrap {
+    margin-right: 10px;
+    margin-bottom: $ruler * 1.5;
+    &:focus-within {
+      & label {
+        color: $cText;
+        font-weight: bold;
+
+        &::after {
+          font-weight: 400;
+          font-size: 15px;
+        }
+      }
+    }
+  }
+
+  &__title {
+    margin-bottom: 30px;
+
+    & > h1 {
+      color: $cMain;
+    }
+  }
+
+  &__time {
+    &:focus-within {
+      & label {
+        &::after {
+          content: "を16時間以内で選択してください。";
+        }
+      }
+    }
+  }
+
+  &__area {
+    &:focus-within {
+      & label {
+        &::after {
+          content: "を入力してください。";
+        }
+      }
+    }
+  }
+
+  &__density {
+    &:focus-within {
+      & label {
+        &::after {
+          content: "を３段階の内から選択してください。";
+        }
+      }
+    }
+  }
+
+  &__content {
+    margin-bottom: 20px;
+
+    &:focus-within {
+      & label {
+        &::after {
+          content: "を30字以内で入力してください。";
+        }
+      }
+    }
+  }
+
+  &__submit {
+    color: $cMain;
+    font-weight: bold;
+    box-shadow: -5px -5px 20px $cWhite, 5px 5px 20px $cShadow;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    font-weight: 600;
+
+    &:hover {
+      box-shadow: -2px -2px 5px $cWhite, 2px 2px 5px $cShadow;
+    }
+
+    &:active {
+      box-shadow: inset 1px 1px 2px $cShadow, inset -1px -1px 2px $cWhite;
+    }
+  }
+}
 </style>

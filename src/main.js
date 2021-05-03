@@ -1,7 +1,7 @@
 import Vue from "vue";
 import firebase from "firebase";
 import "firebase/auth";
-import "firebase/database";
+import "firebase/firestore";
 import App from "./App.vue";
 import store from "./store";
 import router from "./router";
@@ -28,15 +28,6 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 firebase.analytics();
-
-// router.beforeEach((to, from, next) => {
-//   if (from.name == "home") {
-//     if (to.name == "input") {
-//       store.dispatch("loading/setLoading", true);
-//     }
-//   }
-//   next();
-// });
 
 new Vue({
   render: h => h(App),

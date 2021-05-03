@@ -5,6 +5,5 @@ export default Vue.use(VueMq, {
   breakpoints: {
     mobile: 599,
     pc: 600
-  },
-  defaultBreakpoint: "mobile"
+  }
 });
