@@ -6,13 +6,13 @@
     <button class="el_btn" @click="logout" v-if="login_user != null">
       ログアウト
     </button>
-    <div class="bl_instructions">
-      <h2 class="bl_instructions__title">アプリの使い方</h2>
-      <ul class="bl_instructions__ul">
-        <li class="bl_instructions__li">1. Googleログイン</li>
-        <li class="bl_instructions__li">2. 各項目を入力</li>
-        <li class="bl_instructions__li">3. カレンダーでデータを表示</li>
-        <li class="bl_instructions__li">4. グラフで一番集中できる場所を確認</li>
+    <div class="bl_card">
+      <h2 class="bl_card__title">アプリの使い方</h2>
+      <ul class="bl_card__ul">
+        <li class="bl_card__li">1. Googleログイン</li>
+        <li class="bl_card__li">2. 各項目を入力</li>
+        <li class="bl_card__li">3. カレンダーでデータを表示</li>
+        <li class="bl_card__li">4. グラフで一番集中できる場所を確認</li>
       </ul>
     </div>
   </div>
@@ -77,7 +77,7 @@ export default {
       inset 2px 2px 4px rgba(0, 0, 0, 0.15);
   }
 }
-.bl_instructions {
+.bl_card {
   padding: 1.6em 2.3em;
   box-shadow: inset -6px -6px 14px rgb(255 255 255 / 70%),
     inset -6px -6px 10px rgb(255 255 255 / 50%),
