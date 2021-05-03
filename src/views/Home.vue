@@ -37,9 +37,14 @@ export default {
 .ly_content {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   flex-direction: column;
   padding: 10% 5%;
+  height: 480px;
+
+  @media screen and (max-width: 480px) {
+    height: 400px;
+  }
 }
 .el_btn {
   border: none;
@@ -73,11 +78,11 @@ export default {
   }
 }
 .bl_instructions {
-  margin-top: 30px;
   padding: 1.6em 2.3em;
   box-shadow: inset -6px -6px 14px rgb(255 255 255 / 70%),
     inset -6px -6px 10px rgb(255 255 255 / 50%),
-    inset 6px 6px 8px rgb(255 255 255 / 8%), inset 6px 6px 10px rgb(0 0 0 / 15%);
+    inset 6px 6px 8px rgb(255 255 255 / 8%),
+    inset 6px 6px 10px rgb(0 0 0 / 15%);
   border-radius: 32px;
 
   &__title {
