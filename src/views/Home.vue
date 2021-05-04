@@ -5,12 +5,14 @@
     </base-button>
     <div class="bl_card">
       <h2 class="bl_card__title">アプリの使い方</h2>
-      <ul class="bl_card__ul">
-        <li class="bl_card__li">1. Googleログイン</li>
-        <li class="bl_card__li">2. 各項目を入力</li>
-        <li class="bl_card__li">3. カレンダーでデータを表示</li>
-        <li class="bl_card__li">4. グラフで一番集中できる場所を確認</li>
-      </ul>
+      <p class="bl_card__body">
+        <ul class="bl_card__ul">
+          <li class="bl_card__li">1. Googleログイン</li>
+          <li class="bl_card__li">2. 各項目を入力</li>
+          <li class="bl_card__li">3. カレンダーでデータを表示</li>
+          <li class="bl_card__li">4. グラフで一番集中できる場所を確認</li>
+        </ul>
+      </p>
     </div>
   </div>
 </template>
@@ -73,7 +75,7 @@ export default {
     margin-bottom: 7px;
     color: $cTitle;
   }
-  &__li {
+  &__body {
     color: $cText;
   }
 }
