@@ -1,5 +1,9 @@
 <template>
-  <button class="el_btn" @click="clickEvent">
+  <button
+    class="el_btn"
+    @click="clickEvent"
+    :style="`color: ${textColor}; font-weight: ${fontBold};`"
+  >
     <slot />
   </button>
 </template>
@@ -7,6 +11,16 @@
 <script>
 export default {
   name: "BaseButton",
+  props: {
+    textColor: {
+      type: String,
+      default: "#444"
+    },
+    fontBold: {
+      type: Number,
+      default: 700
+    }
+  },
   methods: {
     clickEvent() {
       // イベント名はそれぞれ異なるため抽象度が高い命名
