@@ -53,7 +53,11 @@
           />
         </div>
       </div>
-      <base-button @parent-event="submitStudy">
+      <base-button
+        @parent-event="submitStudy"
+        text-color="#516C9D"
+        fontBold="600"
+      >
         記録する
       </base-button>
     </div>
