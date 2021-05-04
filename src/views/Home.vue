@@ -1,11 +1,8 @@
 <template>
   <div class="ly_content">
-    <button class="el_btn" @click="login" v-if="login_user == null">
-      Googleアカウントでログイン
-    </button>
-    <button class="el_btn" @click="logout" v-if="login_user != null">
-      ログアウト
-    </button>
+    <base-button @parent-event="authChange">
+      {{ changeAuthMessage }}
+    </base-button>
     <div class="bl_card">
       <h2 class="bl_card__title">アプリの使い方</h2>
       <ul class="bl_card__ul">
@@ -19,14 +16,32 @@
 </template>
 
 <script>
+import BaseButton from "../components/BaseButton";
 import { mapActions, mapState } from "vuex";
 export default {
+  components: {
+    BaseButton
+  },
   computed: {
-    ...mapState("getpost", ["login_user"])
+    ...mapState("getpost", ["login_user"]),
+    changeAuthMessage() {
+      if (this.login_user == null) {
+        return "Googleアカウントでログイン";
+      } else {
+        return "ログアウト";
+      }
+    }
   },
   methods: {
     ...mapActions("getpost", ["login", "logout"]),
-    ...mapActions("loading", ["setLoading"])
+    ...mapActions("loading", ["setLoading"]),
+    authChange() {
+      if (this.login_user == null) {
+        this.login();
+      } else {
+        this.logout();
+      }
+    }
   }
 };
 </script>
@@ -46,43 +61,11 @@ export default {
     height: 400px;
   }
 }
-.el_btn {
-  border: none;
-  color: $cText;
-  outline: none;
-  font-size: 1rem;
-  cursor: pointer;
-  padding: 1em 2.8em;
-  font-weight: 700;
-  text-align: center;
-  border-radius: 32px;
-  letter-spacing: 0.2rem;
-  background-color: $cBg;
-  transition: 0.2s ease-in-out;
-  box-shadow: -6px -6px 14px rgba(255, 255, 255, 0.7),
-    -6px -6px 10px rgba(255, 255, 255, 0.5),
-    6px 6px 8px rgba(255, 255, 255, 0.075), 6px 6px 10px rgba(0, 0, 0, 0.15);
-
-  &:hover {
-    color: $cMain;
-    box-shadow: -2px -2px 6px rgba(255, 255, 255, 0.6),
-      -2px -2px 4px rgba(255, 255, 255, 0.4),
-      2px 2px 2px rgba(255, 255, 255, 0.05), 2px 2px 4px rgba(0, 0, 0, 0.1);
-  }
-
-  &:active {
-    box-shadow: inset -2px -2px 6px rgba(255, 255, 255, 0.7),
-      inset -2px -2px 4px rgba(255, 255, 255, 0.5),
-      inset 2px 2px 2px rgba(255, 255, 255, 0.075),
-      inset 2px 2px 4px rgba(0, 0, 0, 0.15);
-  }
-}
 .bl_card {
   padding: 1.6em 2.3em;
   box-shadow: inset -6px -6px 14px rgb(255 255 255 / 70%),
     inset -6px -6px 10px rgb(255 255 255 / 50%),
-    inset 6px 6px 8px rgb(255 255 255 / 8%),
-    inset 6px 6px 10px rgb(0 0 0 / 15%);
+    inset 6px 6px 8px rgb(255 255 255 / 8%), inset 6px 6px 10px rgb(0 0 0 / 15%);
   border-radius: 32px;
 
   &__title {
