@@ -8,7 +8,7 @@
     </button>
     <div class="bl_card">
       <h2 class="bl_card__title">アプリの使い方</h2>
-      <p class="bl_card__body">
+      <p class="bl_card__text">
         <ul class="bl_card__ul">
           <li class="bl_card__li">1. Googleログイン</li>
           <li class="bl_card__li">2. 各項目を入力</li>
@@ -92,7 +92,7 @@ export default {
     margin-bottom: 7px;
     color: $cTitle;
   }
-  &__body {
+  &__text {
     color: $cText;
   }
 }
