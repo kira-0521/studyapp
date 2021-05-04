@@ -63,8 +63,12 @@
 <script>
 import dayjs from "dayjs";
 import { mapActions } from "vuex";
+import BaseButton from "../components/BaseButton";
 
 export default {
+  components: {
+    BaseButton
+  },
   // loading画面を無効
   beforeRouteEnter(to, from, next) {
     next(vm => {
