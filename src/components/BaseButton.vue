@@ -1,10 +1,24 @@
 <template>
-  <button class="el_btn">
+  <button class="el_btn" @click="clickEvent">
     <slot />
   </button>
 </template>
 
+<script>
+export default {
+  name: "BaseButton",
+  methods: {
+    clickEvent() {
+      // イベント名はそれぞれ異なるため抽象度が高い命名
+      this.$emit("parent-event");
+    }
+  }
+};
+</script>
+
 <style scoped lang="scss">
+@import "../assets/styles/modules/_variables.scss";
+
 .el_btn {
   border: none;
   color: $cText;

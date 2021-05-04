@@ -1,10 +1,7 @@
 <template>
   <div class="ly_content">
-    <base-button>
-      Googleアカウントでログイン
-    </base-button>
-    <base-button>
-      ログアウト
+    <base-button @parent-event="authChange">
+      {{ changeAuthMessage }}
     </base-button>
     <div class="bl_card">
       <h2 class="bl_card__title">アプリの使い方</h2>
@@ -26,11 +23,25 @@ export default {
     BaseButton
   },
   computed: {
-    ...mapState("getpost", ["login_user"])
+    ...mapState("getpost", ["login_user"]),
+    changeAuthMessage() {
+      if (this.login_user == null) {
+        return "Googleアカウントでログイン";
+      } else {
+        return "ログアウト";
+      }
+    }
   },
   methods: {
     ...mapActions("getpost", ["login", "logout"]),
-    ...mapActions("loading", ["setLoading"])
+    ...mapActions("loading", ["setLoading"]),
+    authChange() {
+      if (this.login_user == null) {
+        this.login();
+      } else {
+        this.logout();
+      }
+    }
   }
 };
 </script>
