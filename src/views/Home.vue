@@ -36,7 +36,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("getpost", ["login", "logout"]),
+    ...mapActions("getpost", ["login", "logout", "guestLogin"]),
     ...mapActions("loading", ["setLoading"]),
     authToggle() {
       if (this.login_user == null) {
@@ -44,6 +44,13 @@ export default {
       } else {
         this.logout();
       }
+    },
+    guestLoginToggle() {
+      //formに入力したemailやpasswordではなく、予め登録されているものを直接渡す
+      this.guestLogin({
+        email: "guest@example.com",
+        password: "guestuser"
+      });
     }
   }
 };

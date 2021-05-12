@@ -66,6 +66,15 @@ const actions = {
     // 自動でグーグルの認証画面
     firebase.auth().signInWithRedirect(provider);
   },
+  guestLogin(user) {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(user.email, user.password)
+      .then(user => {
+        console.log(user);
+      });
+    // commit("setLoginUser", guestUser);
+  },
   logout() {
     // firebaseのサインアウトメソッド
     firebase.auth().signOut();
