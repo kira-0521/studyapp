@@ -1,7 +1,10 @@
 <template>
   <div class="ly_content">
-    <base-button @parent-event="authChange">
+    <base-button @parent-event="authToggle">
       {{ changeAuthMessage }}
+    </base-button>
+    <base-button @parent-event="guestLoginToggle" style="margin: 30px 0;">
+      ゲストユーザーでログイン
     </base-button>
     <div class="bl_card">
       <h2 class="bl_card__title">アプリの使い方</h2>
@@ -35,7 +38,7 @@ export default {
   methods: {
     ...mapActions("getpost", ["login", "logout"]),
     ...mapActions("loading", ["setLoading"]),
-    authChange() {
+    authToggle() {
       if (this.login_user == null) {
         this.login();
       } else {
