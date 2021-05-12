@@ -48,7 +48,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("getpost", ["studyData", "login_user"]),
+    ...mapState("getpost", ["studyData"]),
     ...mapGetters("getpost", ["setArea", "setDensity"]),
     // 場所ごとにデータを分割
     separateArea() {

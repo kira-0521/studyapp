@@ -21,9 +21,18 @@
 <script>
 import BaseButton from "../components/BaseButton";
 import { mapActions, mapState } from "vuex";
+import firebase from "firebase";
 export default {
   components: {
     BaseButton
+  },
+  data() {
+    return {
+      guest: {
+        email: "guestuser@example.com",
+        password: "guestuser"
+      }
+    };
   },
   computed: {
     ...mapState("getpost", ["login_user"]),
@@ -36,7 +45,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("getpost", ["login", "logout", "guestLogin"]),
+    ...mapActions("getpost", ["login", "logout"]),
     ...mapActions("loading", ["setLoading"]),
     authToggle() {
       if (this.login_user == null) {
@@ -46,11 +55,13 @@ export default {
       }
     },
     guestLoginToggle() {
-      //formに入力したemailやpasswordではなく、予め登録されているものを直接渡す
-      this.guestLogin({
-        email: "guest@example.com",
-        password: "guestuser"
-      });
+      if (this.login_user == null) {
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(this.guest.email, this.guest.password);
+      } else {
+        this.logout();
+      }
     }
   }
 };
