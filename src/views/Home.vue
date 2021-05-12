@@ -1,9 +1,13 @@
 <template>
   <div class="ly_content">
-    <base-button @parent-event="authToggle">
+    <base-button @parent-event="authToggle" :font-bold="700">
       {{ changeAuthMessage }}
     </base-button>
-    <base-button @parent-event="guestLoginToggle" style="margin: 30px 0;">
+    <base-button
+      @parent-event="guestLoginToggle"
+      style="margin: 30px 0;"
+      :font-bold="700"
+    >
       ゲストユーザーでログイン
     </base-button>
     <div class="bl_card">
