@@ -1,7 +1,14 @@
 <template>
   <div class="ly_content">
-    <base-button @parent-event="authChange">
+    <base-button @parent-event="authToggle" :font-bold="700">
       {{ changeAuthMessage }}
+    </base-button>
+    <base-button
+      @parent-event="guestLoginToggle"
+      style="margin: 30px 0;"
+      :font-bold="700"
+    >
+      ゲストユーザーでログイン
     </base-button>
     <div class="bl_card">
       <h2 class="bl_card__title">アプリの使い方</h2>
@@ -18,9 +25,18 @@
 <script>
 import BaseButton from "../components/BaseButton";
 import { mapActions, mapState } from "vuex";
+import firebase from "firebase";
 export default {
   components: {
     BaseButton
+  },
+  data() {
+    return {
+      guest: {
+        email: "guestuser@example.com",
+        password: "guestuser"
+      }
+    };
   },
   computed: {
     ...mapState("getpost", ["login_user"]),
@@ -35,9 +51,18 @@ export default {
   methods: {
     ...mapActions("getpost", ["login", "logout"]),
     ...mapActions("loading", ["setLoading"]),
-    authChange() {
+    authToggle() {
       if (this.login_user == null) {
         this.login();
+      } else {
+        this.logout();
+      }
+    },
+    guestLoginToggle() {
+      if (this.login_user == null) {
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(this.guest.email, this.guest.password);
       } else {
         this.logout();
       }
