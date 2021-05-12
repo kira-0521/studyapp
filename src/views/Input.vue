@@ -241,22 +241,5 @@ label {
       }
     }
   }
-
-  // &__submit {
-  //   color: $cMain;
-  //   font-weight: bold;
-  //   box-shadow: -5px -5px 20px $cWhite, 5px 5px 20px $cShadow;
-  //   transition: all 0.2s ease-in-out;
-  //   cursor: pointer;
-  //   font-weight: 600;
-
-  //   &:hover {
-  //     box-shadow: -2px -2px 5px $cWhite, 2px 2px 5px $cShadow;
-  //   }
-
-  //   &:active {
-  //     box-shadow: inset 1px 1px 2px $cShadow, inset -1px -1px 2px $cWhite;
-  //   }
-  // }
 }
 </style>
