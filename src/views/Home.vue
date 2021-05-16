@@ -7,8 +7,9 @@
       @parent-event="guestLoginToggle"
       style="margin: 30px 0;"
       :font-bold="700"
+      v-if="!login_user"
     >
-      ゲストユーザーでログイン
+      ゲストでログイン
     </base-button>
     <div class="bl_card">
       <h2 class="bl_card__title">アプリの使い方</h2>
@@ -42,7 +43,7 @@ export default {
     ...mapState("getpost", ["login_user"]),
     changeAuthMessage() {
       if (this.login_user == null) {
-        return "Googleアカウントでログイン";
+        return "Googleでログイン";
       } else {
         return "ログアウト";
       }
