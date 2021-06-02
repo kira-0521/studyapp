@@ -32,7 +32,6 @@ const mutations = {
     state.studyData = studyData;
   },
   setLoginUser(state, user) {
-    console.log(user);
     state.login_user = user;
   },
   deleteLoginUser(state) {

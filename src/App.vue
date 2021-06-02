@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import firebase from "firebase";
+import firebase from "firebase/app";
 import Header from "./views/Header";
 import Loading from "./components/Loading";
 import MobileMenu from "./components/MobileMenu";
@@ -41,10 +41,9 @@ export default {
     // this.setLoading(true);
     const user = await this.initFirebaseAuth();
     if (user) {
-      const getuser = await this.setLoginUser(user);
-      getuser()
+      await this.setLoginUser(user)
         .then(() => {
-          this.this.getStudyData();
+          this.getStudyData();
         })
         .catch(err => {
           console.log(err);

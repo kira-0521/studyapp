@@ -1,6 +1,6 @@
 <template>
   <div class="ly_content">
-    <base-button @parent-event="authToggle" :font-bold="700">
+    <base-button @parent-event="authToggle" :font-bold="300">
       {{ changeAuthMessage }}
     </base-button>
     <base-button

@@ -1,9 +1,5 @@
 <template>
-  <button
-    class="el_btn"
-    @click="clickEvent"
-    :style="`color: ${textColor}; font-weight: ${fontBold};`"
-  >
+  <button class="el_btn" @click="clickEvent" :style="`color: ${textColor};`">
     <slot />
   </button>
 </template>
@@ -15,10 +11,6 @@ export default {
     textColor: {
       type: String,
       default: "#444"
-    },
-    fontBold: {
-      type: Number,
-      default: 700
     }
   },
   methods: {
