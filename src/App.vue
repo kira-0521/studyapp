@@ -39,21 +39,10 @@ export default {
   },
   async created() {
     // this.setLoading(true);
-    const user = await this.initFirebaseAuth();
-    if (user) {
-      await this.setLoginUser(user)
-        .then(() => {
-          this.getStudyData();
-        })
-        .catch(err => {
-          console.log(err);
-        });
-      if (this.$router.currentRoute.name === "home") {
-        this.$router.push({ name: "input" });
-      }
-    } else {
-      this.deleteLoginUser();
-    }
+    await this.initFirebaseAuth().then(() => {
+      this.getStudyData();
+    });
+
     // firebase.auth().onAuthStateChanged(user => {
     //   if (user) {
     //     this.setLoginUser(user);
@@ -92,11 +81,18 @@ export default {
       this.menuOpen = !this.menuOpen;
     },
     initFirebaseAuth() {
+      // onAuthStateChangedが非同期的な処理になるからPromiseを返して同期的に書く
       return new Promise(resolve => {
-        const unsubscribe = firebase.auth().onAuthStateChanged(user => {
-          resolve(user);
-
-          unsubscribe();
+        firebase.auth().onAuthStateChanged(user => {
+          if (user) {
+            this.setLoginUser();
+            if (this.$router.currentRoute.name === "home") {
+              this.$router.push({ name: "input" });
+            }
+          } else {
+            this.deleteLoginUser();
+          }
+          resolve();
         });
       });
     }

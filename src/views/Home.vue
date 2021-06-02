@@ -42,7 +42,7 @@ export default {
     ...mapState("getpost", ["login_user"]),
     changeAuthMessage() {
       if (this.login_user == null) {
-        return "Googleでログイン";
+        return "Googleログイン";
       } else {
         return "ログアウト";
       }
@@ -63,6 +63,7 @@ export default {
         firebase
           .auth()
           .signInWithEmailAndPassword(this.guest.email, this.guest.password);
+        console.log(this.login_user);
       } else {
         this.logout();
       }
