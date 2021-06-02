@@ -37,31 +37,47 @@ export default {
     ...mapState("getpost", ["login_user"]),
     ...mapState("loading", ["loading"])
   },
-  created() {
-    this.setLoading(true);
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.setLoginUser(user);
-        if (this.$router.currentRoute.name === "home") {
-          this.$router.push({ name: "input" });
-        }
-      } else {
-        this.setLoading(false);
-        this.deleteLoginUser();
+  async created() {
+    // this.setLoading(true);
+    const user = await this.initFirebaseAuth();
+    if (user) {
+      const getuser = await this.setLoginUser(user);
+      getuser()
+        .then(() => {
+          this.this.getStudyData();
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      if (this.$router.currentRoute.name === "home") {
+        this.$router.push({ name: "input" });
       }
-      if (this.login_user) {
-        this.getStudyData();
-      }
-      // リロード時を検出してローディングをストップ
-      if (window.performance) {
-        if (performance.navigation.type === 1) {
-          this.setLoading(false);
-        }
-      }
-      setTimeout(() => {
-        this.logout();
-      }, 3.6e6);
-    });
+    } else {
+      this.deleteLoginUser();
+    }
+    // firebase.auth().onAuthStateChanged(user => {
+    //   if (user) {
+    //     this.setLoginUser(user);
+    //     if (this.$router.currentRoute.name === "home") {
+    //       this.$router.push({ name: "input" });
+    //     }
+    //   } else {
+    //     // this.setLoading(false);
+    //     this.deleteLoginUser();
+    //   }
+    //   if (this.login_user) {
+    //     this.getStudyData();
+    //   }
+    // リロード時を検出してローディングをストップ
+    // if (window.performance) {
+    //   if (performance.navigation.type === 1) {
+    //     this.setLoading(false);
+    //   }
+    // }
+    // setTimeout(() => {
+    //   this.logout();
+    // }, 3.6e6);
+    // });
     // ページを消した時にログアウト処理
     // window.addEventListener("beforeunload", this.logout);
   },
@@ -75,6 +91,15 @@ export default {
     ...mapActions("loading", ["setLoading"]),
     changeMenuOpen() {
       this.menuOpen = !this.menuOpen;
+    },
+    initFirebaseAuth() {
+      return new Promise(resolve => {
+        const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+          resolve(user);
+
+          unsubscribe();
+        });
+      });
     }
   }
 };
