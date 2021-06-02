@@ -1,12 +1,11 @@
 <template>
   <div class="ly_content">
-    <base-button @parent-event="authToggle" :font-bold="300">
+    <base-button @parent-event="authToggle">
       {{ changeAuthMessage }}
     </base-button>
     <base-button
       @parent-event="guestLoginToggle"
       style="margin: 30px 0;"
-      :font-bold="700"
       v-if="!login_user"
     >
       ゲストでログイン
@@ -26,7 +25,7 @@
 <script>
 import BaseButton from "../components/BaseButton";
 import { mapActions, mapState } from "vuex";
-import firebase from "firebase";
+import firebase from "firebase/app";
 export default {
   components: {
     BaseButton
