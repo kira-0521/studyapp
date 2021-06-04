@@ -38,11 +38,23 @@ export default {
     ...mapState("loading", ["loading"])
   },
   async created() {
+    const result = await function() {
+      return new Promise(resolve => {
+        firebase.auth().onAuthStateChanged(user => {
+          if (user) {
+            resolve(user);
+          }
+        });
+      });
+    };
+    result()
+      .then(user => {
+        this.setLoginUser(user);
+      })
+      .then(() => {
+        this.getStudyData();
+      });
     // this.setLoading(true);
-    await this.initFirebaseAuth().then(() => {
-      this.getStudyData();
-    });
-
     // firebase.auth().onAuthStateChanged(user => {
     //   if (user) {
     //     this.setLoginUser(user);
@@ -79,23 +91,19 @@ export default {
     ...mapActions("loading", ["setLoading"]),
     changeMenuOpen() {
       this.menuOpen = !this.menuOpen;
-    },
-    initFirebaseAuth() {
-      // onAuthStateChangedが非同期的な処理になるからPromiseを返して同期的に書く
-      return new Promise(resolve => {
-        firebase.auth().onAuthStateChanged(user => {
-          if (user) {
-            this.setLoginUser();
-            if (this.$router.currentRoute.name === "home") {
-              this.$router.push({ name: "input" });
-            }
-          } else {
-            this.deleteLoginUser();
-          }
-          resolve();
-        });
-      });
     }
+    // initFirebaseAuth() {
+    //   // onAuthStateChangedが非同期的な処理になるからPromiseを返して同期的に書く
+    //   return new Promise(resolve => {
+    //     firebase.auth().onAuthStateChanged(user => {
+    //       if (user) {
+    //         resolve(user);
+    //       } else {
+    //         this.deleteLoginUser();
+    //       }
+    //     });
+    //   });
+    // }
   }
 };
 </script>

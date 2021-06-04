@@ -63,7 +63,6 @@ export default {
         firebase
           .auth()
           .signInWithEmailAndPassword(this.guest.email, this.guest.password);
-        console.log(this.login_user);
       } else {
         this.logout();
       }
