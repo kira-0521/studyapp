@@ -42,7 +42,6 @@ export default {
     if (this.login_user) {
       this.getStudyData();
     }
-    console.log(this.login_user);
     // リロード時を検出してローディングをストップ
     if (window.performance) {
       if (performance.navigation.type === 1) {
@@ -62,7 +61,6 @@ export default {
       this.menuOpen = !this.menuOpen;
     },
     async initFirebaseAuth() {
-      // チェックを始める前にローディング
       await this.setLoading(true);
       return new Promise(resolve => {
         firebase.auth().onAuthStateChanged(user => {
@@ -76,6 +74,7 @@ export default {
             resolve();
           } else {
             this.deleteLoginUser();
+            this.setLoading(false);
           }
         });
       });

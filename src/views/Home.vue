@@ -51,9 +51,10 @@ export default {
   methods: {
     ...mapActions("getpost", ["login", "logout"]),
     ...mapActions("loading", ["setLoading"]),
-    authToggle() {
+    async authToggle() {
       if (this.login_user == null) {
-        this.login();
+        await this.login();
+        this.setLoading(true);
       } else {
         this.logout();
       }
