@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import firebase from "firebase";
+import firebase from "firebase/app";
 import Header from "./views/Header";
 import Loading from "./components/Loading";
 import MobileMenu from "./components/MobileMenu";
@@ -37,33 +37,17 @@ export default {
     ...mapState("getpost", ["login_user"]),
     ...mapState("loading", ["loading"])
   },
-  created() {
-    this.setLoading(true);
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.setLoginUser(user);
-        if (this.$router.currentRoute.name === "home") {
-          this.$router.push({ name: "input" });
-        }
-      } else {
+  async created() {
+    await this.initFirebaseAuth();
+    if (this.login_user) {
+      this.getStudyData();
+    }
+    // リロード時を検出してローディングをストップ
+    if (window.performance) {
+      if (performance.navigation.type === 1) {
         this.setLoading(false);
-        this.deleteLoginUser();
       }
-      if (this.login_user) {
-        this.getStudyData();
-      }
-      // リロード時を検出してローディングをストップ
-      if (window.performance) {
-        if (performance.navigation.type === 1) {
-          this.setLoading(false);
-        }
-      }
-      setTimeout(() => {
-        this.logout();
-      }, 3.6e6);
-    });
-    // ページを消した時にログアウト処理
-    // window.addEventListener("beforeunload", this.logout);
+    }
   },
   methods: {
     ...mapActions("getpost", [
@@ -75,6 +59,25 @@ export default {
     ...mapActions("loading", ["setLoading"]),
     changeMenuOpen() {
       this.menuOpen = !this.menuOpen;
+    },
+    async initFirebaseAuth() {
+      await this.setLoading(true);
+      return new Promise(resolve => {
+        firebase.auth().onAuthStateChanged(user => {
+          if (user) {
+            this.setLoginUser(user);
+            if (this.$router.currentRoute.name === "home") {
+              this.$router.push({ name: "input" });
+            } else {
+              this.setLoading(false);
+            }
+            resolve();
+          } else {
+            this.deleteLoginUser();
+            this.setLoading(false);
+          }
+        });
+      });
     }
   }
 };

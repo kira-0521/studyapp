@@ -32,7 +32,6 @@ const mutations = {
     state.studyData = studyData;
   },
   setLoginUser(state, user) {
-    console.log(user);
     state.login_user = user;
   },
   deleteLoginUser(state) {
@@ -62,10 +61,10 @@ const actions = {
       });
     commit("getStudyData", studyData);
   },
-  login() {
+  async login() {
     const provider = new firebase.auth.GoogleAuthProvider();
     // 自動でグーグルの認証画面
-    firebase.auth().signInWithRedirect(provider);
+    await firebase.auth().signInWithRedirect(provider);
   },
   logout() {
     // firebaseのサインアウトメソッド

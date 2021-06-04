@@ -1,12 +1,11 @@
 <template>
   <div class="ly_content">
-    <base-button @parent-event="authToggle" :font-bold="700">
+    <base-button @parent-event="authToggle">
       {{ changeAuthMessage }}
     </base-button>
     <base-button
       @parent-event="guestLoginToggle"
       style="margin: 30px 0;"
-      :font-bold="700"
       v-if="!login_user"
     >
       ゲストでログイン
@@ -26,7 +25,7 @@
 <script>
 import BaseButton from "../components/BaseButton";
 import { mapActions, mapState } from "vuex";
-import firebase from "firebase";
+import firebase from "firebase/app";
 export default {
   components: {
     BaseButton
@@ -43,7 +42,7 @@ export default {
     ...mapState("getpost", ["login_user"]),
     changeAuthMessage() {
       if (this.login_user == null) {
-        return "Googleでログイン";
+        return "Googleログイン";
       } else {
         return "ログアウト";
       }
@@ -52,9 +51,10 @@ export default {
   methods: {
     ...mapActions("getpost", ["login", "logout"]),
     ...mapActions("loading", ["setLoading"]),
-    authToggle() {
+    async authToggle() {
       if (this.login_user == null) {
-        this.login();
+        await this.login();
+        this.setLoading(true);
       } else {
         this.logout();
       }
