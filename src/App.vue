@@ -38,48 +38,17 @@ export default {
     ...mapState("loading", ["loading"])
   },
   async created() {
-    const result = await function() {
-      return new Promise(resolve => {
-        firebase.auth().onAuthStateChanged(user => {
-          if (user) {
-            resolve(user);
-          }
-        });
-      });
-    };
-    result()
-      .then(user => {
-        this.setLoginUser(user);
-      })
-      .then(() => {
-        this.getStudyData();
-      });
-    // this.setLoading(true);
-    // firebase.auth().onAuthStateChanged(user => {
-    //   if (user) {
-    //     this.setLoginUser(user);
-    //     if (this.$router.currentRoute.name === "home") {
-    //       this.$router.push({ name: "input" });
-    //     }
-    //   } else {
-    //     // this.setLoading(false);
-    //     this.deleteLoginUser();
-    //   }
-    //   if (this.login_user) {
-    //     this.getStudyData();
-    //   }
+    await this.initFirebaseAuth();
+    if (this.login_user) {
+      this.getStudyData();
+    }
+    console.log(this.login_user);
     // リロード時を検出してローディングをストップ
-    // if (window.performance) {
-    //   if (performance.navigation.type === 1) {
-    //     this.setLoading(false);
-    //   }
-    // }
-    // setTimeout(() => {
-    //   this.logout();
-    // }, 3.6e6);
-    // });
-    // ページを消した時にログアウト処理
-    // window.addEventListener("beforeunload", this.logout);
+    if (window.performance) {
+      if (performance.navigation.type === 1) {
+        this.setLoading(false);
+      }
+    }
   },
   methods: {
     ...mapActions("getpost", [
@@ -91,19 +60,26 @@ export default {
     ...mapActions("loading", ["setLoading"]),
     changeMenuOpen() {
       this.menuOpen = !this.menuOpen;
+    },
+    async initFirebaseAuth() {
+      // チェックを始める前にローディング
+      await this.setLoading(true);
+      return new Promise(resolve => {
+        firebase.auth().onAuthStateChanged(user => {
+          if (user) {
+            this.setLoginUser(user);
+            if (this.$router.currentRoute.name === "home") {
+              this.$router.push({ name: "input" });
+            } else {
+              this.setLoading(false);
+            }
+            resolve();
+          } else {
+            this.deleteLoginUser();
+          }
+        });
+      });
     }
-    // initFirebaseAuth() {
-    //   // onAuthStateChangedが非同期的な処理になるからPromiseを返して同期的に書く
-    //   return new Promise(resolve => {
-    //     firebase.auth().onAuthStateChanged(user => {
-    //       if (user) {
-    //         resolve(user);
-    //       } else {
-    //         this.deleteLoginUser();
-    //       }
-    //     });
-    //   });
-    // }
   }
 };
 </script>

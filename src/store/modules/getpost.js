@@ -61,10 +61,10 @@ const actions = {
       });
     commit("getStudyData", studyData);
   },
-  login() {
+  async login() {
     const provider = new firebase.auth.GoogleAuthProvider();
     // 自動でグーグルの認証画面
-    firebase.auth().signInWithRedirect(provider);
+    await firebase.auth().signInWithRedirect(provider);
   },
   logout() {
     // firebaseのサインアウトメソッド
