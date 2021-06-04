@@ -4,7 +4,11 @@ import "firebase/firestore";
 
 const state = {
   studyData: [],
-  login_user: null
+  login_user: null,
+  guest: {
+    email: "guestuser@example.com",
+    password: "guestuser"
+  }
 };
 
 const getters = {
@@ -65,6 +69,11 @@ const actions = {
     const provider = new firebase.auth.GoogleAuthProvider();
     // 自動でグーグルの認証画面
     await firebase.auth().signInWithRedirect(provider);
+  },
+  async guestLoginToggle({ state }) {
+    await firebase
+      .auth()
+      .signInWithEmailAndPassword(state.guest.email, state.guest.password);
   },
   logout() {
     // firebaseのサインアウトメソッド
