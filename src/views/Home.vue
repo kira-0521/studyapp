@@ -4,7 +4,7 @@
       {{ changeAuthMessage }}
     </base-button>
     <base-button
-      @parent-event="guestLoginToggle"
+      @parent-event="guestLogin"
       style="margin: 30px 0;"
       v-if="!login_user"
     >
@@ -25,18 +25,12 @@
 <script>
 import BaseButton from "../components/BaseButton";
 import { mapActions, mapState } from "vuex";
-import firebase from "firebase/app";
 export default {
   components: {
     BaseButton
   },
   data() {
-    return {
-      guest: {
-        email: "guestuser@example.com",
-        password: "guestuser"
-      }
-    };
+    return {};
   },
   computed: {
     ...mapState("getpost", ["login_user"]),
@@ -49,7 +43,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("getpost", ["login", "logout"]),
+    ...mapActions("getpost", ["login", "logout", "guestLoginToggle"]),
     ...mapActions("loading", ["setLoading"]),
     async authToggle() {
       if (this.login_user == null) {
@@ -59,14 +53,8 @@ export default {
         this.logout();
       }
     },
-    guestLoginToggle() {
-      if (this.login_user == null) {
-        firebase
-          .auth()
-          .signInWithEmailAndPassword(this.guest.email, this.guest.password);
-      } else {
-        this.logout();
-      }
+    async guestLogin() {
+      await this.guestLoginToggle();
     }
   }
 };
