@@ -13,18 +13,30 @@ const state = {
 
 const getters = {
   setArea: function(state) {
-    const area = [];
-    state.studyData.forEach(data => {
-      area.push(data.studyArea);
-    });
-    return [...new Set(area)];
+    // const area = [];
+    // state.studyData.forEach(data => {
+    //   area.push(data.studyArea);
+    // });
+    // return [...new Set(area)];
+    return state.studyData.reduce((areas, cur) => {
+      if (areas.indexOf(cur.studyArea) === -1) {
+        areas.push(cur.studyArea);
+      }
+      return areas;
+    }, []);
   },
   setDensity: function(state) {
-    const density = [];
-    state.studyData.forEach(data => {
-      density.push(data.studyDensity);
-    });
-    return [...new Set(density)];
+    // const density = [];
+    // state.studyData.forEach(data => {
+    //   density.push(data.studyDensity);
+    // });
+    // return [...new Set(density)];
+    return state.studyData.reduce((densities, cur) => {
+      if (densities.indexOf(cur.studyDensity) === -1) {
+        densities.push(cur.studyDensity);
+      }
+      return densities;
+    }, []);
   },
   userName: state => (state.login_user ? state.login_user.userName : ""),
   photoURL: state => (state.login_user ? state.login_user.photoURL : ""),
